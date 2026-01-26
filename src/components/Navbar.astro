@@ -1,0 +1,47 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl" id="navbar">
+  <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
+        <Icon name="lucide:star" size={24} />
+      </div>
+      <span class="text-xl font-medium tracking-tight text-white font-display uppercase tracking-widest">
+        Star <span class="text-cyan-400">Software</span>
+      </span>
+    </a>
+    
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#inicio" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Inicio</a>
+      <a href="#servicios" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Servicios</a>
+      <a href="#productos" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Productos</a>
+      <a href="#nosotros" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Nosotros</a>
+      <a href="#contacto" class="px-5 py-2.5 rounded-full bg-white text-slate-950 text-sm font-bold hover:bg-cyan-400 transition-all active:scale-95 shadow-lg shadow-cyan-400/10">
+        Contacto
+      </a>
+    </div>
+
+    <button class="md:hidden text-slate-400" id="menuToggle">
+      <Icon name="lucide:menu" size={24} />
+    </button>
+  </div>
+</nav>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar?.classList.add('py-2', 'bg-slate-950/95');
+    } else {
+      navbar?.classList.remove('py-2', 'bg-slate-950/95');
+    }
+  });
+
+  // Simple mobile menu logic (could be expanded)
+  const menuToggle = document.getElementById('menuToggle');
+  menuToggle?.addEventListener('click', () => {
+    // Mobile menu logic here
+  });
+</script>

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'Obviously';
+  src: url('../assets/fonts/ObviouslyDemo-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-primary: oklch(0.75 0.15 200); /* Celeste/Cyan */
+  --color-primary-light: oklch(0.85 0.12 200);
+  --color-primary-dark: oklch(0.65 0.18 200);
+  
+  --color-dark: oklch(0.15 0.02 240);
+  --color-dark-lighter: oklch(0.18 0.02 240);
+  --color-dark-card: oklch(0.12 0.02 240);
+  
+  --font-primary: 'Inter', sans-serif;
+  --font-display: 'Obviously', sans-serif;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-[oklch(0.08_0.02_240)] text-slate-200 font-primary antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-950;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full border-2 border-slate-950 transition-colors hover:bg-white/20;
+  }
+  
+  /* Selection color */
+  ::selection {
+    @apply bg-cyan-500/30 text-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent;
+  }
+  
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  
+  .glow-blue {
+    box-shadow: 0 0 40px -10px oklch(0.75 0.15 200 / 0.3);
+  }
+}
