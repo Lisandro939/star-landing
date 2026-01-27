@@ -4,63 +4,65 @@ import { Icon } from 'astro-icon/components';
 
 <section class="py-24 relative overflow-hidden" id="nosotros">
   <div class="container mx-auto px-6">
-    <div class="grid lg:grid-cols-2 gap-20 items-center">
-      <div class="relative">
-        <div class="absolute -top-10 -left-10 w-40 h-40 bg-cyan-500/20 blur-[80px] rounded-full animate-pulse"></div>
-        <div class="p-8 md:p-12 rounded-[2.5rem] bg-white/5 border border-white/10 relative z-10">
-          <h2 class="text-4xl md:text-5xl font-normal font-display text-white mb-8">
-            Nuestra <span class="text-cyan-400">identidad</span> técnica.
-          </h2>
-          <p class="text-slate-400 text-lg mb-8 leading-relaxed">
-            En Star Software no solo escribimos código, resolvemos problemas complejos con elegancia técnica. Somos ingenieros transformando el presente.
-          </p>
-          
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <div class="mt-1 p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
-                <Icon name="lucide:zap" size={20} />
-              </div>
-              <div>
-                <h4 class="text-white font-normal mb-1 font-display">Innovación Radical</h4>
-                <p class="text-slate-500 text-sm">Buscamos siempre la frontera de lo posible en cada implementación.</p>
-              </div>
-            </div>
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="relative">
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-cyan-900/20 blur-[80px] rounded-full animate-pulse"></div>
+          <div class="p-8 md:p-12 rounded-[2.5rem] bg-white/5 border border-white/10 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-normal font-display text-white mb-8">
+              Nuestra <span class="text-cyan-200">identidad</span> técnica.
+            </h2>
+            <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+              En Star Software no solo escribimos código, resolvemos problemas complejos con elegancia técnica. Somos ingenieros transformando el presente.
+            </p>
             
-            <div class="flex items-start gap-4">
-              <div class="mt-1 p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
-                <Icon name="lucide:shield-check" size={20} />
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="mt-1 p-2 rounded-lg bg-cyan-900/20 text-cyan-200">
+                  <Icon name="lucide:zap" size={20} />
+                </div>
+                <div>
+                  <h4 class="text-white font-normal mb-1 font-display">Innovación Radical</h4>
+                  <p class="text-slate-500 text-sm">Buscamos siempre la frontera de lo posible en cada implementación.</p>
+                </div>
               </div>
-              <div>
-                <h4 class="text-white font-normal mb-1 font-display">Seguridad por Diseño</h4>
-                <p class="text-slate-500 text-sm">La integridad de tus datos es nuestra prioridad fundamental.</p>
+              
+              <div class="flex items-start gap-4">
+                <div class="mt-1 p-2 rounded-lg bg-indigo-900/20 text-indigo-300">
+                  <Icon name="lucide:shield-check" size={20} />
+                </div>
+                <div>
+                  <h4 class="text-white font-normal mb-1 font-display">Seguridad por Diseño</h4>
+                  <p class="text-slate-500 text-sm">La integridad de tus datos es nuestra prioridad fundamental.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-4">
-            <div class="h-64 rounded-3xl bg-gradient-to-br from-cyan-500/20 to-transparent border border-white/5 flex items-center justify-center p-8 group">
-              <Icon name="lucide:database" size={64} class="text-white/20 group-hover:text-cyan-400 transition-colors duration-500" />
-            </div>
-            <div class="h-40 rounded-3xl bg-white/5 border border-white/5 flex items-center justify-center p-8">
-              <div class="text-center">
-                <div class="text-3xl font-normal text-white font-display mb-1">100+</div>
-                <div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Proyectos Enterprise</div>
+        <div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="h-64 rounded-3xl bg-gradient-to-br from-cyan-900/10 to-transparent border border-white/5 flex items-center justify-center p-8 group">
+                <Icon name="lucide:database" size={64} class="text-white/20 group-hover:text-cyan-200 transition-colors duration-500" />
+              </div>
+              <div class="h-40 rounded-3xl bg-white/5 border border-white/5 flex items-center justify-center p-8">
+                <div class="text-center">
+                  <div class="text-3xl font-normal text-white font-display mb-1">100+</div>
+                  <div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Proyectos Enterprise</div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="space-y-4 pt-8">
-            <div class="h-40 rounded-3xl bg-white/5 border border-white/5 flex items-center justify-center p-8">
-              <div class="text-center text-cyan-400">
-                <Icon name="lucide:users" size={32} class="mx-auto mb-2" />
-                <div class="text-[10px] uppercase tracking-widest font-bold">Equipo Senior</div>
+            <div class="space-y-4 pt-8">
+              <div class="h-40 rounded-3xl bg-white/5 border border-white/5 flex items-center justify-center p-8">
+                <div class="text-center text-cyan-200">
+                  <Icon name="lucide:users" size={32} class="mx-auto mb-2" />
+                  <div class="text-[10px] uppercase tracking-widest font-bold">Equipo Senior</div>
+                </div>
               </div>
-            </div>
-            <div class="h-64 rounded-3xl bg-gradient-to-tr from-indigo-500/20 to-transparent border border-white/5 flex items-center justify-center p-8 group">
-              <Icon name="lucide:cpu" size={64} class="text-white/20 group-hover:text-indigo-400 transition-colors duration-500" />
+              <div class="h-64 rounded-3xl bg-gradient-to-tr from-indigo-900/10 to-transparent border border-white/5 flex items-center justify-center p-8 group">
+                <Icon name="lucide:cpu" size={64} class="text-white/20 group-hover:text-indigo-300 transition-colors duration-500" />
+              </div>
             </div>
           </div>
         </div>

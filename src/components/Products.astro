@@ -27,29 +27,31 @@ const products = [
 
 <section class="py-24" id="productos">
   <div class="container mx-auto px-6">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-normal font-display text-white mb-4">Nuestros <span class="text-cyan-400 italic">Productos</span></h2>
-      <p class="text-slate-400">Software disruptivo listo para potenciar tu escala.</p>
-    </div>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-normal font-display text-white mb-4">Nuestros <span class="text-cyan-200 italic">Productos</span></h2>
+        <p class="text-slate-400">Software disruptivo listo para potenciar tu escala.</p>
+      </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {products.map(p => (
-        <a href="#contacto" class="group block p-1 rounded-[2rem] bg-gradient-to-br from-white/10 to-transparent hover:from-cyan-500/50 hover:to-indigo-500/50 p-[1px] transition-all duration-500">
-          <div class="bg-slate-950 p-8 rounded-[2rem] h-full flex flex-col justify-between items-start">
-            <div>
-              <div class="mb-6 p-4 rounded-2xl bg-white/5 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-slate-950 transition-all duration-300">
-                <Icon name={p.icon} size={32} />
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products.map(p => (
+          <a href="#contacto" class="group block p-1 rounded-[2rem] bg-gradient-to-br from-white/10 to-transparent hover:from-cyan-200/30 hover:to-indigo-300/30 p-[1px] transition-all duration-500">
+            <div class="bg-slate-950 p-8 rounded-[2rem] h-full flex flex-col justify-between items-start">
+              <div>
+                <div class="mb-6 p-4 rounded-2xl bg-white/5 text-cyan-200 group-hover:bg-cyan-200 group-hover:text-slate-950 transition-all duration-300">
+                  <Icon name={p.icon} size={32} />
+                </div>
+                <h3 class="text-xl font-normal font-display text-white mb-2">{p.title}</h3>
+                <p class="text-slate-400 text-sm">{p.desc}</p>
               </div>
-              <h3 class="text-xl font-normal font-display text-white mb-2">{p.title}</h3>
-              <p class="text-slate-400 text-sm">{p.desc}</p>
+              <div class="mt-8 flex items-center justify-between w-full">
+                <span class="text-xs font-normal font-display text-white/20 group-hover:text-white transition-colors tracking-widest uppercase">Premium</span>
+                <Icon name="lucide:plus" class="text-white/20 group-hover:text-cyan-200 group-hover:rotate-90 transition-all duration-300" />
+              </div>
             </div>
-            <div class="mt-8 flex items-center justify-between w-full">
-              <span class="text-xs font-normal font-display text-white/20 group-hover:text-white transition-colors tracking-widest uppercase">Premium</span>
-              <Icon name="lucide:plus" class="text-white/20 group-hover:text-cyan-400 group-hover:rotate-90 transition-all duration-300" />
-            </div>
-          </div>
-        </a>
-      ))}
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </section>

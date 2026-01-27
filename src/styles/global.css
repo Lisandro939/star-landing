@@ -2,69 +2,137 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @font-face {
-  font-family: 'Obviously';
-  src: url('../assets/fonts/ObviouslyDemo-Regular.otf') format('opentype');
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Regular.ttf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --color-primary: oklch(0.75 0.15 200); /* Celeste/Cyan */
-  --color-primary-light: oklch(0.85 0.12 200);
-  --color-primary-dark: oklch(0.65 0.18 200);
+  /* Deep, rich dark background primarily based on Slate/Zinc but cooler */
+  --color-dark-bg: #020617; /* Very dark slate/blue */
   
-  --color-dark: oklch(0.15 0.02 240);
-  --color-dark-lighter: oklch(0.18 0.02 240);
-  --color-dark-card: oklch(0.12 0.02 240);
+  /* Primary "Celeste" - Soft Pastel */
+  --color-primary: #a5f3fc; /* Cyan-200 */
+  --color-primary-glow: #67e8f9; /* Cyan-300 */
+  --color-primary-dim: #22d3ee; /* Cyan-400 */
   
-  --font-primary: 'Inter', sans-serif;
-  --font-display: 'Obviously', sans-serif;
+  /* Secondary accents for depth (Purple/Violet) */
+  --color-secondary: #c4b5fd; /* Violet-300 */
+  --color-secondary-glow: #ddd6fe; /* Violet-200 */
+
+  --font-primary: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-display: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
   }
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: var(--color-dark-bg);
   }
   
   body {
-    @apply bg-[oklch(0.08_0.02_240)] text-slate-200 font-primary antialiased;
+    background-color: var(--color-dark-bg);
+    color: #e2e8f0; /* Slate-200 */
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-slate-950;
+    background: #0f172a;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-white/10 rounded-full border-2 border-slate-950 transition-colors hover:bg-white/20;
+    background: #334155;
+    border-radius: 3px;
   }
   
-  /* Selection color */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
+  
   ::selection {
-    @apply bg-cyan-500/30 text-white;
+    background: rgba(6, 182, 212, 0.2);
+    color: #22d3ee;
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent;
+    background: linear-gradient(to right, #22d3ee, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-gold {
+     background: linear-gradient(to right, #facc15, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
   }
   
+  /* Modern Glassmorphism */
   .glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
   
-  .glow-blue {
-    box-shadow: 0 0 40px -10px oklch(0.75 0.15 200 / 0.3);
+  .glass-card {
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.4) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* White border with low opacity */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
+  
+  .glass-button {
+    background: rgba(6, 182, 212, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    color: #22d3ee;
+    transition: all 0.3s ease;
+  }
+  
+  .glass-button:hover {
+    background: rgba(6, 182, 212, 0.2);
+    border-color: rgba(6, 182, 212, 0.6);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+  }
+
+  /* Glow Effects - REMOVED per user request
+  .glow-text {
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+  }
+  
+  .glow-box {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+  }
+  */
 }

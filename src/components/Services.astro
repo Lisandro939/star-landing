@@ -30,57 +30,59 @@ const capabilities = [
 
 <section class="py-24 bg-slate-950" id="servicios">
   <div class="container mx-auto px-6">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-      <div class="max-w-2xl">
-        <h2 class="text-4xl md:text-5xl font-black font-display text-white mb-6">
-          Ingeniería de <span class="text-gradient">vanguardia</span>
-        </h2>
-        <p class="text-lg text-slate-400">
-          Ofrecemos un espectro completo de servicios digitales diseñados para llevar la eficiencia de tu negocio al límite técnico.
-        </p>
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div class="max-w-2xl">
+          <h2 class="text-4xl md:text-5xl font-black font-display text-white mb-6">
+            Ingeniería de <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-indigo-200">vanguardia</span>
+          </h2>
+          <p class="text-lg text-slate-400">
+            Ofrecemos un espectro completo de servicios digitales diseñados para llevar la eficiencia de tu negocio al límite técnico.
+          </p>
+        </div>
+        <div class="hidden md:block h-px flex-1 bg-white/10 mx-8 mb-6"></div>
       </div>
-      <div class="hidden md:block h-px flex-1 bg-white/10 mx-8 mb-6"></div>
-    </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
-      {services.map(s => (
-        <div class={`group p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10`}>
-          <div class="p-3 rounded-2xl bg-white/5 border border-white/10 w-fit mb-6 text-cyan-400 group-hover:scale-110 transition-transform">
-            <Icon name={s.icon} size={32} />
-          </div>
-          <h3 class="text-2xl font-normal font-display text-white mb-4">{s.title}</h3>
-          <p class="text-slate-400 mb-8 leading-relaxed">{s.description}</p>
-          
-          <div class="flex items-center text-cyan-400 font-bold group-hover:gap-3 transition-all duration-300">
-            Explorar <Icon name="lucide:arrow-right" class="ml-2" />
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div class="mt-20 p-8 md:p-12 rounded-[2rem] bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 border border-white/10 overflow-hidden relative">
-      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-500/20 blur-[100px] rounded-full"></div>
-      
-      <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h3 class="text-3xl font-normal font-display text-white mb-6">Capacidades Técnicas</h3>
-          <p class="text-slate-400 mb-8">Nuestro stack tecnológico nos permite abordar cualquier desafío, desde startups hasta soluciones enterprise.</p>
-          <div class="grid grid-cols-2 gap-4">
-            {capabilities.map(cap => (
-              <div class="flex items-center gap-2 text-white/80 font-medium">
-                <Icon name="lucide:check-circle-2" size={18} class="text-cyan-400" />
-                {cap}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div class="hidden md:flex justify-end">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="w-32 h-32 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center animate-bounce shadow-glow text-cyan-400">
-              <Icon name="lucide:cpu" size={48} />
+      <div class="grid md:grid-cols-3 gap-6">
+        {services.map(s => (
+          <div class={`group p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-cyan-200/30 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-900/10`}>
+            <div class="p-3 rounded-2xl bg-white/5 border border-white/10 w-fit mb-6 text-cyan-200 group-hover:scale-110 transition-transform">
+              <Icon name={s.icon} size={32} />
             </div>
-            <div class="w-32 h-32 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mt-12 animate-pulse text-indigo-400">
-              <Icon name="lucide:database" size={48} />
+            <h3 class="text-2xl font-normal font-display text-white mb-4">{s.title}</h3>
+            <p class="text-slate-400 mb-8 leading-relaxed">{s.description}</p>
+            
+            <div class="flex items-center text-cyan-200 font-bold group-hover:gap-3 transition-all duration-300">
+              Explorar <Icon name="lucide:arrow-right" class="ml-2" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-20 p-8 md:p-12 rounded-[2rem] bg-gradient-to-br from-cyan-900/20 to-indigo-900/20 border border-white/10 overflow-hidden relative">
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-900/20 blur-[100px] rounded-full"></div>
+        
+        <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-3xl font-normal font-display text-white mb-6">Capacidades Técnicas</h3>
+            <p class="text-slate-400 mb-8">Nuestro stack tecnológico nos permite abordar cualquier desafío, desde startups hasta soluciones enterprise.</p>
+            <div class="grid grid-cols-2 gap-4">
+              {capabilities.map(cap => (
+                <div class="flex items-center gap-2 text-white/80 font-medium">
+                  <Icon name="lucide:check-circle-2" size={18} class="text-cyan-200" />
+                  {cap}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="hidden md:flex justify-end">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="w-32 h-32 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center animate-bounce text-cyan-200">
+                <Icon name="lucide:cpu" size={48} />
+              </div>
+              <div class="w-32 h-32 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mt-12 animate-pulse text-indigo-300">
+                <Icon name="lucide:database" size={48} />
+              </div>
             </div>
           </div>
         </div>
