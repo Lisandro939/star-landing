@@ -2,35 +2,36 @@
 import { Icon } from 'astro-icon/components';
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
-  <div class="container mx-auto px-4 md:px-6 mt-4">
-    <div class="mx-auto max-w-7xl rounded-full border border-white/5 bg-slate-950/60 backdrop-blur-xl transition-all duration-300 px-6 h-20 flex items-center justify-between shadow-2xl shadow-black/50" id="navbar-inner">
+<nav class="z-50 transition-all duration-300 w-full" id="navbar">
+  <div class="container mx-auto px-4 md:px-6">
+    <div class="mx-auto rounded-full border border-white/10 bg-slate-950/60 backdrop-blur-xl transition-all duration-300 px-6 h-12 md:h-14 flex items-center justify-between" id="navbar-inner">
       
       <!-- LOGO -->
       <a href="/" class="flex items-center gap-3 group">
         <div class="relative flex items-center justify-center p-2 rounded-full bg-cyan-900/20 text-cyan-200 overflow-hidden group-hover:bg-cyan-900/30 transition-all duration-500">
           <div class="absolute inset-0 bg-cyan-200/10 blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-          <Icon name="lucide:star" size={24} class="relative z-10 group-hover:rotate-180 transition-transform duration-700 ease-out" />
+          <Icon name="lucide:star" size={20} class="relative z-10 group-hover:rotate-180 transition-transform duration-700 ease-out icon" />
         </div>
-        <span class="text-xl font-bold tracking-tight text-white font-display uppercase tracking-widest group-hover:text-cyan-100 transition-colors">
-          Star <span class="text-cyan-200">Software</span>
+        <span class="text-lg text-slate-700 font-bold tracking-tight font-display uppercase tracking-widest transition-colors">
+          Star <span class="text-cyan-600 transition-colors" id="logo-span">Software</span>
         </span>
       </a>
       
       <!-- DESKTOP MENU -->
-      <div class="hidden md:flex items-center gap-8">
+      <div class="hidden md:flex items-center gap-6">
         {['Inicio', 'Servicios', 'Productos', 'Nosotros'].map((item) => (
           <a 
             href={`#${item.toLowerCase()}`} 
-            class="relative text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 group/link"
+            class="relative text-xs font-bold uppercase tracking-wider transition-colors py-2 group/link"
           >
             {item}
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-200 transition-all duration-300 group-hover/link:w-full"></span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-600 transition-all duration-300 group-hover/link:w-full"></span>
           </a>
         ))}
+
         
-        <a href="#contacto" class="relative overflow-hidden px-4 py-2 rounded-full bg-cyan-200 text-slate-900 text-sm font-bold hover:bg-cyan-100 transition-all active:scale-95 group/btn">
-            <span class="relative z-10">Contacto</span>
+        <a href="#contacto" class="relative overflow-hidden px-4 py-2 rounded-full bg-[#083344] text-white text-sm font-bold hover:bg-[#164e63] transition-all active:scale-95">
+            <div class="relative z-10 text-white">Contacto</div>
             <div class="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
         </a>
       </div>
@@ -48,14 +49,12 @@ import { Icon } from 'astro-icon/components';
   const navbarInner = document.getElementById('navbar-inner');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
+    if (window.scrollY > 100) {
       navbarInner?.classList.add('bg-slate-950/80', 'backdrop-blur-2xl', 'shadow-cyan-900/10');
-      navbarInner?.classList.remove('mt-4');
       navbar?.classList.add('py-0');
       // Make it full width on scroll if desired, or keep it floating
     } else {
       navbarInner?.classList.remove('bg-slate-950/80', 'backdrop-blur-2xl', 'shadow-cyan-900/10');
-      navbarInner?.classList.add('mt-4');
       navbar?.classList.remove('py-0');
     }
   });

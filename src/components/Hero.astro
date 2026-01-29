@@ -1,73 +1,163 @@
 ---
 import { Icon } from "astro-icon/components";
+import Navbar from "./Navbar.astro";
 ---
 
-<section class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden" id="inicio">
+<section class="relative h-screen min-h-[700px] w-full p-2" id="inicio">
   
-  <!-- Background Effects -->
-  <div class="absolute inset-0 z-0">
-    <!-- Deep Space Background -->
-    <div class="absolute inset-0 bg-slate-950"></div>
+  <!-- Hero Card Container -->
+  <div class="relative w-full h-full flex flex-col rounded-[2.5rem] md:rounded-[4rem] overflow-visible shadow-2xl shadow-cyan-950/10 group border border-white/40">
     
-     <!-- Radial Gradient Top Center (The "Sun" / Main Light) - Made subtler -->
-     <div class="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80%] h-[60%] bg-cyan-900/10 blur-[120px] rounded-full"></div>
-     
-     <!-- Secondary Glows - Subtler -->
-    <div class="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-purple-900/5 blur-[100px] rounded-full opacity-40"></div>
-    <div class="absolute bottom-[10%] left-[10%] w-[500px] h-[500px] bg-indigo-900/5 blur-[100px] rounded-full opacity-40"></div>
+    <!-- Background Gradient - Brand-aligned Light Cyan/Blue -->
+    <div class="absolute inset-0 bg-gradient-to-br from-[#F8FAFC] via-[#ECFEFF] to-[#A5F3FC] z-0 rounded-[2rem] md:rounded-[3rem]"></div>
     
-    <!-- Cleaned up: Removed Grid Texture and Dot overlay for a smooth, sophisticated look -->
-  </div>
+    <!-- Subtle Background Pattern/Glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(165,243,252,0.4)_0%,transparent_70%)] z-0 rounded-[2rem] md:rounded-[3rem]"></div>
 
-  <div class="container mx-auto px-6 relative z-10">
-    <div class="max-w-7xl mx-auto flex flex-col items-center text-center md:pt-32">
-
-        <!-- Heading -->
-        <h1 class="text-5xl md:text-7xl font-display text-white mb-8 tracking-tight leading-[1.1] font-medium mt-12">
-            Construyendo el futuro de las soluciones digitales
-        </h1>
-
-        <!-- Description -->
-        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-            Soluciones tecnológicas de alto nivel. Infraestructura escalable y diseño premium para empresas que buscan excelencia.
-        </p>
-
-        <!-- Buttons -->
-        <div class="flex flex-col sm:flex-row items-center gap-4 justify-center md:mb-20">
-            <!-- Primary Button - Minimal -->
-            <a href="#contacto" class="px-6 py-2 bg-cyan-200 text-slate-900 rounded-full font-medium text-lg hover:bg-cyan-100 transition-colors">
-                Empezar ahora
-            </a>
-            
-            <!-- Secondary Button - Minimal -->
-            <a href="#servicios" class="px-6 py-1.5 text-white rounded-full font-medium text-lg hover:outline-1 hover:outline-cyan-200 transition-colors ">
-                Ver servicios
-            </a>
+    <!-- Header Integrated Inside -->
+    <div class="fixed left-0 right-0 z-50 w-full px-4 md:px-8 transition-all duration-300" id="hero-nav-container">
+        <div class="max-w-7xl mx-auto">
+            <Navbar />
         </div>
-
-        <!-- Stats / Social Proof - Cleaned & Centered -->
-        <!-- <div class="flex items-center justify-center gap-12 pt-8 border-t border-white/5 w-full max-w-2xl mx-auto">
-            <div class="text-center">
-                <h4 class="text-3xl font-bold text-white">50+</h4>
-                <p class="text-slate-500 text-xs uppercase tracking-wider mt-1">Clientes</p>
-            </div>
-            <div class="w-px h-10 bg-white/10"></div>
-            <div class="text-center">
-                <h4 class="text-3xl font-bold text-white">100%</h4>
-                <p class="text-slate-500 text-xs uppercase tracking-wider mt-1">Satisfacción</p>
-                </div>
-        </div> -->
-
     </div>
 
-    <!-- Technologies Strip -->
-    <div class="md:mt-24 pt-10 border-t border-white/5 flex flex-wrap justify-center gap-12 sm:gap-20 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
-      <Icon name="lucide:monitor" size={32} class="hover:text-cyan-200 transform hover:scale-110 transition-transform" />
-      <Icon name="lucide:smartphone" size={32} class="hover:text-cyan-200 transform hover:scale-110 transition-transform" />
-      <Icon name="lucide:database" size={32} class="hover:text-cyan-200 transform hover:scale-110 transition-transform" />
-      <Icon name="lucide:shield-check" size={32} class="hover:text-cyan-200 transform hover:scale-110 transition-transform" />
-      <Icon name="lucide:cpu" size={32} class="hover:text-cyan-200 transform hover:scale-110 transition-transform" />
+    <div class="flex-1 flex flex-col items-center justify-center relative z-10 px-6 pt-24 pb-12">
+      <div class="max-w-4xl mx-auto flex flex-col items-center text-center">
+
+          <!-- Partner/Badge -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-cyan-100 text-cyan-800 text-[10px] font-bold uppercase tracking-[0.2em] mb-8 animate-fade-in shadow-sm mt-8">
+             <Icon name="lucide:sparkles" class="text-cyan-600" size={14} />
+             <span>Innovación & Excelencia Digital</span>
+          </div>
+
+          <!-- Heading -->
+          <div class="relative">
+              <h1 class="text-5xl md:text-7xl lg:text-8xl font-display text-[#083344] mb-8 tracking-tight leading-[0.95] font-black">
+                  Construye tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600">legado</span> digital
+              </h1>
+          </div>
+
+          <!-- Description -->
+          <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium opacity-90">
+              Desarrollamos soluciones tecnológicas que transforman visiones en realidades competitivas. Tu socio estratégico en el mundo digital.
+          </p>
+
+          <!-- Buttons -->
+          <div class="flex flex-col sm:flex-row items-center gap-5 justify-center">
+              <a href="#contacto" class="px-8 py-3 bg-[#083344] text-white rounded-full font-bold text-lg hover:bg-[#164e63] transition-all hover:scale-105 active:scale-95">
+                  Comienza ahora
+              </a>
+              
+              <a href="#servicios" class="px-8 py-3 bg-white/60 hover:bg-white text-[#083344] rounded-full font-bold text-lg backdrop-blur-md border border-cyan-200/50 transition-all hover:scale-105 active:scale-95">
+                  Ver servicios
+              </a>
+          </div>
+
+      </div>
+    </div>
+
+    <!-- Integrate Product Strip at Bottom of Card (Infinite Carousel) -->
+    <div class="relative z-10 w-full pb-8 px-6 overflow-hidden mt-auto">
+        <div class="max-w-4xl mx-auto relative" style="-webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);">
+            <div class="flex w-max" style="animation: scroll 30s linear infinite;">
+                <!-- Original Set -->
+                <div class="flex gap-4 px-4">
+                    {['Membership Sites', 'SaaS Products', 'Clubs', 'Associations', 'Courses', 'Communities', 'Newsletters', 'Podcasts', 'Digital Products'].map((item) => (
+                        <div class="px-5 py-2 rounded-full border border-[#083344]/10 bg-[#083344]/5 text-[#083344] text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
+                            {item}
+                        </div>
+                    ))}
+                </div>
+                <!-- Duplicate Set for Seamless Loop -->
+                <div class="flex gap-4 px-4">
+                    {['Membership Sites', 'SaaS Products', 'Clubs', 'Associations', 'Courses', 'Communities', 'Newsletters', 'Podcasts', 'Digital Products'].map((item) => (
+                        <div class="px-5 py-2 rounded-full border border-[#083344]/10 bg-[#083344]/5 text-[#083344] text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
+                            {item}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
     </div>
 
   </div>
 </section>
+
+<script>
+    const navContainer = document.getElementById('hero-nav-container');
+    const heroSection = document.getElementById('inicio');
+
+    window.addEventListener('scroll', () => {
+        if (!navContainer || !heroSection) return;
+
+        if (window.scrollY > 10) {
+            navContainer.classList.add('top-2');
+            navContainer.classList.remove('top-6');
+        } else {
+            navContainer.classList.add('top-6');
+            navContainer.classList.remove('top-2');
+        }
+
+        if (window.scrollY > 800) {
+            const inner = navContainer.querySelector('#navbar-inner') as HTMLElement;
+            if (inner) {
+                inner.classList.add('bg-slate-950/80', 'backdrop-blur-3xl', 'border-white/10');
+                inner.classList.remove('bg-white/40', 'backdrop-blur-xl', 'border-white/25');
+                
+                // Adjusting items inside the navbar for the dark mode glass scroll
+                inner.querySelectorAll('a, span, button, .icon').forEach(el => {
+                   if (!(el as HTMLElement).closest('.bg-cyan-200')) {
+                       (el as HTMLElement).style.color = 'white';
+                   }
+                });
+                const logoSpan = inner.querySelector('#logo-span') as HTMLElement;
+                if (logoSpan) logoSpan.style.color = '#A5F3FC'; // Cyan-300
+            }
+        } else {
+            const inner = navContainer.querySelector('#navbar-inner') as HTMLElement;
+            if (inner) {
+                // Initial State: "Distinguished" Light Glass with Subtle Border
+                inner.classList.remove('bg-slate-950/80', 'backdrop-blur-3xl', 'border-white/10');
+                inner.classList.add('bg-white/40', 'backdrop-blur-xl', 'border-black/25');
+                
+                // Text colors for light background
+                inner.querySelectorAll('a, span, button, .icon').forEach(el => {
+                   if (!(el as HTMLElement).closest('.bg-cyan-200')) {
+                       (el as HTMLElement).style.color = '#083344';
+                   }
+                });
+                const logoSpan = inner.querySelector('#logo-span') as HTMLElement;
+                if (logoSpan) logoSpan.style.color = '#0891B2'; // Cyan-600
+            }
+
+        }
+    });
+
+    window.dispatchEvent(new Event('scroll'));
+</script>
+
+<style>
+    /* Remove global overrides that force partial transparency so JS classes can work */
+    .navbar-wrapper :global(#navbar-inner) {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar-wrapper :global(a, span, button) {
+        transition: color 0.4s ease;
+    }
+    
+    /* Keep button override */
+    .navbar-wrapper :global(a.bg-cyan-200) {
+        background-color: #083344 !important;
+        color: white !important;
+    }
+
+    .navbar-wrapper :global(.icon) {
+        color: inherit !important;
+    }
+</style>
+
+
+
+
+
