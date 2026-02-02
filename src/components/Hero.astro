@@ -1,139 +1,253 @@
 ---
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 import Navbar from "./Navbar.astro";
+import EmprevoLogo from "../assets/Emprevo-Logo.png";
 ---
 
 <section class="relative h-screen min-h-[700px] w-full p-2" id="inicio">
-  
-  <!-- Hero Card Container -->
-  <div class="relative w-full h-full flex flex-col rounded-[2.5rem] md:rounded-[4rem] overflow-visible shadow-2xl shadow-cyan-950/10 group border border-white/40">
-    
-    <!-- Background Gradient - Brand-aligned Light Cyan/Blue -->
-    <div class="absolute inset-0 bg-gradient-to-br from-[#F8FAFC] via-[#ECFEFF] to-[#A5F3FC] z-0 rounded-[2rem] md:rounded-[3rem]"></div>
-    
-    <!-- Subtle Background Pattern/Glow -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(165,243,252,0.4)_0%,transparent_70%)] z-0 rounded-[2rem] md:rounded-[3rem]"></div>
-
-    <!-- Header Integrated Inside -->
-    <div class="fixed left-0 right-0 z-50 w-full px-4 md:px-8 transition-all duration-300" id="hero-nav-container">
-        <div class="max-w-7xl mx-auto">
-            <Navbar />
+    <!-- Hero Card Container -->
+    <div
+        class="relative w-full h-full flex flex-col rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-2xl shadow-cyan-950/10 group border border-white/40"
+    >
+        <!-- Background Gradient - Brand-aligned Light Cyan/Blue -->
+        <div
+            class="absolute inset-0 bg-gradient-to-br from-[#F8FAFC] via-[#ECFEFF] to-[#A5F3FC] z-0 rounded-[2rem] md:rounded-[3rem]"
+        >
         </div>
-    </div>
 
-    <div class="flex-1 flex flex-col items-center justify-center relative z-10 px-6 pt-24 pb-12">
-      <div class="max-w-4xl mx-auto flex flex-col items-center text-center">
+        <!-- Subtle Logo Watermark Integration -->
+        <div
+            class="absolute top-[-20vh] md:top-[-10vh] right-[-40vw] w-[600px] h-[600px] md:w-[100vw] md:h-[90vh] opacity-[0.1] z-[1] pointer-events-none"
+        >
+            <Image
+                src={EmprevoLogo}
+                alt=""
+                class="w-full h-full object-contain"
+                style="filter: blur(1px);"
+            />
+        </div>
 
-          <!-- Partner/Badge -->
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-cyan-100 text-cyan-800 text-[10px] font-bold uppercase tracking-[0.2em] mb-8 animate-fade-in shadow-sm mt-8">
-             <Icon name="lucide:sparkles" class="text-cyan-600" size={14} />
-             <span>Innovación & Excelencia Digital</span>
-          </div>
+        <!-- Subtle Background Pattern/Glow -->
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(165,243,252,0.4)_0%,transparent_70%)] z-[2] rounded-[2rem] md:rounded-[3rem]"
+        >
+        </div>
 
-          <!-- Heading -->
-          <div class="relative">
-              <h1 class="text-5xl md:text-7xl lg:text-8xl font-display text-[#083344] mb-8 tracking-tight leading-[0.95] font-black">
-                  Construye tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600">legado</span> digital
-              </h1>
-          </div>
+        <!-- Header Integrated Inside -->
+        <div
+            class="fixed left-0 right-0 z-50 w-full px-4 md:px-8 transition-all duration-300"
+            id="hero-nav-container"
+        >
+            <div class="max-w-7xl mx-auto">
+                <Navbar />
+            </div>
+        </div>
 
-          <!-- Description -->
-          <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium opacity-90">
-              Desarrollamos soluciones tecnológicas que transforman visiones en realidades competitivas. Tu socio estratégico en el mundo digital.
-          </p>
-
-          <!-- Buttons -->
-          <div class="flex flex-col sm:flex-row items-center gap-5 justify-center">
-              <a href="#contacto" class="px-8 py-3 bg-[#083344] text-white rounded-full font-bold text-lg hover:bg-[#164e63] transition-all hover:scale-105 active:scale-95">
-                  Comienza ahora
-              </a>
-              
-              <a href="#servicios" class="px-8 py-3 bg-white/60 hover:bg-white text-[#083344] rounded-full font-bold text-lg backdrop-blur-md border border-cyan-200/50 transition-all hover:scale-105 active:scale-95">
-                  Ver servicios
-              </a>
-          </div>
-
-      </div>
-    </div>
-
-    <!-- Integrate Product Strip at Bottom of Card (Infinite Carousel) -->
-    <div class="relative z-10 w-full pb-8 px-6 overflow-hidden mt-auto">
-        <div class="max-w-4xl mx-auto relative" style="-webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);">
-            <div class="flex w-max" style="animation: scroll 30s linear infinite;">
-                <!-- Original Set -->
-                <div class="flex gap-4 px-4">
-                    {['Membership Sites', 'SaaS Products', 'Clubs', 'Associations', 'Courses', 'Communities', 'Newsletters', 'Podcasts', 'Digital Products'].map((item) => (
-                        <div class="px-5 py-2 rounded-full border border-[#083344]/10 bg-[#083344]/5 text-[#083344] text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
-                            {item}
-                        </div>
-                    ))}
+        <div
+            class="flex-1 flex flex-col items-center justify-center relative z-10 px-6 pt-24 pb-12"
+        >
+            <div
+                class="max-w-4xl mx-auto flex flex-col items-center text-center"
+            >
+                <!-- Partner/Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-cyan-100 text-cyan-800 text-[10px] font-bold uppercase tracking-[0.2em] mb-8 animate-fade-in shadow-sm mt-8"
+                >
+                    <Icon
+                        name="lucide:sparkles"
+                        class="text-cyan-600"
+                        size={14}
+                    />
+                    <span>Innovación & Excelencia Digital</span>
                 </div>
-                <!-- Duplicate Set for Seamless Loop -->
-                <div class="flex gap-4 px-4">
-                    {['Membership Sites', 'SaaS Products', 'Clubs', 'Associations', 'Courses', 'Communities', 'Newsletters', 'Podcasts', 'Digital Products'].map((item) => (
-                        <div class="px-5 py-2 rounded-full border border-[#083344]/10 bg-[#083344]/5 text-[#083344] text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
-                            {item}
-                        </div>
-                    ))}
+
+                <!-- Heading -->
+                <div class="relative">
+                    <h1
+                        class="text-5xl md:text-7xl lg:text-7xl font-display text-[#083344] mb-8 tracking-tight leading-[0.95] font-semibold"
+                    >
+                        Construye tu <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600"
+                            >legado</span
+                        > digital
+                    </h1>
+                </div>
+
+                <!-- Description -->
+                <p
+                    class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium opacity-90"
+                >
+                    Desarrollamos soluciones tecnológicas que transforman
+                    visiones en realidades competitivas. Tu socio estratégico en
+                    el mundo digital.
+                </p>
+
+                <!-- Buttons -->
+                <div
+                    class="flex flex-col sm:flex-row items-center gap-5 justify-center"
+                >
+                    <a
+                        href="#contacto"
+                        class="px-8 py-3 bg-[#083344] text-white rounded-full font-bold text-lg hover:bg-[#164e63] transition-all hover:scale-105 active:scale-95"
+                    >
+                        Comienza ahora
+                    </a>
+
+                    <a
+                        href="#servicios"
+                        class="px-8 py-3 bg-white/60 hover:bg-white text-[#083344] rounded-full font-bold text-lg backdrop-blur-md border border-cyan-200/50 transition-all hover:scale-105 active:scale-95"
+                    >
+                        Ver servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integrate Product Strip at Bottom of Card (Infinite Carousel) -->
+        <div class="relative z-10 w-full pb-8 px-6 overflow-hidden mt-auto">
+            <div
+                class="max-w-4xl mx-auto relative"
+                style="-webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);"
+            >
+                <div
+                    class="flex w-max"
+                    style="animation: scroll 30s linear infinite;"
+                >
+                    <!-- Original Set -->
+                    <div class="flex gap-4 px-4">
+                        {
+                            [
+                                "Membership Sites",
+                                "SaaS Products",
+                                "Clubs",
+                                "Associations",
+                                "Courses",
+                                "Communities",
+                                "Newsletters",
+                                "Podcasts",
+                                "Digital Products",
+                            ].map((item) => (
+                                <div class="px-5 py-2 rounded-full border border-[#083344]/10 bg-[#083344]/5 text-[#083344] text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
+                                    {item}
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <!-- Duplicate Set for Seamless Loop -->
+                    <div class="flex gap-4 px-4">
+                        {
+                            [
+                                "Membership Sites",
+                                "SaaS Products",
+                                "Clubs",
+                                "Associations",
+                                "Courses",
+                                "Communities",
+                                "Newsletters",
+                                "Podcasts",
+                                "Digital Products",
+                            ].map((item) => (
+                                <div class="px-5 py-2 rounded-full border border-[#083344]/10 bg-[#083344]/5 text-[#083344] text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
+                                    {item}
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-  </div>
 </section>
 
 <script>
-    const navContainer = document.getElementById('hero-nav-container');
-    const heroSection = document.getElementById('inicio');
+    const navContainer = document.getElementById("hero-nav-container");
+    const heroSection = document.getElementById("inicio");
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
         if (!navContainer || !heroSection) return;
 
         if (window.scrollY > 10) {
-            navContainer.classList.add('top-2');
-            navContainer.classList.remove('top-6');
+            navContainer.classList.add("top-2");
+            navContainer.classList.remove("top-6");
         } else {
-            navContainer.classList.add('top-6');
-            navContainer.classList.remove('top-2');
+            navContainer.classList.add("top-6");
+            navContainer.classList.remove("top-2");
         }
 
         if (window.scrollY > 800) {
-            const inner = navContainer.querySelector('#navbar-inner') as HTMLElement;
+            const inner = navContainer.querySelector(
+                "#navbar-inner",
+            ) as HTMLElement;
             if (inner) {
-                inner.classList.add('bg-slate-950/80', 'backdrop-blur-3xl', 'border-white/10');
-                inner.classList.remove('bg-white/40', 'backdrop-blur-xl', 'border-white/25');
-                
+                inner.classList.add(
+                    "bg-slate-950/80",
+                    "backdrop-blur-3xl",
+                    "border-white/10",
+                );
+                inner.classList.remove(
+                    "bg-white/40",
+                    "backdrop-blur-xl",
+                    "border-white/25",
+                );
+
                 // Adjusting items inside the navbar for the dark mode glass scroll
-                inner.querySelectorAll('a, span, button, .icon').forEach(el => {
-                   if (!(el as HTMLElement).closest('.bg-cyan-200')) {
-                       (el as HTMLElement).style.color = 'white';
-                   }
-                });
-                const logoSpan = inner.querySelector('#logo-span') as HTMLElement;
-                if (logoSpan) logoSpan.style.color = '#A5F3FC'; // Cyan-300
+                inner
+                    .querySelectorAll("a, span, button, .icon")
+                    .forEach((el) => {
+                        if (!(el as HTMLElement).closest(".bg-cyan-200")) {
+                            (el as HTMLElement).style.color = "white";
+                        }
+                    });
+                // Switch to white logo
+                const logoDark = inner.querySelector(
+                    "#logo-dark",
+                ) as HTMLElement;
+                const logoWhite = inner.querySelector(
+                    "#logo-white",
+                ) as HTMLElement;
+                if (logoDark) logoDark.classList.add("opacity-0");
+                if (logoWhite) logoWhite.classList.remove("opacity-0");
             }
         } else {
-            const inner = navContainer.querySelector('#navbar-inner') as HTMLElement;
+            const inner = navContainer.querySelector(
+                "#navbar-inner",
+            ) as HTMLElement;
             if (inner) {
                 // Initial State: "Distinguished" Light Glass with Subtle Border
-                inner.classList.remove('bg-slate-950/80', 'backdrop-blur-3xl', 'border-white/10');
-                inner.classList.add('bg-white/40', 'backdrop-blur-xl', 'border-black/25');
-                
-                // Text colors for light background
-                inner.querySelectorAll('a, span, button, .icon').forEach(el => {
-                   if (!(el as HTMLElement).closest('.bg-cyan-200')) {
-                       (el as HTMLElement).style.color = '#083344';
-                   }
-                });
-                const logoSpan = inner.querySelector('#logo-span') as HTMLElement;
-                if (logoSpan) logoSpan.style.color = '#0891B2'; // Cyan-600
-            }
+                inner.classList.remove(
+                    "bg-slate-950/80",
+                    "backdrop-blur-3xl",
+                    "border-white/10",
+                );
+                inner.classList.add(
+                    "bg-white/40",
+                    "backdrop-blur-xl",
+                    "border-black/25",
+                );
 
+                // Text colors for light background
+                inner
+                    .querySelectorAll("a, span, button, .icon")
+                    .forEach((el) => {
+                        if (!(el as HTMLElement).closest(".bg-cyan-200")) {
+                            (el as HTMLElement).style.color = "#083344";
+                        }
+                    });
+                // Switch to dark logo
+                const logoDark = inner.querySelector(
+                    "#logo-dark",
+                ) as HTMLElement;
+                const logoWhite = inner.querySelector(
+                    "#logo-white",
+                ) as HTMLElement;
+                if (logoDark) logoDark.classList.remove("opacity-0");
+                if (logoWhite) logoWhite.classList.add("opacity-0");
+            }
         }
     });
 
-    window.dispatchEvent(new Event('scroll'));
+    window.dispatchEvent(new Event("scroll"));
 </script>
 
 <style>
@@ -145,7 +259,7 @@ import Navbar from "./Navbar.astro";
     .navbar-wrapper :global(a, span, button) {
         transition: color 0.4s ease;
     }
-    
+
     /* Keep button override */
     .navbar-wrapper :global(a.bg-cyan-200) {
         background-color: #083344 !important;
@@ -156,8 +270,3 @@ import Navbar from "./Navbar.astro";
         color: inherit !important;
     }
 </style>
-
-
-
-
-

@@ -1,5 +1,7 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import LogoWithName from "../assets/Emprevo-Logo-With-Name-Color.png";
 ---
 
 <footer class="py-20 border-t border-white/5 bg-slate-950">
@@ -8,56 +10,27 @@ import { Icon } from 'astro-icon/components';
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
         <div class="col-span-2 lg:col-span-1">
           <a href="/" class="flex items-center gap-3 mb-8 group">
-            <div class="p-2 rounded-lg bg-cyan-900/20 text-cyan-200">
-              <Icon name="lucide:star" size={20} />
-            </div>
-            <span class="text-xl font-black text-white font-display">Star Software</span>
+            <Image src={LogoWithName} alt="Logo" class="w-24" />
           </a>
           <p class="text-slate-500 text-sm leading-relaxed max-w-xs">
-            Empoderando empresas con software de alto rendimiento. Construido para el futuro.
+            Empoderando empresas con software de alto rendimiento. Construido
+            para el futuro.
           </p>
-        </div>
-        
-        <div>
-          <h4 class="text-white font-bold mb-6 font-display">Tecnologías</h4>
-          <ul class="space-y-4 text-sm text-slate-400">
-            <li><a href="#" class="hover:text-cyan-200 transition-colors">Astro</a></li>
-            <li><a href="#" class="hover:text-cyan-200 transition-colors">React & Vue</a></li>
-            <li><a href="#" class="hover:text-cyan-200 transition-colors">AWS & GCP</a></li>
-            <li><a href="#" class="hover:text-cyan-200 transition-colors">Soluciones AI</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-6 font-display">Empresa</h4>
-          <ul class="space-y-4 text-sm text-slate-400">
-            <li><a href="#nosotros" class="hover:text-cyan-200 transition-colors">Sobre Nosotros</a></li>
-            <li><a href="#" class="hover:text-cyan-200 transition-colors">Carreras</a></li>
-            <li><a href="#" class="hover:text-cyan-200 transition-colors">Prensa</a></li>
-            <li><a href="#" class="hover:text-cyan-200 transition-colors">Blog</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-6 font-display">Social</h4>
-          <div class="flex gap-4">
-            <a href="#" class="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all">
-              <Icon name="lucide:github" size={20} />
-            </a>
-            <a href="#" class="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all">
-              <Icon name="lucide:twitter" size={20} />
-            </a>
-            <a href="#" class="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all">
-              <Icon name="lucide:linkedin" size={20} />
-            </a>
-          </div>
         </div>
       </div>
 
-      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-6 text-slate-500 text-xs font-bold uppercase tracking-widest">
-        <p>&copy; {new Date().getFullYear()} Star Software. Todos los derechos reservados.</p>
+      <div
+        class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-6 text-slate-500 text-xs font-bold uppercase tracking-widest"
+      >
+        <p>
+          &copy; {new Date().getFullYear()} Yzen Software. Todos los derechos reservados.
+        </p>
         <p class="flex items-center gap-2">
-          Crafted with <Icon name="lucide:heart" size={14} class="text-pink-500 animate-pulse" /> in Argentina
+          Crafted with <Icon
+            name="lucide:heart"
+            size={14}
+            class="text-pink-500 animate-pulse"
+          /> in Argentina
         </p>
       </div>
     </div>
