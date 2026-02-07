@@ -3,6 +3,8 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import LogoWithName from "../assets/Emprevo-Logo-With-Name.png";
 import LogoWithNameWhite from "../assets/Emprevo-Logo-With-Name-Color.png";
+
+const menuItems = ["Inicio", "Servicios", "Nosotros", "Planes"];
 ---
 
 <nav class="z-50 transition-all duration-300 w-full" id="navbar">
@@ -30,7 +32,7 @@ import LogoWithNameWhite from "../assets/Emprevo-Logo-With-Name-Color.png";
       <!-- DESKTOP MENU -->
       <div class="hidden md:flex items-center gap-6">
         {
-          ["Inicio", "Servicios", "Productos", "Nosotros"].map((item) => (
+          menuItems.map((item) => (
             <a
               href={`#${item.toLowerCase()}`}
               class="relative text-xs font-bold uppercase tracking-wider transition-colors py-2 group/link"
@@ -55,19 +57,158 @@ import LogoWithNameWhite from "../assets/Emprevo-Logo-With-Name-Color.png";
 
       <!-- MOBILE MENU BUTTON -->
       <button
-        class="md:hidden text-slate-300 hover:text-white transition-colors"
+        class="md:hidden text-slate-300 hover:text-white transition-colors relative z-[60] w-8 h-8 flex items-center justify-center"
         id="menuToggle"
+        aria-label="Toggle mobile menu"
       >
-        <Icon name="lucide:menu" size={24} />
+        <span class="menu-icon-open">
+          <Icon name="lucide:menu" size={24} />
+        </span>
+        <span class="menu-icon-close hidden">
+          <Icon name="lucide:x" size={24} />
+        </span>
       </button>
     </div>
   </div>
 </nav>
 
+<!-- MOBILE MENU OVERLAY -->
+<div
+  id="mobileMenuOverlay"
+  class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+>
+</div>
+
+<!-- MOBILE MENU PANEL -->
+<div
+  id="mobileMenuPanel"
+  class="fixed top-0 right-0 h-full w-[280px] max-w-[85vw] bg-slate-950/95 backdrop-blur-xl border-l border-white/10 z-[56] translate-x-full transition-transform duration-300 ease-out md:hidden"
+>
+  <div class="flex flex-col h-full pt-20 pb-8 px-6">
+    <!-- MOBILE MENU LINKS -->
+    <nav class="flex flex-col gap-2">
+      {
+        menuItems.map((item, index) => (
+          <a
+            href={`#${item.toLowerCase()}`}
+            class="mobile-menu-link group relative py-4 px-4 text-lg font-semibold text-slate-300 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/5"
+            style={`--delay: ${index * 50}ms`}
+          >
+            <span class="relative z-10 flex items-center gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {item}
+            </span>
+            <span class="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-cyan-500 to-violet-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- MOBILE CTA BUTTON -->
+    <div class="mt-auto pt-6 border-t border-white/10">
+      <a
+        href="#contacto"
+        class="mobile-menu-link flex items-center justify-center gap-2 w-full py-4 px-6 rounded-full bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold text-lg hover:from-cyan-500 hover:to-cyan-600 transition-all duration-300 active:scale-95 shadow-lg shadow-cyan-900/30"
+        style="--delay: 200ms"
+      >
+        <Icon name="lucide:mail" size={20} />
+        Contacto
+      </a>
+    </div>
+
+    <!-- MOBILE MENU FOOTER -->
+    <div class="mt-6 text-center text-sm text-slate-500">
+      <p>© 2026 Emprevo</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mobile-menu-link {
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      background-color 0.3s ease,
+      color 0.3s ease;
+    transition-delay: var(--delay, 0ms);
+  }
+
+  #mobileMenuPanel.open .mobile-menu-link {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
+
 <script>
   const navbar = document.getElementById("navbar");
   const navbarInner = document.getElementById("navbar-inner");
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
+  const mobileMenuPanel = document.getElementById("mobileMenuPanel");
+  const menuIconOpen = menuToggle?.querySelector(".menu-icon-open");
+  const menuIconClose = menuToggle?.querySelector(".menu-icon-close");
+  const mobileMenuLinks = document.querySelectorAll(".mobile-menu-link");
 
+  let isMenuOpen = false;
+
+  function openMenu() {
+    isMenuOpen = true;
+    mobileMenuOverlay?.classList.remove("opacity-0", "pointer-events-none");
+    mobileMenuOverlay?.classList.add("opacity-100", "pointer-events-auto");
+    mobileMenuPanel?.classList.remove("translate-x-full");
+    mobileMenuPanel?.classList.add("translate-x-0", "open");
+    menuIconOpen?.classList.add("hidden");
+    menuIconClose?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    isMenuOpen = false;
+    mobileMenuOverlay?.classList.add("opacity-0", "pointer-events-none");
+    mobileMenuOverlay?.classList.remove("opacity-100", "pointer-events-auto");
+    mobileMenuPanel?.classList.add("translate-x-full");
+    mobileMenuPanel?.classList.remove("translate-x-0", "open");
+    menuIconOpen?.classList.remove("hidden");
+    menuIconClose?.classList.add("hidden");
+    document.body.style.overflow = "";
+  }
+
+  function toggleMenu() {
+    if (isMenuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  // Toggle menu on button click
+  menuToggle?.addEventListener("click", toggleMenu);
+
+  // Close menu when clicking overlay
+  mobileMenuOverlay?.addEventListener("click", closeMenu);
+
+  // Close menu when clicking a link
+  mobileMenuLinks.forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // Close menu on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isMenuOpen) {
+      closeMenu();
+    }
+  });
+
+  // Close menu on resize to desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768 && isMenuOpen) {
+      closeMenu();
+    }
+  });
+
+  // Scroll behavior for navbar
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {
       navbarInner?.classList.add(
@@ -76,7 +217,6 @@ import LogoWithNameWhite from "../assets/Emprevo-Logo-With-Name-Color.png";
         "shadow-cyan-900/10",
       );
       navbar?.classList.add("py-0");
-      // Make it full width on scroll if desired, or keep it floating
     } else {
       navbarInner?.classList.remove(
         "bg-slate-950/80",
@@ -85,14 +225,5 @@ import LogoWithNameWhite from "../assets/Emprevo-Logo-With-Name-Color.png";
       );
       navbar?.classList.remove("py-0");
     }
-  });
-
-  // Simple mobile menu logic (could be expanded)
-  const menuToggle = document.getElementById("menuToggle");
-  menuToggle?.addEventListener("click", () => {
-    // Mobile menu logic here
-    alert(
-      "Mobile menu clicked - Implementation pending full mobile menu overlay",
-    );
   });
 </script>
