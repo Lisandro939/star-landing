@@ -12,6 +12,9 @@ export default defineConfig({
   integrations: [icon()],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    ssr: {
+      external: ['nodemailer']
+    }
   }
 });
