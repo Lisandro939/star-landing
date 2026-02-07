@@ -1,8 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import LogoWithName from "../assets/Emprevo-Logo-With-Name.png";
-import LogoWithNameWhite from "../assets/Emprevo-Logo-With-Name-Color.png";
 
 const menuItems = ["Inicio", "Servicios", "Nosotros", "Planes"];
 ---
@@ -16,14 +14,18 @@ const menuItems = ["Inicio", "Servicios", "Nosotros", "Planes"];
       <!-- LOGO -->
       <a href="/" class="flex items-center gap-3 group relative">
         <Image
-          src={LogoWithName}
+          src="/assets/Emprevo-Logo-With-Name.png"
           alt="Logo"
+          width={96}
+          height={32}
           class="w-24 transition-opacity duration-300"
           id="logo-dark"
         />
         <Image
-          src={LogoWithNameWhite}
+          src="/assets/Emprevo-Logo-With-Name-Color.png"
           alt="Logo"
+          width={96}
+          height={32}
           class="w-24 absolute top-0 left-0 opacity-0 transition-opacity duration-300"
           id="logo-white"
         />

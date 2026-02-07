@@ -2,7 +2,6 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import Navbar from "./Navbar.astro";
-import EmprevoLogo from "../assets/Emprevo-Logo.png";
 ---
 
 <section class="relative h-screen min-h-[700px] w-full p-2" id="inicio">
@@ -21,8 +20,10 @@ import EmprevoLogo from "../assets/Emprevo-Logo.png";
             class="absolute top-[-20vh] md:top-[-10vh] right-[-40vw] w-[600px] h-[600px] md:w-[100vw] md:h-[90vh] opacity-[0.10] z-[1] pointer-events-none"
         >
             <Image
-                src={EmprevoLogo}
+                src="/assets/Emprevo-Logo.png"
                 alt=""
+                width={1000}
+                height={1000}
                 class="w-full h-full object-contain"
                 style="filter: blur(1px);"
             />

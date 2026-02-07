@@ -1,7 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import LogoWithName from "../assets/Emprevo-Logo-With-Name-Color.png";
 ---
 
 <footer class="py-20 border-t border-white/5 bg-slate-950">
@@ -10,7 +9,13 @@ import LogoWithName from "../assets/Emprevo-Logo-With-Name-Color.png";
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
         <div class="col-span-2 lg:col-span-1">
           <a href="/" class="flex items-center gap-3 mb-8 group">
-            <Image src={LogoWithName} alt="Logo" class="w-24" />
+            <Image
+              src="/assets/Emprevo-Logo-With-Name-Color.png"
+              alt="Logo"
+              width={96}
+              height={32}
+              class="w-24"
+            />
           </a>
           <p class="text-slate-500 text-sm leading-relaxed max-w-xs">
             Empoderando empresas con software de alto rendimiento. Construido
