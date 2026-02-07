@@ -1,5 +1,5 @@
-import { g as getConfiguredImageService, i as imageConfig, l as lookup } from './_astro_assets_ZQObSxPS.mjs';
-import { i as isRemotePath, a as isRemoteAllowed } from './_virtual_astro_legacy-ssr-entry_DpT-oSIy.mjs';
+import { g as getConfiguredImageService, i as imageConfig, l as lookup } from './_astro_assets_CGJtdXC-.mjs';
+import { i as isRemotePath, a as isRemoteAllowed } from './_virtual_astro_legacy-ssr-entry_B4x0oVrr.mjs';
 
 const fnv1a52 = (str) => {
   const len = str.length;

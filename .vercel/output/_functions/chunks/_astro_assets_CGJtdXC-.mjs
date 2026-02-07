@@ -1,4 +1,4 @@
-import { t as typeHandlers, g as types, A as AstroError, N as NoImageMetadata, h as FailedToFetchRemoteImageDimensions, I as InvalidComponentArgs, a as isRemoteAllowed, j as joinPaths, E as ExpectedImage, i as isRemotePath, L as LocalImageUsedWrongly, M as MissingImageDimension, U as UnsupportedImageFormat, k as IncompatibleDescriptorOptions, l as UnsupportedImageConversion, n as toStyleString, o as InvalidImageService, p as ExpectedImageOptions, q as ExpectedNotESMImage, v as ImageMissingAlt, m as maybeRenderHead, b as addAttribute, s as spreadAttributes, r as renderTemplate, w as ExperimentalFontsNotEnabled, x as FontFamilyNotFound, u as unescapeHTML } from './_virtual_astro_legacy-ssr-entry_DpT-oSIy.mjs';
+import { t as typeHandlers, g as types, A as AstroError, N as NoImageMetadata, h as FailedToFetchRemoteImageDimensions, I as InvalidComponentArgs, a as isRemoteAllowed, j as joinPaths, E as ExpectedImage, i as isRemotePath, L as LocalImageUsedWrongly, M as MissingImageDimension, U as UnsupportedImageFormat, k as IncompatibleDescriptorOptions, l as UnsupportedImageConversion, n as toStyleString, o as InvalidImageService, p as ExpectedImageOptions, q as ExpectedNotESMImage, v as ImageMissingAlt, m as maybeRenderHead, b as addAttribute, s as spreadAttributes, r as renderTemplate, w as ExperimentalFontsNotEnabled, x as FontFamilyNotFound, u as unescapeHTML } from './_virtual_astro_legacy-ssr-entry_B4x0oVrr.mjs';
 
 function isESMImportedImage(src) {
   return typeof src === "object" || typeof src === "function" && "src" in src;
@@ -525,7 +525,7 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      './sharp_CnwBQrmV.mjs'
+      './sharp_CxhJvx08.mjs'
     ).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;

@@ -1,5 +1,5 @@
-import { c as createComponent, $ as $$Image } from './_astro_assets_ZQObSxPS.mjs';
-import { c as createRenderInstruction, m as maybeRenderHead, b as addAttribute, r as renderTemplate, d as renderHead, e as renderSlot, f as renderComponent, s as spreadAttributes, F as Fragment, u as unescapeHTML } from './_virtual_astro_legacy-ssr-entry_DpT-oSIy.mjs';
+import { c as createComponent, $ as $$Image } from './_astro_assets_CGJtdXC-.mjs';
+import { c as createRenderInstruction, m as maybeRenderHead, b as addAttribute, r as renderTemplate, d as renderHead, e as renderSlot, f as renderComponent, s as spreadAttributes, F as Fragment, u as unescapeHTML } from './_virtual_astro_legacy-ssr-entry_B4x0oVrr.mjs';
 
 async function renderScript(result, id) {
   const inlined = result.inlinedScripts.get(id);
