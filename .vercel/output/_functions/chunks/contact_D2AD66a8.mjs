@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 
+const prerender = false;
 const POST = async ({ request }) => {
   try {
     const data = await request.json();
@@ -99,7 +100,8 @@ ${message}
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 	__proto__: null,
-	POST
+	POST,
+	prerender
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const page = () => _page;
