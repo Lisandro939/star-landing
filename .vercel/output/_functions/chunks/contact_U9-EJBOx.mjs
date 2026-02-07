@@ -24,7 +24,7 @@ const POST = async ({ request }) => {
       }
     });
     const mailOptions = {
-      from: `"Formulario Web Star Software" <${"yzensoftware@gmail.com"}>`,
+      from: `"Formulario Web Yzen Software" <${"yzensoftware@gmail.com"}>`,
       to: "yzensoftware@gmail.com",
       replyTo: email,
       subject: `Nueva consulta de ${name}${company ? ` - ${company}` : ""}`,
@@ -64,7 +64,7 @@ const POST = async ({ request }) => {
           
           <div style="text-align: center; margin-top: 20px;">
             <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              Este mensaje fue enviado desde el formulario de contacto de Star Software
+              Este mensaje fue enviado desde el formulario de contacto de Yzen Software
             </p>
           </div>
         </div>
