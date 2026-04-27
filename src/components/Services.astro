@@ -19,16 +19,16 @@ interface Project {
 }
 
 const projects: Project[] = [
-  { id: 1, type: 'horizontal', image: deliveriesEnLavallePc, title: 'Deliveries en Lavalle' },
+  { id: 1, type: 'horizontal', image: deliveriesEnLavallePc, title: 'Deliveries en Lavalle', url: 'https://www.deliveriesenlavalle.com.ar/' },
   { id: 2, type: 'horizontal', image: efectosMendozaPc, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/' },
-  { id: 3, type: 'horizontal', image: esteticaAmapolaPc, title: 'Estética Amapola' },
-  { id: 4, type: 'horizontal', image: puntoLunchPc, title: 'Punto Lunch' },
-  { id: 5, type: 'horizontal', image: elBosquePc, title: 'El Bosque' },
-  { id: 6, type: 'vertical', image: deliveriesEnLavalleMobile, title: 'Deliveries en Lavalle' },
-  { id: 7, type: 'vertical', image: efectosMendozaMobile, title: 'Efectos Mendoza' },
-  { id: 8, type: 'vertical', image: esteticaAmapolaMobile, title: 'Estética Amapola' },
-  { id: 9, type: 'vertical', image: puntoLunchMobile, title: 'Punto Lunch' },
-  { id: 10, type: 'vertical', image: elBosqueMobile, title: 'El Bosque' },
+  { id: 3, type: 'horizontal', image: esteticaAmapolaPc, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/' },
+  { id: 4, type: 'horizontal', image: puntoLunchPc, title: 'Punto Lunch', url: 'https://punto-lunch.vercel.app/' },
+  { id: 5, type: 'horizontal', image: elBosquePc, title: 'El Bosque', url: 'https://www.elbosquesunset.com/' },
+  { id: 6, type: 'vertical', image: deliveriesEnLavalleMobile, title: 'Deliveries en Lavalle', url: 'https://www.deliveriesenlavalle.com.ar/' },
+  { id: 7, type: 'vertical', image: efectosMendozaMobile, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/' },
+  { id: 8, type: 'vertical', image: esteticaAmapolaMobile, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/' },
+  { id: 9, type: 'vertical', image: puntoLunchMobile, title: 'Punto Lunch', url: 'https://punto-lunch.vercel.app/' },
+  { id: 10, type: 'vertical', image: elBosqueMobile, title: 'El Bosque', url: 'https://www.elbosquesunset.com/' },
 ];
 
 const horizontal = projects.filter(p => p.type === 'horizontal');
