@@ -3,9 +3,6 @@ import { Icon } from "astro-icon/components";
 
 interface Plan {
   name: string;
-  price: string;
-  isFrom?: boolean;
-  period?: string;
   description: string;
   features: string[];
   ctaText: string;
@@ -18,9 +15,6 @@ interface Plan {
 const plans: Plan[] = [
   {
     name: "PÁGINA WEB",
-    isFrom: false,
-    price: "$149.999",
-    period: "ARS",
     description: "Ideal para emprendedores y startups",
     features: [
       "Diseño moderno y adaptable",
@@ -38,9 +32,6 @@ const plans: Plan[] = [
   },
   {
     name: "SISTEMA DE GESTIÓN",
-    isFrom: true,
-    price: "$399.999",
-    period: "ARS",
     description: "Para negocios en crecimiento",
     features: [
       "Gestión de inventario completa",
@@ -60,9 +51,6 @@ const plans: Plan[] = [
   },
   {
     name: "APP MOBILE",
-    isFrom: true,
-    price: "$599.999",
-    period: "ARS",
     description: "Llevá tu negocio al bolsillo de tus clientes",
     features: [
       "Desarrollo iOS y Android",
@@ -81,8 +69,6 @@ const plans: Plan[] = [
   },
   {
     name: "SISTEMA PERSONALIZADO",
-    isFrom: false,
-    price: "",
     description: "Nos adaptamos a tu necesidad",
     features: [
       "E-commerce",
@@ -163,17 +149,6 @@ const plans: Plan[] = [
                   >
                     {plan.name}
                   </h3>
-                  <div class="flex items-baseline justify-center gap-1">
-                    {plan.isFrom && (
-                      <span class="text-white text-lg">Desde</span>
-                    )}
-                    <span class="text-4xl font-display font-bold text-white">
-                      {plan.price}
-                    </span>
-                    {plan.period && (
-                      <span class="text-slate-500 text-sm">/{plan.period}</span>
-                    )}
-                  </div>
                   <p class="text-slate-400 text-sm mt-3">{plan.description}</p>
                 </div>
 
