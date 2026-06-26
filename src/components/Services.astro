@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import efectosMendozaPc from '../assets/companies-examples/efectos-mendoza-pc.png';
 import efectosMendozaMobile from '../assets/companies-examples/efectos-mendoza-mobile.png';
 import esteticaAmapolaPc from '../assets/companies-examples/estetica-amapola-pc.png';
@@ -9,31 +10,31 @@ import deliveriesEnLavallePc from '../assets/companies-examples/deliveries-en-la
 import deliveriesEnLavalleMobile from '../assets/companies-examples/deliveries-en-lavalle-mobile.png';
 import elBosquePc from '../assets/companies-examples/el-bosque-pc.png';
 import elBosqueMobile from '../assets/companies-examples/el-bosque-mobile.png';
+import brenatPc from '../assets/companies-examples/brenat-pc.png';
+import brenatMobile from '../assets/companies-examples/brenat-mobile.png';
+import dmleonPc from '../assets/companies-examples/dmleon-pc.png';
+import dmleonMobile from '../assets/companies-examples/dmleon-mobile.png';
 
 interface Project {
   id: number;
-  type: 'vertical' | 'horizontal';
-  image?: ImageMetadata;
-  title?: string;
-  url?: string;
+  title: string;
+  url: string;
+  imagePc: ImageMetadata;
+  imageMobile: ImageMetadata;
 }
 
 const projects: Project[] = [
-  { id: 1, type: 'horizontal', image: deliveriesEnLavallePc, title: 'Deliveries en Lavalle', url: 'https://www.deliveriesenlavalle.com.ar/' },
-  { id: 2, type: 'horizontal', image: efectosMendozaPc, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/' },
-  { id: 3, type: 'horizontal', image: esteticaAmapolaPc, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/' },
-  { id: 4, type: 'horizontal', image: puntoLunchPc, title: 'Punto Lunch', url: 'https://punto-lunch.vercel.app/' },
-  { id: 5, type: 'horizontal', image: elBosquePc, title: 'El Bosque', url: 'https://www.elbosquesunset.com/' },
-  { id: 6, type: 'vertical', image: deliveriesEnLavalleMobile, title: 'Deliveries en Lavalle', url: 'https://www.deliveriesenlavalle.com.ar/' },
-  { id: 7, type: 'vertical', image: efectosMendozaMobile, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/' },
-  { id: 8, type: 'vertical', image: esteticaAmapolaMobile, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/' },
-  { id: 9, type: 'vertical', image: puntoLunchMobile, title: 'Punto Lunch', url: 'https://punto-lunch.vercel.app/' },
-  { id: 10, type: 'vertical', image: elBosqueMobile, title: 'El Bosque', url: 'https://www.elbosquesunset.com/' },
+  { id: 1, title: 'Deliveries en Lavalle', url: 'https://www.deliveriesenlavalle.com.ar/', imagePc: deliveriesEnLavallePc, imageMobile: deliveriesEnLavalleMobile },
+  { id: 2, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/', imagePc: efectosMendozaPc, imageMobile: efectosMendozaMobile },
+  { id: 3, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/', imagePc: esteticaAmapolaPc, imageMobile: esteticaAmapolaMobile },
+  { id: 4, title: 'Punto Lunch', url: 'https://punto-lunch.vercel.app/', imagePc: puntoLunchPc, imageMobile: puntoLunchMobile },
+  { id: 5, title: 'El Bosque', url: 'https://www.elbosquesunset.com/', imagePc: elBosquePc, imageMobile: elBosqueMobile },
+  { id: 6, title: 'Brenat', url: 'https://www.brenat.com.ar/', imagePc: brenatPc, imageMobile: brenatMobile },
+  { id: 7, title: 'DM León', url: 'https://www.dmleon.com.ar/', imagePc: dmleonPc, imageMobile: dmleonMobile },
 ];
 
-const horizontal = projects.filter(p => p.type === 'horizontal');
-const vertical = projects.filter(p => p.type === 'vertical');
-const carouselSlides = horizontal.map((h, i) => ({ pc: h, mobile: vertical[i] }));
+// Slides cloned at both edges for seamless infinite loop: [last, ...all, first]
+const slides = [projects[projects.length - 1], ...projects, projects[0]];
 ---
 
 <section class="py-24 bg-slate-950 relative" id="servicios">
@@ -54,146 +55,218 @@ const carouselSlides = horizontal.map((h, i) => ({ pc: h, mobile: vertical[i] })
       </div>
     </div>
 
-    <!-- Masonry Grid Wrapper with Height Constraint -->
-    <div class="w-full relative">
-        
-        <!-- Desktop Grid -->
-        <div class="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 px-2">
-          {projects.map((project) => {
-            const Wrapper = project.url ? 'a' : 'div';
-            const wrapperProps = project.url
-              ? { href: project.url, target: '_blank', rel: 'noopener noreferrer' }
-              : {};
+    <!-- Unified Infinite Carousel -->
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="relative max-w-7xl mx-auto" id="carousel">
+        <!-- Arrow Left -->
+        <button
+          id="carousel-prev"
+          class="cursor-pointer absolute left-1 sm:left-2 md:-left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-cyan-500/20 hover:border-cyan-500/30 hover:text-white transition-all"
+          aria-label="Proyecto anterior"
+        >
+          <Icon name="lucide:chevron-left" class="w-5 h-5 md:w-6 md:h-6" />
+        </button>
 
-            return (
-            <Wrapper {...wrapperProps} class={`${project.image ? 'group relative rounded-2xl overflow-hidden border border-white/5 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:border-cyan-500/30 hover:z-10' : 'rounded-2xl overflow-hidden'}`}>
-              
-              <!-- Aspect Ratio Container -->
-              <div class={`relative w-full ${project.type === 'vertical' ? 'aspect-[10/20]' : 'aspect-video'} flex flex-col items-center justify-center p-4 text-center ${project.image ? 'bg-slate-900/50' : ''}`}>
-                
-                {project.image ? (
-                  <img src={project.image.src} alt={project.title} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                ) : null}
-                
-                {project.image && (
-                  <!-- Hover Overlay -->
-                  <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4">
-                       <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                           <span class="inline-block px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 text-[10px] font-bold uppercase tracking-wider mb-1 border border-cyan-500/20 backdrop-blur-md">
-                               {project.type === 'horizontal' ? 'Web' : 'Web'}
-                           </span>
-                       </div>
-                  </div>
-                )}
+        <!-- Arrow Right -->
+        <button
+          id="carousel-next"
+          class="cursor-pointer absolute right-1 sm:right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-cyan-500/20 hover:border-cyan-500/30 hover:text-white transition-all"
+          aria-label="Proyecto siguiente"
+        >
+          <Icon name="lucide:chevron-right" class="w-5 h-5 md:w-6 md:h-6" />
+        </button>
 
-              </div>
+        <div class="overflow-hidden rounded-2xl mx-8 md:mx-10">
+          <div class="flex" id="carousel-track">
+            {slides.map((project) => (
+              <div class="w-full flex-shrink-0 px-2 md:px-4">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-project-link
+                  class="group relative block w-full max-w-[280px] md:max-w-none mx-auto rounded-2xl overflow-hidden border border-white/5 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:border-cyan-500/30"
+                >
+                  <!-- Mobile: tall vertical phone capture as protagonist. Desktop (md+): PC mockup aspect-video. -->
+                  <div class="relative w-full aspect-[10/20] md:aspect-video bg-slate-900/50">
+                    <!-- Mobile-only protagonist: vertical phone capture, full bleed -->
+                    <img
+                      src={project.imageMobile.src}
+                      alt={`${project.title} — versión móvil`}
+                      loading="lazy"
+                      draggable="false"
+                      class="md:hidden absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 select-none"
+                    />
 
-            </Wrapper>
-            );
-          })}
-        </div>
+                    <!-- Desktop-only PC capture -->
+                    <img
+                      src={project.imagePc.src}
+                      alt={`${project.title} — versión escritorio`}
+                      loading="lazy"
+                      draggable="false"
+                      class="hidden md:block absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 select-none"
+                    />
 
-        <!-- Mobile Carousel -->
-        <div class="md:hidden relative" id="carousel">
-          <!-- Arrow Left -->
-          <button id="carousel-prev" class="absolute left-1 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-white transition-all" aria-label="Anterior">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
-          </button>
+                    <!-- Desktop-only: mobile capture showcase overlay, bottom-right corner -->
+                    <div class="hidden md:block absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-[30%] max-w-[170px] aspect-[10/20] rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-slate-900 transition-transform duration-500 group-hover:-translate-y-1">
+                      <img
+                        src={project.imageMobile.src}
+                        alt={`${project.title} — versión móvil`}
+                        loading="lazy"
+                        draggable="false"
+                        class="absolute inset-0 w-full h-full object-cover select-none"
+                      />
+                    </div>
 
-          <!-- Arrow Right -->
-          <button id="carousel-next" class="absolute right-1 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-white transition-all" aria-label="Siguiente">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-          </button>
-
-          <div class="overflow-hidden rounded-2xl mx-6">
-            <div class="flex transition-transform duration-500 ease-out" id="carousel-track">
-              {carouselSlides.map((slide) => (
-                <div class="w-full flex-shrink-0 px-2">
-                  <div class="flex flex-col gap-3">
-                    {[slide.pc, slide.mobile].map((project) => {
-                      const Wrapper = project.url ? 'a' : 'div';
-                      const wrapperProps = project.url
-                        ? { href: project.url, target: '_blank', rel: 'noopener noreferrer' }
-                        : {};
-
-                      return (
-                      <Wrapper {...wrapperProps} class="group relative rounded-2xl overflow-hidden border border-white/5 bg-white/5 backdrop-blur-sm">
-                        <div class={`relative w-full ${project.type === 'vertical' ? 'aspect-[10/20]' : 'aspect-video'} bg-slate-900/50`}>
-                          <img src={project.image?.src} alt={project.title} class="absolute inset-0 w-full h-full object-cover" />
-                          <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-slate-950/80 to-transparent p-3">
-                            <span class="inline-block px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 text-[10px] font-bold uppercase tracking-wider border border-cyan-500/20 backdrop-blur-md">
-                              {project.type === 'horizontal' ? 'Web' : 'Mobile'}
-                            </span>
-                          </div>
+                    <!-- Hover overlay: title + link cue -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 md:p-6 pointer-events-none">
+                      <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <span class="inline-block px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 text-[10px] font-bold uppercase tracking-wider mb-2 border border-cyan-500/20 backdrop-blur-md">
+                          Web
+                        </span>
+                        <div class="flex items-center gap-2">
+                          <h3 class="text-white text-lg md:text-xl font-medium">{project.title}</h3>
+                          <Icon name="lucide:arrow-up-right" class="w-4 h-4 text-cyan-200" />
                         </div>
-                      </Wrapper>
-                      );
-                    })}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <!-- Dots -->
-          <div class="flex justify-center gap-2 mt-4" id="carousel-dots">
-            {carouselSlides.map((_, i) => (
-              <button class={`w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-cyan-400 w-6' : 'bg-white/20'}`} data-dot={i} aria-label={`Slide ${i + 1}`} />
+                </a>
+              </div>
             ))}
           </div>
         </div>
 
+        <!-- Dots -->
+        <div class="flex justify-center flex-wrap gap-2 mt-6" id="carousel-dots">
+          {projects.map((_, i) => (
+            <button
+              class={`h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-cyan-400 w-6' : 'bg-white/20 w-2 hover:bg-white/40'}`}
+              data-dot={i}
+              aria-label={`Ir al proyecto ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <script>
   const track = document.getElementById('carousel-track')!;
-  const dots = document.querySelectorAll('[data-dot]');
+  const dots = document.querySelectorAll<HTMLElement>('[data-dot]');
   const prevBtn = document.getElementById('carousel-prev')!;
   const nextBtn = document.getElementById('carousel-next')!;
-  const totalSlides = dots.length;
-  let current = 0;
-  let startX = 0;
-  let isDragging = false;
+  const links = track.querySelectorAll<HTMLElement>('[data-project-link]');
 
-  function goTo(index: number) {
-    current = ((index % totalSlides) + totalSlides) % totalSlides;
-    track.style.transform = `translateX(-${current * 100}%)`;
+  const realCount = dots.length; // number of actual projects
+  // Track layout: [clone(last), 0, 1, ..., realCount-1, clone(first)]
+  // Start on index 1 (first real project).
+  let pos = 1;
+  const TRANSITION = 'transform 500ms ease-out';
+
+  function applyTransform(animate: boolean) {
+    track.style.transition = animate ? TRANSITION : 'none';
+    track.style.transform = `translateX(-${pos * 100}%)`;
+  }
+
+  function updateDots() {
+    // Map carousel position back to a real project index.
+    let real = pos - 1;
+    if (real < 0) real = realCount - 1;
+    if (real >= realCount) real = 0;
     dots.forEach((dot, i) => {
-      (dot as HTMLElement).className = `w-2 h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-cyan-400 w-6' : 'bg-white/20'}`;
+      dot.className = `h-2 rounded-full transition-all duration-300 ${
+        i === real ? 'bg-cyan-400 w-6' : 'bg-white/20 w-2 hover:bg-white/40'
+      }`;
     });
   }
 
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => goTo(i));
-  });
+  function go(delta: number) {
+    pos += delta;
+    applyTransform(true);
+    updateDots();
+  }
 
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
+  function goToReal(realIndex: number) {
+    pos = realIndex + 1;
+    applyTransform(true);
+    updateDots();
+  }
 
-  track.addEventListener('touchstart', (e) => {
-    startX = (e as TouchEvent).touches[0].clientX;
-    isDragging = true;
-    (track as HTMLElement).style.transition = 'none';
-  });
-
-  track.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const diff = (e as TouchEvent).touches[0].clientX - startX;
-    const offset = -(current * track.clientWidth) + diff;
-    (track as HTMLElement).style.transform = `translateX(${offset}px)`;
-  });
-
-  track.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    (track as HTMLElement).style.transition = '';
-    const diff = (e as TouchEvent).changedTouches[0].clientX - startX;
-    if (Math.abs(diff) > 50) {
-      goTo(current + (diff < 0 ? 1 : -1));
-    } else {
-      goTo(current);
+  // Seamless wrap: when landing on a clone, jump instantly to the twin.
+  track.addEventListener('transitionend', () => {
+    if (pos === 0) {
+      pos = realCount;
+      applyTransform(false);
+    } else if (pos === realCount + 1) {
+      pos = 1;
+      applyTransform(false);
     }
   });
+
+  prevBtn.addEventListener('click', () => go(-1));
+  nextBtn.addEventListener('click', () => go(1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goToReal(i)));
+
+  // Touch / pointer drag with threshold + click guard.
+  let startX = 0;
+  let currentX = 0;
+  let dragging = false;
+  let moved = false;
+
+  function onStart(clientX: number) {
+    startX = clientX;
+    currentX = clientX;
+    dragging = true;
+    moved = false;
+    track.style.transition = 'none';
+  }
+
+  function onMove(clientX: number) {
+    if (!dragging) return;
+    currentX = clientX;
+    const diff = currentX - startX;
+    if (Math.abs(diff) > 5) moved = true;
+    const offsetPct = (diff / track.clientWidth) * 100;
+    track.style.transform = `translateX(calc(-${pos * 100}% + ${offsetPct}%))`;
+  }
+
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+    const diff = currentX - startX;
+    if (Math.abs(diff) > 50) {
+      go(diff < 0 ? 1 : -1);
+    } else {
+      applyTransform(true);
+    }
+  }
+
+  // Touch events
+  track.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX), { passive: true });
+  track.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX), { passive: true });
+  track.addEventListener('touchend', onEnd);
+
+  // Mouse drag (desktop)
+  track.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    onStart(e.clientX);
+  });
+  window.addEventListener('mousemove', (e) => onMove(e.clientX));
+  window.addEventListener('mouseup', onEnd);
+
+  // Prevent a drag from triggering navigation.
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      if (moved) {
+        e.preventDefault();
+        moved = false;
+      }
+    });
+  });
+
+  // Initialize position without animation.
+  applyTransform(false);
+  updateDots();
 </script>
