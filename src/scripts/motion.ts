@@ -500,8 +500,9 @@ export function initMotion(): void {
 		"(prefers-reduced-motion: reduce)",
 	).matches;
 
+	const desktopMotion = window.matchMedia("(min-width: 768px)").matches;
 	let lenis: Lenis | null = null;
-	if (!reduced) {
+	if (!reduced && desktopMotion) {
 		safeInit("lenis", () => {
 			lenis = initLenis();
 		});
@@ -523,7 +524,7 @@ export function initMotion(): void {
 
 	safeInit("hero", initHero);
 	safeInit("simple-reveals", initSimpleReveals);
-	safeInit("parallax", initParallax);
+	if (desktopMotion) safeInit("parallax", initParallax);
 	safeInit("refresh:setup", () => ScrollTrigger.refresh());
 
 	// SplitText y el word-cycler esperan a las fuentes (evitan layout shift

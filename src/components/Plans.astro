@@ -92,7 +92,7 @@ const plans: Plan[] = [
 ---
 
 <section
-  class="theme-dark relative overflow-hidden py-24 md:py-32"
+  class="theme-dark plans-section relative overflow-hidden py-16 sm:py-20 md:py-32"
   id="planes"
   data-nav-theme="dark"
 >
@@ -104,31 +104,21 @@ const plans: Plan[] = [
       style="background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px); background-size: 64px 64px;"
     >
     </div>
-    <div
-      class="absolute top-[10%] right-[-5%] w-[35%] h-[50%] bg-cyan-600/15 rounded-full blur-[140px]"
-      data-parallax="0.15"
-    >
-    </div>
-    <div
-      class="absolute bottom-[5%] left-[-10%] w-[30%] h-[40%] bg-indigo-600/15 rounded-full blur-[120px]"
-      data-parallax="0.1"
-    >
-    </div>
   </div>
 
-  <div class="container mx-auto px-6 relative z-10">
+  <div class="container mx-auto px-4 sm:px-6 relative z-10">
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
-      <div class="max-w-3xl mb-16 md:mb-20">
-        <p class="eyebrow mb-6" data-reveal="fade">02 — Planes</p>
+      <div class="max-w-3xl mb-10 sm:mb-14 md:mb-20">
+        <p class="eyebrow mb-4 sm:mb-6" data-reveal="fade">02 — Planes</p>
         <h2
-          class="text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold tracking-[-0.03em] leading-[1.05] text-white"
+          class="text-[clamp(2.25rem,10vw,4.5rem)] font-bold tracking-[-0.035em] leading-[1.05] text-white"
           data-reveal="lines"
         >
           Planes que <span class="text-cyan-300">escalan contigo</span>
         </h2>
         <p
-          class="mt-6 text-lg text-slate-400 max-w-xl"
+          class="mt-4 text-base leading-relaxed text-slate-400 sm:mt-6 sm:text-lg max-w-xl"
           data-reveal="fade-up"
           data-reveal-delay="0.15"
         >
@@ -138,16 +128,16 @@ const plans: Plan[] = [
 
       <!-- Plans Grid -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 items-stretch"
         data-reveal="stagger"
         data-reveal-stagger="0.1"
       >
         {
           plans.map((plan) => (
             <div
-              class={`relative group rounded-3xl p-px transition-all duration-500 ease-out-expo hover:-translate-y-2 ${
+              class={`plan-card relative group rounded-[1.25rem] sm:rounded-3xl p-px lg:transition-transform lg:duration-300 lg:ease-out-expo lg:hover:-translate-y-1 ${
                 plan.isPrimary
-                  ? "bg-gradient-to-b from-cyan-400/70 via-cyan-500/25 to-transparent lg:-mt-4 lg:mb-4 shadow-2xl shadow-cyan-500/20"
+                  ? "bg-gradient-to-b from-cyan-400/70 via-cyan-500/25 to-transparent lg:-mt-4 lg:mb-4 shadow-lg shadow-cyan-500/15"
                   : plan.isPersonalized
                     ? "bg-gradient-to-b from-indigo-400/40 via-violet-500/15 to-transparent hover:from-indigo-400/60"
                     : "bg-gradient-to-b from-white/20 to-white/[0.04] hover:from-white/35"
@@ -164,10 +154,10 @@ const plans: Plan[] = [
 
               {/* Card */}
               <div
-                class={`relative h-full p-8 rounded-[calc(1.5rem-1px)] flex flex-col overflow-hidden transition-colors duration-500 ${
+                class={`relative h-full p-5 sm:p-7 lg:p-6 xl:p-8 rounded-[calc(1.25rem-1px)] sm:rounded-[calc(1.5rem-1px)] flex flex-col overflow-hidden lg:transition-colors lg:duration-300 ${
                   plan.isPrimary
                     ? "bg-slate-900"
-                    : "bg-slate-900/80 backdrop-blur-xl group-hover:bg-slate-900"
+                    : "bg-slate-900 group-hover:bg-slate-900"
                 }`}
               >
                 {/* Inner top glow for featured / personalized */}
@@ -182,7 +172,7 @@ const plans: Plan[] = [
                 )}
 
                 {/* Plan Header */}
-                <div class="mb-8">
+                <div class="mb-6 sm:mb-8">
                   <h3
                     class={`font-display font-semibold mb-4 break-words leading-tight ${
                       plan.isPersonalized
@@ -200,7 +190,7 @@ const plans: Plan[] = [
                 </div>
 
                 {/* Features List */}
-                <ul class="space-y-3.5 mb-8 flex-grow">
+                <ul class="space-y-3 mb-7 sm:space-y-3.5 sm:mb-8 flex-grow">
                   {plan.features.map((feature) => (
                     <li class="flex items-start gap-3">
                       <span
@@ -248,3 +238,23 @@ const plans: Plan[] = [
     </div>
   </div>
 </section>
+
+<style>
+  .plans-section {
+    background-image:
+      radial-gradient(circle at 92% 18%, rgba(8, 145, 178, 0.14), transparent 30rem),
+      radial-gradient(circle at 5% 88%, rgba(79, 70, 229, 0.12), transparent 28rem);
+  }
+
+  .plan-card {
+    contain: layout paint;
+  }
+
+  @media (max-width: 767px) {
+    .plans-section {
+      background-image:
+        radial-gradient(circle at 100% 10%, rgba(8, 145, 178, 0.12), transparent 18rem),
+        radial-gradient(circle at 0% 92%, rgba(79, 70, 229, 0.1), transparent 18rem);
+    }
+  }
+</style>
