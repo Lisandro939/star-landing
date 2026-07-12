@@ -91,7 +91,11 @@ const plans: Plan[] = [
 ];
 ---
 
-<section class="py-24 bg-slate-950 relative overflow-hidden" id="planes">
+<section
+  class="theme-dark relative overflow-hidden py-24 md:py-32"
+  id="planes"
+  data-nav-theme="dark"
+>
   <!-- Decorative background elements -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <!-- Subtle grid texture for depth -->
@@ -102,10 +106,12 @@ const plans: Plan[] = [
     </div>
     <div
       class="absolute top-[10%] right-[-5%] w-[35%] h-[50%] bg-cyan-600/15 rounded-full blur-[140px]"
+      data-parallax="0.15"
     >
     </div>
     <div
       class="absolute bottom-[5%] left-[-10%] w-[30%] h-[40%] bg-indigo-600/15 rounded-full blur-[120px]"
+      data-parallax="0.1"
     >
     </div>
   </div>
@@ -113,21 +119,19 @@ const plans: Plan[] = [
   <div class="container mx-auto px-6 relative z-10">
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span
-          class="inline-block mb-5 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium uppercase tracking-[0.2em] text-cyan-300/90"
-        >
-          Planes
-        </span>
+      <div class="max-w-3xl mb-16 md:mb-20">
+        <p class="eyebrow mb-6" data-reveal="fade">02 — Planes</p>
         <h2
-          class="text-4xl md:text-5xl font-normal font-display text-white mb-6 tracking-tight"
+          class="text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold tracking-[-0.03em] leading-[1.05] text-white"
+          data-reveal="lines"
         >
-          Planes que <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-indigo-200"
-            >escalan contigo</span
-          >
+          Planes que <span class="text-cyan-300">escalan contigo</span>
         </h2>
-        <p class="text-lg text-slate-400">
+        <p
+          class="mt-6 text-lg text-slate-400 max-w-xl"
+          data-reveal="fade-up"
+          data-reveal-delay="0.15"
+        >
           Elige el plan perfecto para tu negocio. Sin costos ocultos.
         </p>
       </div>
@@ -135,11 +139,13 @@ const plans: Plan[] = [
       <!-- Plans Grid -->
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+        data-reveal="stagger"
+        data-reveal-stagger="0.1"
       >
         {
           plans.map((plan) => (
             <div
-              class={`relative group rounded-3xl p-px transition-all duration-500 hover:-translate-y-2 ${
+              class={`relative group rounded-3xl p-px transition-all duration-500 ease-out-expo hover:-translate-y-2 ${
                 plan.isPrimary
                   ? "bg-gradient-to-b from-cyan-400/70 via-cyan-500/25 to-transparent lg:-mt-4 lg:mb-4 shadow-2xl shadow-cyan-500/20"
                   : plan.isPersonalized
@@ -150,7 +156,7 @@ const plans: Plan[] = [
               {/* Popular Badge */}
               {plan.isPopular && (
                 <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20">
-                  <div class="px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 text-xs font-bold uppercase tracking-wider shadow-lg shadow-cyan-500/40">
+                  <div class="px-4 py-1.5 rounded-full bg-cyan-300 text-slate-950 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] shadow-lg shadow-cyan-500/40">
                     Más popular
                   </div>
                 </div>
@@ -176,7 +182,7 @@ const plans: Plan[] = [
                 )}
 
                 {/* Plan Header */}
-                <div class="text-center mb-8">
+                <div class="mb-8">
                   <h3
                     class={`font-display font-semibold mb-4 break-words leading-tight ${
                       plan.isPersonalized
@@ -224,15 +230,15 @@ const plans: Plan[] = [
                       ? "noopener noreferrer"
                       : undefined
                   }
-                  class={`w-full py-3.5 px-6 rounded-full text-center font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-                    plan.isPrimary
-                      ? "bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 hover:shadow-lg hover:shadow-cyan-500/40 hover:brightness-110"
-                      : plan.isPersonalized
-                        ? "bg-gradient-to-r from-violet-500/90 to-indigo-500/90 text-white hover:shadow-lg hover:shadow-violet-500/30 hover:brightness-110"
-                        : "bg-white/5 text-white border border-white/15 hover:bg-white/10 hover:border-white/30"
+                  class={`btn-cta w-full justify-center text-sm ${
+                    plan.isPrimary ? "btn-cta--solid" : "btn-cta--ghost"
                   }`}
                 >
                   {plan.ctaText}
+                  <span class="btn-arrows" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+                  </span>
                 </a>
               </div>
             </div>

@@ -1,160 +1,196 @@
 ---
-import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import Navbar from "./Navbar.astro";
+import yzenLogo from "../assets/Yzen-Logo.png";
+
+// Logos servidos desde public/ (estrategia estática del proyecto).
+// heightClass calibra el peso visual por logo: los wordmarks anchos
+// (Brenat 4.6:1) van más bajos, los emblemas cuadrados más altos.
+const companyLogos = [
+  {
+    src: "/assets/companies-logos/Logo.png",
+    alt: "Efectos Mendoza",
+    heightClass: "h-12 md:h-16",
+  },
+  {
+    src: "/assets/companies-logos/deliveries.png",
+    alt: "Deliveries en Lavalle",
+    heightClass: "h-12 md:h-16",
+  },
+  {
+    src: "/assets/companies-logos/logo-aserradero.png",
+    alt: "Aserradero Don Gustavo",
+    heightClass: "h-14 md:h-18",
+  },
+  {
+    src: "/assets/companies-logos/Brenat-logo.png",
+    alt: "Brenat",
+    heightClass: "h-8 md:h-10",
+  },
+  {
+    src: "/assets/companies-logos/DMLeon-logo.png",
+    alt: "DM León",
+    heightClass: "h-12 md:h-16",
+  },
+];
+
+// Tres secuencias por tramo mantienen el marquee cubierto en monitores anchos
+// sin tener que separar excesivamente cada logo.
+const marqueeLogos = [...companyLogos, ...companyLogos, ...companyLogos];
 ---
 
-<section class="relative h-screen min-h-[700px] w-full p-2" id="inicio">
-  <!-- Hero Card Container -->
+{/*
+  Hero pinneado (firma del sitio): el contenedor mide 200dvh y motion.ts
+  (initHero) pinnea #hero-pin con scrub. Sin JS / reduced-motion, el estado
+  CSS natural mantiene visible la pieza de marca.
+*/}
+<section
+  id="inicio"
+  class="theme-light relative h-[200dvh]"
+  data-nav-theme="light"
+>
+  {/*
+    Layout del pin (100dvh): el strip de logos es una franja absoluta abajo;
+    el padding-bottom equivalente en el flex hace que el copy quede centrado
+    ÓPTICAMENTE en el espacio restante (no en el dvh completo).
+  */}
   <div
-    class="relative w-full h-full flex flex-col rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-2xl shadow-cyan-950/10 group border border-white/40"
+    id="hero-pin"
+    class="relative flex h-dvh w-full flex-col items-center justify-center overflow-hidden pb-36 md:pb-40"
   >
-    <!-- Background Gradient - Brand-aligned Light Cyan/Blue -->
+    <!-- Fondo: luz superior + tinte cyan hacia abajo -->
     <div
-      class="absolute inset-0 bg-gradient-to-br from-[#F8FAFC] via-[#ECFEFF] to-[#A5F3FC] z-0 rounded-[2rem] md:rounded-[3rem]"
+      class="absolute inset-0 bg-gradient-to-b from-white via-slate-50 to-cyan-100/60"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-10%,rgba(165,243,252,0.5)_0%,transparent_60%)]"
+      aria-hidden="true"
     >
     </div>
 
-    <!-- Subtle Logo Watermark Integration -->
+    <!--
+      Watermark de marca: la pieza animada vive de fondo, gigante y anclada
+      arriba a la derecha (desborda; el overflow-hidden del pin la recorta),
+      capada a ~7% de opacidad por el wrapper. GSAP anima
+      [data-hero-logo-scene] (el inner), así el cap nunca se pisa con autoAlpha.
+    -->
     <div
-      class="absolute top-[-20vh] md:top-[-10vh] right-[-40vw] w-[600px] h-[600px] md:w-[100vw] md:h-[90vh] opacity-[0.10] z-[1] pointer-events-none"
-    >
-      <Image
-        src="/assets/Yzen-Logo.png"
-        alt=""
-        width={1000}
-        height={1000}
-        class="w-full h-full object-contain"
-        style="filter: blur(1px);"
-      />
-    </div>
-
-    <!-- Subtle Background Pattern/Glow -->
-    <div
-      class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(165,243,252,0.4)_0%,transparent_70%)] z-[2] rounded-[2rem] md:rounded-[3rem]"
-    >
-    </div>
-
-    <!-- Header Integrated Inside -->
-    <div
-      class="fixed left-0 right-0 z-50 w-full px-4 md:px-8 transition-all duration-300"
-      id="hero-nav-container"
-    >
-      <div class="max-w-7xl mx-auto">
-        <Navbar />
-      </div>
-    </div>
-
-    <div
-      class="flex-1 flex flex-col items-center justify-center relative z-10 px-6 pt-24 pb-12"
+      class="pointer-events-none absolute inset-0 z-0 opacity-[0.07]"
+      aria-hidden="true"
     >
       <div
-        class="max-w-4xl 2xl:max-w-6xl mx-auto flex flex-col items-center text-center"
+        data-hero-logo-scene
+        class="hero-logo-scene absolute top-0 right-0 grid size-[clamp(60rem,138vw,114rem)] translate-x-1/3 -translate-y-1/3 place-items-center will-change-transform"
       >
-        <!-- Partner/Badge -->
-        <div
-          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-cyan-100 text-cyan-800 text-[10px] font-bold uppercase tracking-[0.2em] mb-8 animate-fade-in shadow-sm mt-8"
-        >
-          <Icon name="lucide:sparkles" class="text-cyan-600" size={14} />
-          <span>Innovación & Excelencia Digital</span>
-        </div>
-
-        <!-- Heading -->
-        <div class="relative">
-          <h1
-            class="text-5xl md:text-7xl 2xl:text-8xl font-display text-[#083344] mb-8 tracking-tight leading-[0.95] font-semibold"
-          >
-            HACÉ QUE TU
-            <span
-              class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600"
-            >
-              EMPRESA
-            </span>
-            JUEGUE EN
-            <span
-              class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600"
-            >
-              PRIMERA
-            </span>
-          </h1>
-        </div>
-
-        <!-- Description -->
-        <p
-          class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium opacity-90"
-        >
-          ¿Todavía no tenes tu página web? <br /> Profesionalizá tu imagen, automatizá
-          tu gestión y aumentá tus ventas.
-        </p>
-
-        <!-- Buttons -->
-        <div
-          class="flex flex-col sm:flex-row items-center gap-5 justify-center"
-        >
-          <a
-            href="#contacto"
-            class="px-8 py-3 bg-[#083344] text-white rounded-full font-bold text-lg hover:bg-[#164e63] transition-all hover:scale-105 active:scale-95"
-          >
-            Comienza ahora
-          </a>
-
-          <a
-            href="#planes"
-            class="px-8 py-3 bg-white/60 hover:bg-white text-[#083344] rounded-full font-bold text-lg backdrop-blur-md border border-cyan-200/50 transition-all hover:scale-105 active:scale-95"
-          >
-            Ver planes
-          </a>
+        <span class="hero-logo-orbit hero-logo-orbit--outer" aria-hidden="true"></span>
+        <span class="hero-logo-orbit hero-logo-orbit--inner" aria-hidden="true"></span>
+        <span class="hero-logo-glow" aria-hidden="true"></span>
+        <div data-hero-logo class="hero-logo-mark will-change-transform">
+          <Image src={yzenLogo} alt="" widths={[518]} sizes="78rem" loading="eager" class="h-auto w-[clamp(39rem,90vw,78rem)]" />
         </div>
       </div>
     </div>
 
-    <!-- Integrate Product Strip at Bottom of Card (Infinite Carousel) -->
+    <!-- COPY: único bloque en el flujo del flex → centrado exacto en el pin -->
     <div
-      class="relative z-10 w-full pb-8 px-6 overflow-hidden mt-auto flex flex-col items-center gap-6"
+      data-hero-copy
+      class="relative z-10 flex w-full max-w-7xl flex-col items-center px-6 text-center"
     >
-      <p
-        class="text-sm font-medium text-slate-500 uppercase tracking-widest text-center"
+
+      {/*
+        Quiebre forzado en DOS líneas exactas: cada línea es un span block con
+        whitespace-nowrap (jamás 3 líneas) y el clamp está calibrado para que
+        la línea larga ("HACÉ QUE TU EMPRESA") entre desde 320px hasta desktop.
+        SplitText (type lines, autoSplit) respeta los block spans: cada uno
+        cae en su propia línea del split — verificado en browser.
+      */}
+      <h1
+        class="mb-7 text-[clamp(1.625rem,7.2vw,6.5rem)] leading-[1.06] font-bold tracking-[-0.035em] whitespace-nowrap text-slate-900"
+        data-reveal="lines"
       >
-        Confían en nosotros
+        <span class="block">
+          HACÉ QUE TU
+          <span
+            class="bg-gradient-to-r from-cyan-600 to-indigo-600 bg-clip-text text-transparent"
+          >EMPRESA</span>
+        </span>
+        <span class="block">
+          JUEGUE EN
+          <span
+            class="bg-gradient-to-r from-cyan-600 to-indigo-600 bg-clip-text text-transparent"
+          >PRIMERA</span>
+        </span>
+      </h1>
+
+      <p
+        class="mb-9 max-w-2xl text-lg leading-relaxed font-medium text-slate-600 md:text-xl"
+        data-reveal="fade-up"
+        data-reveal-delay="0.3"
+      >
+        Desarrollamos páginas web, tiendas online y sistemas de gestión que
+        automatizan procesos, profesionalizan tu negocio y aumentan tus ventas.
       </p>
 
       <div
-        class="max-w-4xl mx-auto relative w-full"
-        style="-webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);"
+        class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        data-reveal="fade-up"
+        data-reveal-delay="0.45"
       >
-        <div class="flex w-max" style="animation: scroll 30s linear infinite;">
-          <!-- Original Set -->
-          <div class="flex gap-16 px-8 items-center">
+        <a href="#contacto" class="btn-cta btn-cta--solid text-base">
+          Comienza ahora
+          <span class="btn-arrows" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+          </span>
+        </a>
+
+        <a href="#planes" class="btn-cta btn-cta--ghost text-base">
+          Ver planes
+          <span class="btn-arrows" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!--
+      Strip "Confían en nosotros": franja fija al pie del viewport pinneado.
+      Logos SIN filtros (colores originales), mask degradada en los bordes.
+      Permanece visible durante todo el recorrido del hero pinneado.
+    -->
+    <div
+      data-hero-logos
+      class="absolute inset-x-0 bottom-0 z-10 pb-5 md:pb-7"
+    >
+      <p class="eyebrow mb-4 text-center text-xs md:mb-5">
+        Confían en nosotros
+      </p>
+      <div class="marquee-mask overflow-hidden">
+        <div class="marquee-track items-center" style="--marquee-duration: 36s;">
+          <div class="marquee-group">
             {
-              [
-                "/assets/companies-logos/Logo.png",
-                "/assets/companies-logos/deliveries.png",
-                "/assets/companies-logos/logo-aserradero.png",
-                "/assets/companies-logos/Brenat-logo.png",
-                "/assets/companies-logos/DMLeon-logo.png",
-              ].map((logo) => (
+              marqueeLogos.map((logo, index) => (
                 <img
-                  src={logo}
-                  alt="Client Logo"
-                  class="h-18 w-auto grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 object-contain"
+                  src={logo.src}
+                  alt={index < companyLogos.length ? logo.alt : ""}
+                  loading="eager"
+                  class={`w-auto shrink-0 object-contain ${logo.heightClass}`}
                 />
               ))
             }
           </div>
-          <!-- Duplicate Set for Seamless Loop -->
-          <div class="flex gap-16 px-8 items-center">
+
+          {/* Copia decorativa: mantiene el loop continuo sin duplicar contenido accesible. */}
+          <div class="marquee-group" aria-hidden="true">
             {
-              [
-                "/assets/companies-logos/Logo.png",
-                "/assets/companies-logos/deliveries.png",
-                "/assets/companies-logos/logo-aserradero.png",
-                "/assets/companies-logos/Brenat-logo.png",
-                "/assets/companies-logos/DMLeon-logo.png",
-              ].map((logo) => (
+              marqueeLogos.map((logo) => (
                 <img
-                  src={logo}
-                  alt="Client Logo"
-                  class="h-18 w-auto grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 object-contain"
+                  src={logo.src}
+                  alt=""
+                  loading="eager"
+                  class={`w-auto shrink-0 object-contain ${logo.heightClass}`}
                 />
               ))
             }
@@ -165,97 +201,61 @@ import Navbar from "./Navbar.astro";
   </div>
 </section>
 
-<script>
-  const navContainer = document.getElementById("hero-nav-container");
-  const heroSection = document.getElementById("inicio");
-
-  window.addEventListener("scroll", () => {
-    if (!navContainer || !heroSection) return;
-
-    if (window.scrollY > 10) {
-      navContainer.classList.add("top-2");
-      navContainer.classList.remove("top-6");
-    } else {
-      navContainer.classList.add("top-6");
-      navContainer.classList.remove("top-2");
-    }
-
-    if (window.scrollY > 800) {
-      const inner = navContainer.querySelector("#navbar-inner") as HTMLElement;
-      if (inner) {
-        inner.classList.add(
-          "bg-slate-950/80",
-          "backdrop-blur-3xl",
-          "border-white/10",
-        );
-        inner.classList.remove(
-          "bg-white/40",
-          "backdrop-blur-xl",
-          "border-white/25",
-        );
-
-        // Adjusting items inside the navbar for the dark mode glass scroll
-        inner.querySelectorAll("a, span, button, .icon").forEach((el) => {
-          if (!(el as HTMLElement).closest(".bg-cyan-200")) {
-            (el as HTMLElement).style.color = "white";
-          }
-        });
-        // Switch to white logo
-        const logoDark = inner.querySelector("#logo-dark") as HTMLElement;
-        const logoWhite = inner.querySelector("#logo-white") as HTMLElement;
-        if (logoDark) logoDark.classList.add("opacity-0");
-        if (logoWhite) logoWhite.classList.remove("opacity-0");
-      }
-    } else {
-      const inner = navContainer.querySelector("#navbar-inner") as HTMLElement;
-      if (inner) {
-        // Initial State: "Distinguished" Light Glass with Subtle Border
-        inner.classList.remove(
-          "bg-slate-950/80",
-          "backdrop-blur-3xl",
-          "border-white/10",
-        );
-        inner.classList.add(
-          "bg-white/40",
-          "backdrop-blur-xl",
-          "border-black/25",
-        );
-
-        // Text colors for light background
-        inner.querySelectorAll("a, span, button, .icon").forEach((el) => {
-          if (!(el as HTMLElement).closest(".bg-cyan-200")) {
-            (el as HTMLElement).style.color = "#083344";
-          }
-        });
-        // Switch to dark logo
-        const logoDark = inner.querySelector("#logo-dark") as HTMLElement;
-        const logoWhite = inner.querySelector("#logo-white") as HTMLElement;
-        if (logoDark) logoDark.classList.remove("opacity-0");
-        if (logoWhite) logoWhite.classList.add("opacity-0");
-      }
-    }
-  });
-
-  window.dispatchEvent(new Event("scroll"));
-</script>
-
 <style>
-  /* Remove global overrides that force partial transparency so JS classes can work */
-  .navbar-wrapper :global(#navbar-inner) {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent
+    );
   }
 
-  .navbar-wrapper :global(a, span, button) {
-    transition: color 0.4s ease;
+  .marquee-group {
+    display: flex;
+    width: max-content;
+    min-width: 100vw;
+    flex: none;
+    align-items: center;
+    gap: clamp(2rem, 3vw, 3.5rem);
+    padding-inline: clamp(1rem, 2vw, 2rem);
   }
 
-  /* Keep button override */
-  .navbar-wrapper :global(a.bg-cyan-200) {
-    background-color: #083344 !important;
-    color: white !important;
-  }
+  .hero-logo-scene { isolation: isolate; }
+  .hero-logo-glow { position: absolute; inset: 17%; z-index: -1; border-radius: 999px; background: radial-gradient(circle, rgba(103, 232, 249, .42), rgba(129, 140, 248, .12) 48%, transparent 72%); filter: blur(18px); animation: logo-breathe 3.8s ease-in-out infinite; }
+  .hero-logo-orbit { position: absolute; border-radius: 999px; border: 1px solid rgba(8, 145, 178, .18); }
+  .hero-logo-orbit::after { content: ""; position: absolute; top: 50%; left: -3px; width: 6px; height: 6px; border-radius: 50%; background: #06b6d4; box-shadow: 0 0 14px #22d3ee; }
+  .hero-logo-orbit--outer { inset: 2%; animation: logo-spin 13s linear infinite; }
+  .hero-logo-orbit--inner { inset: 17%; border-color: rgba(79, 70, 229, .16); animation: logo-spin 9s linear infinite reverse; }
+  .hero-logo-orbit--inner::after { background: #6366f1; box-shadow: 0 0 12px #818cf8; }
+  .hero-logo-mark { animation: logo-float 4.2s ease-in-out infinite; }
+  @keyframes logo-spin { to { transform: rotate(360deg); } }
+  @keyframes logo-float { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-10px) rotate(1.5deg); } }
+  @keyframes logo-breathe { 0%, 100% { opacity: .62; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.12); } }
+  @media (prefers-reduced-motion: reduce) { .hero-logo-orbit, .hero-logo-mark, .hero-logo-glow { animation: none; } }
 
-  .navbar-wrapper :global(.icon) {
-    color: inherit !important;
+  /*
+    Pantallas CORTAS (iPhone SE ~568px, Androids chicos ~640px, landscape):
+    el copy centrado en 100dvh + el strip reservado abajo (pb) hacen que la
+    primera línea del H1 choque contra el nav fijo. La restricción es de ALTO,
+    no de ancho (el H1 entra sobrado en 320px y no hay scroll-x), así que se
+    ataca con max-height: 390x844 y desktop (height ≥ 700) quedan INTACTOS.
+  */
+  @media (max-height: 700px) {
+    #hero-pin { padding-bottom: 5.25rem; }
+    [data-hero-copy] h1 { margin-bottom: 0.75rem; }
+    [data-hero-copy] p {
+      font-size: 1rem;
+      line-height: 1.4;
+      margin-bottom: 1.25rem;
+    }
   }
 </style>

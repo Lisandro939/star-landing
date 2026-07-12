@@ -1,0 +1,64 @@
+---
+// Word-cycler estilo "Real ___" de Scale — la rotación la maneja motion.ts
+// (initWordCycler) leyendo data-words; sin JS queda la primera palabra fija.
+const words = [
+  { text: "comercios", color: "#0891b2" }, // cyan-600
+  { text: "deliveries", color: "#4f46e5" }, // indigo-600
+  { text: "restaurantes", color: "#0d9488" }, // teal-600
+  { text: "estéticas", color: "#7c3aed" }, // violet-600
+  { text: "eventos", color: "#c026d3" }, // fuchsia-600
+  { text: "emprendedores", color: "#0284c7" }, // sky-600
+  { text: "industrias", color: "#0e7490" }, // cyan-700
+  { text: "tu negocio", color: "#4338ca" }, // indigo-700
+];
+const firstWord = words[0];
+---
+
+<section
+  class="theme-light relative overflow-hidden py-28 md:py-40"
+  data-nav-theme="light"
+>
+  <div class="container mx-auto px-6 text-center">
+    <p class="eyebrow mb-7" data-reveal="fade">Soluciones</p>
+
+    <h2
+      class="text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[1.06] font-bold tracking-[-0.03em] text-slate-900"
+      data-reveal="fade-up"
+    >
+      Software real
+      <br />
+      <span>para</span>
+      {/* El &#8203; (zwsp) mantiene la altura de línea cuando JS absolutiza la palabra */}
+      <span
+        class="inline-block overflow-clip whitespace-nowrap"
+        data-word-cycler
+        data-words={JSON.stringify(words)}
+        >&#8203;<span data-cycler-word style={`color: ${firstWord.color}`}
+          >{firstWord.text}</span
+        ></span
+      >
+    </h2>
+
+    <p
+      class="mx-auto mt-8 max-w-xl text-lg font-medium text-slate-600"
+      data-reveal="fade-up"
+      data-reveal-delay="0.15"
+    >
+      Cada solución se adapta 100% a las necesidades de tu negocio.
+    </p>
+
+    <div
+      class="mt-10 flex justify-center"
+      data-reveal="fade-up"
+      data-reveal-delay="0.3"
+    >
+      <a href="#planes" class="btn-cta btn-cta--solid text-base">
+        Ver planes
+        <span class="btn-arrows" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>

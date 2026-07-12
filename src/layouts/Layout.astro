@@ -6,40 +6,82 @@ import Analytics from "@vercel/analytics/astro";
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
 }
 
 const {
-	title = "Yzen Software",
-	description = "Desarrollamos soluciones tecnológicas innovadoras y modernas para impulsar tu negocio al siguiente nivel.",
+	title = "Desarrollo de software a medida | Yzen Software",
+	description = "Creamos software a medida, sistemas de gestión, páginas web y tiendas online para empresas de Argentina.",
+	image = "/assets/Yzen-Logo-With-Name-Color.png",
 } = Astro.props;
+
+const siteOrigin = Astro.site ?? Astro.url;
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin);
+const socialImageUrl = new URL(image, siteOrigin);
+
+const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "ProfessionalService",
+	"@id": `${canonicalUrl.origin}/#organization`,
+	name: "Yzen Software",
+	url: canonicalUrl.origin,
+	logo: socialImageUrl.href,
+	description,
+	telephone: "+54 9 261 599-0250",
+	areaServed: [
+		{ "@type": "Country", name: "Argentina" },
+		{ "@type": "AdministrativeArea", name: "Mendoza" },
+	],
+	address: {
+		"@type": "PostalAddress",
+		addressRegion: "Mendoza",
+		addressCountry: "AR",
+	},
+	sameAs: ["https://www.instagram.com/yzen.software/"],
+	knowsAbout: [
+		"Desarrollo de software a medida",
+		"Sistemas de gestión",
+		"Desarrollo web",
+		"Tiendas online",
+		"Automatización de procesos",
+	],
+};
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
+		<script is:inline>
+			document.documentElement.classList.add("js");
+		</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#020617" />
 
-		<!-- SEO Meta Tags -->
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta
-			name="keywords"
-			content="desarrollo software, soluciones tecnológicas, software empresarial, desarrollo web, aplicaciones móviles"
-		/>
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="es-AR" href={canonicalUrl} />
+		<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
-		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Yzen Software" />
+		<meta property="og:locale" content="es_AR" />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
+		<meta property="og:image" content={socialImageUrl} />
+		<meta property="og:image:alt" content="Yzen Software — desarrollo de software a medida" />
 
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImageUrl} />
+
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
 		<!-- Vercel Web Analytics -->
 		<Analytics />
@@ -47,5 +89,9 @@ const {
 	<body>
 		<slot />
 		<WhatsAppButton />
+		<script>
+			import { initMotion } from "../scripts/motion";
+			initMotion();
+		</script>
 	</body>
 </html>

@@ -2,66 +2,71 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 
-const menuItems = ["Inicio", "Planes", "Nosotros"];
+const menuItems = [
+  { label: "Inicio", href: "#inicio" },
+  { label: "Planes", href: "#planes" },
+  { label: "Nosotros", href: "#nosotros" },
+];
 ---
 
-<nav class="z-50 transition-all duration-300 w-full" id="navbar">
+<nav
+  id="site-nav"
+  class="fixed inset-x-0 top-3 z-50 md:top-4"
+  aria-label="Navegación principal"
+>
   <div class="container mx-auto px-4 md:px-6">
     <div
-      class="mx-auto rounded-full border border-white/10 bg-slate-950/60 backdrop-blur-xl transition-all duration-300 px-6 h-12 md:h-14 flex items-center justify-between"
-      id="navbar-inner"
+      class="nav-pill mx-auto flex h-12 items-center justify-between rounded-full border px-5 backdrop-blur-xl md:h-14 md:px-6"
     >
-      <!-- LOGO -->
-      <a href="/" class="flex items-center gap-3 group relative">
+      <!-- LOGO: dos copias superpuestas, el swap lo hace CSS via [data-nav-theme] -->
+      <a href="/" class="relative flex items-center" aria-label="Yzen Software — Inicio">
         <Image
           src="/assets/Yzen-Logo-With-Name-Color.png"
-          alt="Logo"
+          alt="Yzen Software"
           width={96}
           height={32}
-          class="w-24 transition-opacity duration-300"
-          id="logo-dark"
+          class="nav-logo-color w-24"
         />
         <Image
-          src="/assets/Yzen-Logo-With-Name-Color.png"
-          alt="Logo"
+          src="/assets/Yzen-Logo-With-Name-White.png"
+          alt=""
+          aria-hidden="true"
           width={96}
           height={32}
-          class="w-24 absolute top-0 left-0 opacity-0 transition-opacity duration-300"
-          id="logo-white"
+          class="nav-logo-white absolute top-0 left-0 w-24"
         />
       </a>
 
       <!-- DESKTOP MENU -->
-      <div class="hidden md:flex items-center gap-6">
+      <div class="hidden items-center gap-6 md:flex">
         {
           menuItems.map((item) => (
             <a
-              href={`#${item.toLowerCase()}`}
-              class="relative text-xs font-bold uppercase tracking-wider transition-colors py-2 group/link"
+              href={item.href}
+              class="nav-link group/link relative py-2 text-xs font-bold tracking-wider uppercase"
             >
-              {item}
-              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-600 transition-all duration-300 group-hover/link:w-full" />
+              {item.label}
+              <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-cyan-500 transition-all duration-300 group-hover/link:w-full" />
             </a>
           ))
         }
 
-        <a
-          href="#contacto"
-          class="relative overflow-hidden px-4 py-2 rounded-full bg-[#083344] text-white text-sm font-bold hover:bg-[#164e63] transition-all active:scale-95"
-        >
-          <div class="relative z-10 text-white">Contacto</div>
-          <div
-            class="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
-          >
-          </div>
+        <a href="#contacto" class="btn-cta btn-cta--solid px-4 py-2 text-sm">
+          Contacto
+          <span class="btn-arrows" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+          </span>
         </a>
       </div>
 
       <!-- MOBILE MENU BUTTON -->
       <button
-        class="md:hidden text-slate-300 hover:text-white transition-colors relative z-[60] w-8 h-8 flex items-center justify-center"
+        class="nav-link relative z-[60] flex h-8 w-8 items-center justify-center md:hidden"
         id="menuToggle"
-        aria-label="Toggle mobile menu"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobileMenuPanel"
       >
         <span class="menu-icon-open">
           <Icon name="lucide:menu" size={24} />
@@ -77,44 +82,47 @@ const menuItems = ["Inicio", "Planes", "Nosotros"];
 <!-- MOBILE MENU OVERLAY -->
 <div
   id="mobileMenuOverlay"
-  class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+  class="pointer-events-none fixed inset-0 z-[55] bg-slate-950/80 opacity-0 backdrop-blur-sm transition-opacity duration-300 md:hidden"
 >
 </div>
 
 <!-- MOBILE MENU PANEL -->
 <div
   id="mobileMenuPanel"
-  class="fixed top-0 right-0 h-full w-[280px] max-w-[85vw] bg-slate-950/95 backdrop-blur-xl border-l border-white/10 z-[56] translate-x-full transition-transform duration-300 ease-out md:hidden"
+  class="fixed top-0 right-0 z-[56] h-full w-[280px] max-w-[85vw] translate-x-full border-l border-white/10 bg-slate-950/95 backdrop-blur-xl transition-transform duration-300 ease-out md:hidden"
 >
-  <div class="flex flex-col h-full pt-20 pb-8 px-6">
+  <div class="flex h-full flex-col px-6 pt-20 pb-8">
     <!-- MOBILE MENU LINKS -->
-    <nav class="flex flex-col gap-2">
+    <nav class="flex flex-col gap-2" aria-label="Menú mobile">
       {
         menuItems.map((item, index) => (
           <a
-            href={`#${item.toLowerCase()}`}
-            class="mobile-menu-link group relative py-4 px-4 text-lg font-semibold text-slate-300 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/5"
+            href={item.href}
+            class="mobile-menu-link group relative rounded-xl px-4 py-4 text-lg font-semibold text-slate-300 transition-all duration-300 hover:bg-white/5 hover:text-white"
             style={`--delay: ${index * 50}ms`}
           >
             <span class="relative z-10 flex items-center gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              {item}
+              <span class="h-1.5 w-1.5 rounded-full bg-cyan-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              {item.label}
             </span>
-            <span class="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-cyan-500 to-violet-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span class="absolute top-0 left-0 h-full w-1 rounded-full bg-gradient-to-b from-cyan-500 to-violet-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </a>
         ))
       }
     </nav>
 
     <!-- MOBILE CTA BUTTON -->
-    <div class="mt-auto pt-6 border-t border-white/10">
+    <div class="mt-auto border-t border-white/10 pt-6">
       <a
         href="#contacto"
-        class="mobile-menu-link flex items-center justify-center gap-2 w-full py-4 px-6 rounded-full bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold text-lg hover:from-cyan-500 hover:to-cyan-600 transition-all duration-300 active:scale-95 shadow-lg shadow-cyan-900/30"
+        class="mobile-menu-link btn-cta btn-cta--solid w-full justify-center py-4 text-lg"
         style="--delay: 200ms"
       >
-        <Icon name="lucide:mail" size={20} />
         Contacto
+        <span class="btn-arrows" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+        </span>
       </a>
     </div>
 
@@ -126,6 +134,49 @@ const menuItems = ["Inicio", "Planes", "Nosotros"];
 </div>
 
 <style>
+  /* Pill camaleón: las vars --nav-* las setea motion.ts via [data-nav-theme]
+     en :root; el CSS de global.css define los valores por tema. */
+  .nav-pill {
+    background-color: var(--nav-bg);
+    border-color: var(--nav-border);
+    color: var(--nav-fg);
+    transition:
+      color 300ms var(--ease-out-expo),
+      background-color 300ms var(--ease-out-expo),
+      border-color 300ms var(--ease-out-expo);
+  }
+
+  .nav-link {
+    color: var(--nav-fg);
+    transition: color 300ms var(--ease-out-expo), opacity 200ms ease;
+  }
+
+  .nav-link:hover {
+    opacity: 0.85;
+  }
+
+  /* Swap de logos por tema, solo CSS (sin JS). Default: tema dark → blanco. */
+  .nav-logo-color,
+  .nav-logo-white {
+    transition: opacity 300ms var(--ease-out-expo);
+  }
+
+  .nav-logo-color {
+    opacity: 0;
+  }
+
+  .nav-logo-white {
+    opacity: 1;
+  }
+
+  #site-nav[data-nav-theme="light"] .nav-logo-color {
+    opacity: 1;
+  }
+
+  #site-nav[data-nav-theme="light"] .nav-logo-white {
+    opacity: 0;
+  }
+
   .mobile-menu-link {
     opacity: 0;
     transform: translateX(20px);
@@ -144,8 +195,6 @@ const menuItems = ["Inicio", "Planes", "Nosotros"];
 </style>
 
 <script>
-  const navbar = document.getElementById("navbar");
-  const navbarInner = document.getElementById("navbar-inner");
   const menuToggle = document.getElementById("menuToggle");
   const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
   const mobileMenuPanel = document.getElementById("mobileMenuPanel");
@@ -155,7 +204,7 @@ const menuItems = ["Inicio", "Planes", "Nosotros"];
 
   let isMenuOpen = false;
 
-  function openMenu() {
+  function openMenu(): void {
     isMenuOpen = true;
     mobileMenuOverlay?.classList.remove("opacity-0", "pointer-events-none");
     mobileMenuOverlay?.classList.add("opacity-100", "pointer-events-auto");
@@ -163,10 +212,12 @@ const menuItems = ["Inicio", "Planes", "Nosotros"];
     mobileMenuPanel?.classList.add("translate-x-0", "open");
     menuIconOpen?.classList.add("hidden");
     menuIconClose?.classList.remove("hidden");
+    menuToggle?.setAttribute("aria-expanded", "true");
+    menuToggle?.setAttribute("aria-label", "Cerrar menú");
     document.body.style.overflow = "hidden";
   }
 
-  function closeMenu() {
+  function closeMenu(): void {
     isMenuOpen = false;
     mobileMenuOverlay?.classList.add("opacity-0", "pointer-events-none");
     mobileMenuOverlay?.classList.remove("opacity-100", "pointer-events-auto");
@@ -174,10 +225,12 @@ const menuItems = ["Inicio", "Planes", "Nosotros"];
     mobileMenuPanel?.classList.remove("translate-x-0", "open");
     menuIconOpen?.classList.remove("hidden");
     menuIconClose?.classList.add("hidden");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    menuToggle?.setAttribute("aria-label", "Abrir menú");
     document.body.style.overflow = "";
   }
 
-  function toggleMenu() {
+  function toggleMenu(): void {
     if (isMenuOpen) {
       closeMenu();
     } else {
@@ -185,47 +238,22 @@ const menuItems = ["Inicio", "Planes", "Nosotros"];
     }
   }
 
-  // Toggle menu on button click
   menuToggle?.addEventListener("click", toggleMenu);
-
-  // Close menu when clicking overlay
   mobileMenuOverlay?.addEventListener("click", closeMenu);
 
-  // Close menu when clicking a link
   mobileMenuLinks.forEach((link) => {
     link.addEventListener("click", closeMenu);
   });
 
-  // Close menu on escape key
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && isMenuOpen) {
       closeMenu();
     }
   });
 
-  // Close menu on resize to desktop
   window.addEventListener("resize", () => {
     if (window.innerWidth >= 768 && isMenuOpen) {
       closeMenu();
-    }
-  });
-
-  // Scroll behavior for navbar
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
-      navbarInner?.classList.add(
-        "bg-slate-950/80",
-        "backdrop-blur-2xl",
-        "shadow-cyan-900/10",
-      );
-      navbar?.classList.add("py-0");
-    } else {
-      navbarInner?.classList.remove(
-        "bg-slate-950/80",
-        "backdrop-blur-2xl",
-        "shadow-cyan-900/10",
-      );
-      navbar?.classList.remove("py-0");
     }
   });
 </script>

@@ -23,6 +23,10 @@
 
   --font-primary: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --font-display: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Curva global estilo scale.com */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(10px); }
@@ -48,8 +52,52 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     background-color: var(--color-dark-bg);
+  }
+
+  /* Solo sin JS: con JS el smooth scroll lo maneja Lenis (conflicto si conviven) */
+  html:not(.js) {
+    scroll-behavior: smooth;
+  }
+
+  /* Vars del nav camaleón — motion.ts setea [data-nav-theme] en el root */
+  :root {
+    --nav-bg: rgba(2, 6, 23, 0.6);
+    --nav-fg: #f8fafc;
+    --nav-muted: #94a3b8;
+    --nav-border: rgba(255, 255, 255, 0.1);
+  }
+
+  :root[data-nav-theme="light"] {
+    --nav-bg: rgba(248, 250, 252, 0.7);
+    --nav-fg: #0f172a;
+    --nav-muted: #475569;
+    --nav-border: rgba(15, 23, 42, 0.1);
+  }
+
+  #site-nav {
+    transition:
+      color 300ms var(--ease-out-expo),
+      background-color 300ms var(--ease-out-expo),
+      border-color 300ms var(--ease-out-expo);
+  }
+
+  /* CSS recomendado de Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
   
   body {
@@ -134,9 +182,169 @@
   .glow-text {
     text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
   }
-  
+
   .glow-box {
     box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
   }
   */
+
+  /* Marquee reutilizable: duplicar el contenido dentro del track para el loop */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 30s) linear infinite;
+  }
+
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   Temas por sección (lenguaje visual scale.com, marca Yzen)
+   Cada bloque define sus vars y las utilities de la sección
+   (.eyebrow, .btn-cta) las heredan automáticamente.
+   ============================================================ */
+@layer components {
+  .theme-dark {
+    --section-bg: #020617;
+    --section-fg: #f8fafc;
+    --section-muted: #94a3b8;
+    --section-accent: #22d3ee;
+    background-color: var(--section-bg);
+    color: var(--section-fg);
+  }
+
+  .theme-light {
+    --section-bg: #f8fafc;
+    --section-fg: #0f172a;
+    --section-muted: #475569;
+    --section-accent: #0891b2;
+    background-color: var(--section-bg);
+    color: var(--section-fg);
+  }
+
+  /* "Cyan-ink" profundo — equivalente Yzen del evergreen de Scale */
+  .theme-accent {
+    --section-bg: #052e3e;
+    --section-fg: #ecfeff;
+    --section-muted: #8fb8c9;
+    --section-accent: #67e8f9;
+    background-color: var(--section-bg);
+    color: var(--section-fg);
+  }
+
+  /* Label mono estilo scale.com (eyebrows sobre los títulos) */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--section-accent, var(--color-primary-dim));
+  }
+
+  @media (min-width: 768px) {
+    .eyebrow {
+      font-size: 0.8125rem;
+    }
+  }
+
+  /* ------------------------------------------------------------
+     .btn-cta — micro-interacción doble flecha (scale.com)
+     Estructura HTML esperada:
+
+       <a class="btn-cta btn-cta--solid" href="#contacto">
+         Hablemos
+         <span class="btn-arrows" aria-hidden="true">
+           <svg>...</svg>   ← flecha visible, sale a la derecha en hover
+           <svg>...</svg>   ← flecha oculta, entra desde la izquierda
+         </span>
+       </a>
+     ------------------------------------------------------------ */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      background-color 300ms var(--ease-out-expo),
+      border-color 300ms var(--ease-out-expo),
+      color 300ms var(--ease-out-expo),
+      transform 300ms var(--ease-out-expo);
+  }
+
+  .btn-cta:active {
+    transform: scale(0.97);
+  }
+
+  .btn-cta .btn-arrows {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+    flex: none;
+  }
+
+  .btn-cta .btn-arrows > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-cta .btn-arrows > svg:nth-child(2) {
+    transform: translateX(-150%);
+  }
+
+  .btn-cta:hover .btn-arrows > svg:first-child {
+    transform: translateX(150%);
+  }
+
+  .btn-cta:hover .btn-arrows > svg:nth-child(2) {
+    transform: translateX(0);
+  }
+
+  /* Fondo acento, texto oscuro */
+  .btn-cta--solid {
+    background-color: var(--section-accent, #22d3ee);
+    color: #041318;
+  }
+
+  .btn-cta--solid:hover {
+    background-color: #a5f3fc;
+  }
+
+  /* Borde sutil + glass */
+  .btn-cta--ghost {
+    background-color: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--section-fg, #f8fafc);
+  }
+
+  .btn-cta--ghost:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  .theme-light .btn-cta--ghost {
+    background-color: rgba(15, 23, 42, 0.04);
+    border-color: rgba(15, 23, 42, 0.14);
+  }
+
+  .theme-light .btn-cta--ghost:hover {
+    background-color: rgba(15, 23, 42, 0.08);
+    border-color: rgba(15, 23, 42, 0.28);
+  }
 }

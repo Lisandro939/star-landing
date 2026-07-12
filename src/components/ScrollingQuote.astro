@@ -1,0 +1,39 @@
+---
+// Quote pinneada por CSS sticky; el "encendido" palabra a palabra lo hace
+// motion.ts via data-scrub-words, con este contenedor de 200dvh como rango.
+---
+
+<section
+  class="theme-accent relative h-[200dvh]"
+  data-nav-theme="dark"
+  data-scrub-container
+>
+  <div
+    class="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6"
+  >
+    <!-- Cuadrícula tenue sobre el color sólido de la sección -->
+    <div
+      class="pointer-events-none absolute inset-0 opacity-60"
+      style="background-image: linear-gradient(rgba(103, 232, 249, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(103, 232, 249, 0.05) 1px, transparent 1px); background-size: 72px 72px;"
+      data-parallax="0.06"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-5xl text-center">
+      <p class="eyebrow mb-8" data-reveal="fade">Nosotros</p>
+
+      <p
+        class="text-[clamp(2rem,4.5vw,4.5rem)] leading-[1.15] font-semibold [text-wrap:balance]"
+        data-scrub-words
+        data-scrub-start="top 35%"
+        data-scrub-end="bottom bottom"
+        data-scrub-stagger="0.06"
+      >
+        Somos una empresa de desarrollo con más de dos años de experiencia.
+        Hablamos tu mismo idioma y nos enfocamos en una sola cosa: que tu
+        inversión digital traiga resultados reales.
+      </p>
+    </div>
+  </div>
+</section>

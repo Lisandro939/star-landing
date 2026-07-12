@@ -28,58 +28,83 @@ const projects: Project[] = [
   { id: 2, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/', imagePc: efectosMendozaPc, imageMobile: efectosMendozaMobile },
   { id: 3, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/', imagePc: esteticaAmapolaPc, imageMobile: esteticaAmapolaMobile },
   { id: 4, title: 'Punto Lunch', url: 'https://punto-lunch.vercel.app/', imagePc: puntoLunchPc, imageMobile: puntoLunchMobile },
-  { id: 5, title: 'El Bosque', url: 'https://www.elbosquesunset.com/', imagePc: elBosquePc, imageMobile: elBosqueMobile },
+  { id: 5, title: 'Caramelo', url: 'https://www.carameloclub.com/', imagePc: elBosquePc, imageMobile: elBosqueMobile },
   { id: 6, title: 'Brenat', url: 'https://www.brenat.com.ar/', imagePc: brenatPc, imageMobile: brenatMobile },
   { id: 7, title: 'DM León', url: 'https://www.dmleon.com.ar/', imagePc: dmleonPc, imageMobile: dmleonMobile },
 ];
 
 // Slides cloned at both edges for seamless infinite loop: [last, ...all, first]
 const slides = [projects[projects.length - 1], ...projects, projects[0]];
+
+const pad = (n: number): string => String(n).padStart(2, '0');
 ---
 
-<section class="py-24 bg-slate-950 relative" id="servicios">
+<section
+  class="theme-dark relative overflow-hidden py-24 md:py-32"
+  id="servicios"
+  data-nav-theme="dark"
+>
   <!-- Decorative background elements -->
-  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-900/10 rounded-full blur-[100px]"></div>
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div
+      class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-900/10 rounded-full blur-[100px]"
+      data-parallax="0.15"
+    >
+    </div>
   </div>
 
   <div class="relative z-10 w-full">
-    <div class="container mx-auto px-4 md:px-6 mb-12">
-      <div class="text-center max-w-3xl mx-auto">
-        <span class="inline-block mb-5 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium uppercase tracking-[0.2em] text-cyan-300/90">
-          Portfolio
-        </span>
-        <h2 class="text-4xl md:text-5xl font-normal font-display text-white mb-6 tracking-tight">
-          Nuestros <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-indigo-200">Proyectos</span>
-        </h2>
-        <p class="text-lg text-slate-400">
-          Una colección de experiencias digitales diseñadas para impactar y escalar.
-        </p>
+    <!-- Heading block -->
+    <div class="container mx-auto px-4 md:px-6 mb-14 md:mb-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="max-w-3xl">
+          <p class="eyebrow mb-6" data-reveal="fade">01 — Portfolio</p>
+          <h2
+            class="text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold tracking-[-0.03em] leading-[1.05] text-white"
+            data-reveal="lines"
+          >
+            Nuestros <span class="text-cyan-300">Proyectos</span>
+          </h2>
+          <p
+            class="mt-6 text-lg text-slate-400 max-w-xl"
+            data-reveal="fade-up"
+            data-reveal-delay="0.15"
+          >
+            Una colección de experiencias digitales diseñadas para impactar y
+            escalar.
+          </p>
+        </div>
       </div>
     </div>
 
     <!-- Unified Infinite Carousel -->
     <div class="container mx-auto px-4 md:px-6">
-      <div class="relative max-w-7xl mx-auto" id="carousel">
+      <div
+        class="relative max-w-7xl mx-auto"
+        id="carousel"
+        data-reveal="fade-up"
+        data-reveal-delay="0.1"
+      >
         <!-- Arrow Left -->
         <button
           id="carousel-prev"
-          class="cursor-pointer absolute left-1 sm:left-2 md:-left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-cyan-500/20 hover:border-cyan-500/30 hover:text-white transition-all"
+          class="cursor-pointer absolute left-1 sm:left-2 md:-left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/15 bg-slate-950/60 backdrop-blur-md flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors duration-300"
           aria-label="Proyecto anterior"
         >
-          <Icon name="lucide:chevron-left" class="w-5 h-5 md:w-6 md:h-6" />
+          <Icon name="lucide:arrow-left" class="w-4 h-4 md:w-5 md:h-5" />
         </button>
 
         <!-- Arrow Right -->
         <button
           id="carousel-next"
-          class="cursor-pointer absolute right-1 sm:right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-cyan-500/20 hover:border-cyan-500/30 hover:text-white transition-all"
+          class="cursor-pointer absolute right-1 sm:right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/15 bg-slate-950/60 backdrop-blur-md flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors duration-300"
           aria-label="Proyecto siguiente"
         >
-          <Icon name="lucide:chevron-right" class="w-5 h-5 md:w-6 md:h-6" />
+          <Icon name="lucide:arrow-right" class="w-4 h-4 md:w-5 md:h-5" />
         </button>
 
-        <div class="overflow-hidden rounded-2xl mx-8 md:mx-10">
+        <!-- Viewport: overflow visible para que las cards vecinas asomen (el clip lo hace la sección) -->
+        <div class="!overflow-visible mx-8 md:mx-10">
           <div class="flex" id="carousel-track">
             {slides.map((project) => (
               <div class="w-full flex-shrink-0 px-2 md:px-4">
@@ -88,7 +113,7 @@ const slides = [projects[projects.length - 1], ...projects, projects[0]];
                   target="_blank"
                   rel="noopener noreferrer"
                   data-project-link
-                  class="group relative block w-full max-w-[280px] md:max-w-none mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-500 hover:border-cyan-400/40 hover:shadow-2xl hover:shadow-cyan-500/10"
+                  class="group relative block w-full max-w-[280px] md:max-w-none mx-auto rounded-xl overflow-clip border border-white/10 bg-slate-900/60 transition-all duration-500 ease-out-expo hover:border-cyan-300/40 hover:shadow-2xl hover:shadow-cyan-500/10"
                 >
                   <!-- Mobile: tall vertical phone capture as protagonist. Desktop (md+): PC mockup aspect-video. -->
                   <div class="relative w-full aspect-[10/20] md:aspect-video bg-slate-900/50">
@@ -98,7 +123,7 @@ const slides = [projects[projects.length - 1], ...projects, projects[0]];
                       alt={`${project.title} — versión móvil`}
                       loading="lazy"
                       draggable="false"
-                      class="md:hidden absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 select-none"
+                      class="md:hidden absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-100 select-none"
                     />
 
                     <!-- Desktop-only PC capture -->
@@ -107,11 +132,11 @@ const slides = [projects[projects.length - 1], ...projects, projects[0]];
                       alt={`${project.title} — versión escritorio`}
                       loading="lazy"
                       draggable="false"
-                      class="hidden md:block absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 select-none"
+                      class="hidden md:block absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-100 select-none"
                     />
 
                     <!-- Desktop-only: mobile capture showcase overlay, bottom-right corner -->
-                    <div class="hidden md:block absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-[30%] max-w-[170px] aspect-[10/20] rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-slate-900 transition-transform duration-500 group-hover:-translate-y-1">
+                    <div class="hidden md:block absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-[30%] max-w-[170px] aspect-[10/20] rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-slate-900 transition-transform duration-500 ease-out-expo group-hover:-translate-y-1">
                       <img
                         src={project.imageMobile.src}
                         alt={`${project.title} — versión móvil`}
@@ -121,16 +146,19 @@ const slides = [projects[projects.length - 1], ...projects, projects[0]];
                       />
                     </div>
 
-                    <!-- Hover overlay: title + link cue -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 md:p-6 pointer-events-none">
-                      <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                        <span class="inline-block px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 text-[10px] font-bold uppercase tracking-wider mb-2 border border-cyan-500/20 backdrop-blur-md">
-                          Web
-                        </span>
-                        <div class="flex items-center gap-2">
-                          <h3 class="text-white text-lg md:text-xl font-medium">{project.title}</h3>
-                          <Icon name="lucide:arrow-up-right" class="w-4 h-4 text-cyan-200" />
-                        </div>
+                    <!-- Persistent overlay: mono badge + title, estilo Scale -->
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-transparent p-4 md:p-6 pt-16 pointer-events-none">
+                      <span class="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-cyan-300/90">
+                        {pad(project.id)} — Web
+                      </span>
+                      <div class="mt-1.5 flex items-center gap-2">
+                        <h3 class="text-white text-base md:text-xl font-semibold tracking-tight">
+                          {project.title}
+                        </h3>
+                        <Icon
+                          name="lucide:arrow-up-right"
+                          class="w-4 h-4 text-cyan-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                        />
                       </div>
                     </div>
                   </div>
@@ -141,10 +169,10 @@ const slides = [projects[projects.length - 1], ...projects, projects[0]];
         </div>
 
         <!-- Dots -->
-        <div class="flex justify-center flex-wrap gap-2 mt-6" id="carousel-dots">
+        <div class="flex justify-center flex-wrap gap-2 mt-8" id="carousel-dots">
           {projects.map((_, i) => (
             <button
-              class={`h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-cyan-400 w-6' : 'bg-white/20 w-2 hover:bg-white/40'}`}
+              class={`h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-cyan-300 w-8' : 'bg-white/20 w-1.5 hover:bg-white/40'}`}
               data-dot={i}
               aria-label={`Ir al proyecto ${i + 1}`}
             />
@@ -154,21 +182,34 @@ const slides = [projects[projects.length - 1], ...projects, projects[0]];
     </div>
 
     <!-- Closing CTA: invitation to grow with the team -->
-    <div class="container mx-auto px-4 md:px-6 mt-20 md:mt-28">
-      <div class="text-center max-w-3xl mx-auto">
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal font-display text-white tracking-tight leading-tight">
-          ¿Tu proyecto es el <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-indigo-200">próximo</span>?<br class="hidden sm:block" /> Crecé con nosotros.
+    <div class="container mx-auto px-4 md:px-6 mt-24 md:mt-36">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2
+          class="text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold tracking-[-0.03em] leading-[1.05] text-white"
+          data-reveal="lines"
+        >
+          ¿Tu proyecto es el <span class="text-cyan-300">próximo</span>? Crecé
+          con nosotros.
         </h2>
-        <p class="text-lg text-slate-400 mt-6">
-          Sumate al equipo que convierte ideas en experiencias digitales que escalan.
+        <p
+          class="mt-6 text-lg text-slate-400 max-w-xl mx-auto"
+          data-reveal="fade-up"
+          data-reveal-delay="0.15"
+        >
+          Sumate al equipo que convierte ideas en experiencias digitales que
+          escalan.
         </p>
-        <div class="mt-10 flex justify-center">
-          <a
-            href="#contacto"
-            class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 text-white font-bold text-base md:text-lg hover:from-cyan-400 hover:to-indigo-400 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
-          >
+        <div
+          class="mt-10 flex justify-center"
+          data-reveal="fade-up"
+          data-reveal-delay="0.3"
+        >
+          <a href="#contacto" class="btn-cta btn-cta--solid text-base">
             Hablemos de tu proyecto
-            <Icon name="lucide:arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <span class="btn-arrows" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+            </span>
           </a>
         </div>
       </div>
@@ -200,8 +241,8 @@ const slides = [projects[projects.length - 1], ...projects, projects[0]];
     if (real < 0) real = realCount - 1;
     if (real >= realCount) real = 0;
     dots.forEach((dot, i) => {
-      dot.className = `h-2 rounded-full transition-all duration-300 ${
-        i === real ? 'bg-cyan-400 w-6' : 'bg-white/20 w-2 hover:bg-white/40'
+      dot.className = `h-1.5 rounded-full transition-all duration-300 ${
+        i === real ? 'bg-cyan-300 w-8' : 'bg-white/20 w-1.5 hover:bg-white/40'
       }`;
     });
   }
