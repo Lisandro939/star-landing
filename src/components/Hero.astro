@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import yzenLogo from "../assets/Yzen-Logo.png";
 
 // Logos servidos desde public/ (estrategia estática del proyecto).
@@ -87,7 +86,15 @@ const marqueeLogos = [...companyLogos, ...companyLogos, ...companyLogos];
         <span class="hero-logo-orbit hero-logo-orbit--inner" aria-hidden="true"></span>
         <span class="hero-logo-glow" aria-hidden="true"></span>
         <div data-hero-logo class="hero-logo-mark will-change-transform">
-          <Image src={yzenLogo} alt="" widths={[518]} sizes="78rem" loading="eager" class="h-auto w-[clamp(39rem,90vw,78rem)]" />
+          <img
+            src={yzenLogo.src}
+            alt=""
+            width={yzenLogo.width}
+            height={yzenLogo.height}
+            loading="eager"
+            decoding="async"
+            class="h-auto w-[clamp(39rem,90vw,78rem)]"
+          />
         </div>
       </div>
     </div>
