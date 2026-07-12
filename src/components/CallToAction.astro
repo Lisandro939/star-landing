@@ -8,17 +8,13 @@
   id="cta"
   data-nav-theme="dark"
   data-pin-section
+  data-pin-desktop
 >
-  <!-- Decorative background: subtle grid + parallax glow -->
+  <!-- Decorative background: subtle grid -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div
       class="absolute inset-0 opacity-[0.05]"
       style="background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px); background-size: 72px 72px;"
-    >
-    </div>
-    <div
-      class="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[70%] h-[60%] bg-cyan-400/10 rounded-full blur-[140px]"
-      data-parallax="0.2"
     >
     </div>
     <div
@@ -78,3 +74,15 @@
     </div>
   </div>
 </section>
+
+<style>
+  #cta {
+    /* El halo se integra al fondo para pintarse una sola vez. Animar un
+       elemento enorme con blur(140px) forzaba recomposición en cada frame. */
+    background-image: radial-gradient(
+      ellipse 55% 48% at 50% -8%,
+      rgb(34 211 238 / 0.14),
+      transparent 72%
+    );
+  }
+</style>

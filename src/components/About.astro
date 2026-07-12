@@ -6,23 +6,27 @@ const valores = [
     icon: "lucide:rocket",
     title: "Velocidad",
     description: "Entregamos resultados rápidos sin sacrificar calidad.",
+    fill: "#67e8f9",
   },
   {
     icon: "lucide:shield-check",
     title: "Seguridad",
     description:
       "Tu información siempre protegida con los más altos estándares.",
+    fill: "#a5b4fc",
   },
   {
     icon: "lucide:headphones",
     title: "Soporte",
     description: "Estamos contigo en cada paso, antes y después de la entrega.",
+    fill: "#7dd3fc",
   },
   {
     icon: "lucide:settings",
     title: "Personalización",
     description:
       "Cada solución se adapta 100% a las necesidades de tu negocio.",
+    fill: "#c4b5fd",
   },
 ];
 ---
@@ -32,21 +36,8 @@ const valores = [
   id="nosotros"
   data-nav-theme="light"
   data-pin-section
+  data-pin-desktop
 >
-  <!-- Background decorative elements -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div
-      class="absolute top-[5%] right-[-10%] w-[35%] h-[45%] bg-cyan-100/60 rounded-full blur-[120px]"
-      data-parallax="0.15"
-    >
-    </div>
-    <div
-      class="absolute bottom-[10%] left-[-10%] w-[30%] h-[40%] bg-indigo-100/50 rounded-full blur-[110px]"
-      data-parallax="0.1"
-    >
-    </div>
-  </div>
-
   <div class="container mx-auto px-6 relative z-10">
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
@@ -77,20 +68,26 @@ const valores = [
       >
         {
           valores.map((valor) => (
-            <div class="group relative h-full rounded-xl sm:rounded-2xl border border-slate-200 bg-white p-3.5 sm:p-5 lg:p-6 shadow-sm transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg hover:shadow-slate-900/5">
-              <div class="mb-3 w-10 h-10 sm:mb-4 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center transition-colors duration-300 group-hover:bg-cyan-100 group-hover:border-cyan-200">
+            <div
+              class="value-card group relative isolate h-[17rem] overflow-hidden rounded-xl border border-transparent bg-slate-100 p-4 sm:h-[22rem] sm:rounded-2xl sm:p-6 lg:h-[25rem] lg:p-8"
+              style={`--card-fill: ${valor.fill}`}
+            >
+              <span class="value-card__fill" aria-hidden="true"></span>
+              <div class="value-card__content relative z-10 flex h-full flex-col">
+              <div class="w-11 h-11 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-lg sm:rounded-xl bg-white border border-white flex items-center justify-center transition-all duration-700 group-hover:shadow-sm">
                 <Icon
                   name={valor.icon}
-                  class="text-cyan-700 transition-colors"
+                  class="text-cyan-700 transition-colors duration-500 group-hover:text-slate-900"
                   size={28}
                 />
               </div>
-              <h3 class="text-base sm:text-lg lg:text-xl font-display font-semibold text-slate-900 mb-1.5 sm:mb-2">
+              <h3 class="mt-10 text-lg font-display font-medium leading-tight text-slate-950 sm:mt-16 sm:text-xl lg:mt-20 lg:text-2xl">
                 {valor.title}
               </h3>
-              <p class="text-slate-600 text-[11px] sm:text-sm leading-relaxed">
+              <p class="mt-auto pt-8 text-slate-700 text-xs sm:text-sm leading-relaxed">
                 {valor.description}
               </p>
+              </div>
             </div>
           ))
         }
@@ -146,3 +143,60 @@ const valores = [
     </div>
   </div>
 </section>
+
+<style>
+  #nosotros {
+    /* Gradientes estáticos: conservan la atmósfera sin rasterizar dos blurs
+       gigantes en cada frame mientras la sección está pinneada. */
+    background-image:
+      radial-gradient(circle at 105% 18%, rgb(207 250 254 / 0.7), transparent 34rem),
+      radial-gradient(circle at -8% 88%, rgb(224 231 255 / 0.65), transparent 32rem);
+  }
+
+  .value-card {
+    transition:
+      border-color 800ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .value-card__fill {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--card-fill);
+    transform: translateY(100%);
+    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .value-card__content,
+  .value-card h3,
+  .value-card p {
+    transition: color 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .value-card:hover {
+      border-color: transparent;
+      box-shadow: 0 1.5rem 3.5rem -2rem color-mix(in srgb, var(--card-fill) 55%, transparent);
+    }
+
+    .value-card:hover .value-card__fill {
+      transform: translateY(0);
+    }
+
+    .value-card:hover h3 {
+      color: rgb(15 23 42);
+    }
+
+    .value-card:hover p {
+      color: rgb(30 41 59);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .value-card,
+    .value-card__fill {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>

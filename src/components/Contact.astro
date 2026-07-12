@@ -7,20 +7,8 @@ import { Icon } from "astro-icon/components";
   id="contacto"
   data-nav-theme="dark"
   data-pin-section
+  data-pin-desktop
 >
-  <div class="absolute inset-0 z-0 pointer-events-none">
-    <div
-      class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-green-600/5 blur-[100px] rounded-full"
-      data-parallax="0.15"
-    >
-    </div>
-    <div
-      class="absolute top-0 left-0 w-[400px] h-[400px] bg-cyan-600/5 blur-[100px] rounded-full"
-      data-parallax="0.1"
-    >
-    </div>
-  </div>
-
   <div class="container mx-auto px-6 relative z-10">
     <div class="max-w-4xl mx-auto text-center">
       <p class="eyebrow mb-4 sm:mb-7" data-reveal="fade">05 — Contacto</p>
@@ -94,3 +82,12 @@ import { Icon } from "astro-icon/components";
     </div>
   </div>
 </section>
+
+<style>
+  #contacto {
+    /* Halos estáticos: evitan recalcular dos blurs grandes en cada frame. */
+    background-image:
+      radial-gradient(circle at 105% 92%, rgb(22 163 74 / 0.08), transparent 34rem),
+      radial-gradient(circle at -5% 8%, rgb(8 145 178 / 0.08), transparent 28rem);
+  }
+</style>
