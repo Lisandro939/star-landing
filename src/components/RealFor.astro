@@ -15,8 +15,9 @@ const firstWord = words[0];
 ---
 
 <section
-  class="theme-light relative overflow-hidden py-28 md:py-40"
+  class="theme-light relative overflow-hidden py-12 sm:py-16 md:py-20"
   data-nav-theme="light"
+  data-pin-section
 >
   <div class="container mx-auto px-6 text-center">
     <p class="eyebrow mb-7" data-reveal="fade">Soluciones</p>
@@ -30,7 +31,7 @@ const firstWord = words[0];
       <span>para</span>
       {/* El &#8203; (zwsp) mantiene la altura de línea cuando JS absolutiza la palabra */}
       <span
-        class="inline-block overflow-clip whitespace-nowrap"
+        class="-mb-[0.12em] inline-block overflow-clip pb-[0.12em] whitespace-nowrap align-bottom"
         data-word-cycler
         data-words={JSON.stringify(words)}
         >&#8203;<span data-cycler-word style={`color: ${firstWord.color}`}

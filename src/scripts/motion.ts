@@ -1,7 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import Lenis from "lenis";
 
 /**
  * Motor único de animación del sitio (GSAP + ScrollTrigger + SplitText + Lenis).
@@ -31,13 +30,9 @@ import Lenis from "lenis";
  * onEnter con valores finales explícitos.
  */
 
-const NAV_OFFSET = 80;
 const REVEAL_START = "top 82%";
 
 let initialized = false;
-
-const easeOutExpo = (t: number): number =>
-	t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 
 function num(value: string | undefined, fallback: number): number {
 	const parsed = Number.parseFloat(value ?? "");
@@ -71,23 +66,8 @@ function restoreVisible(targets: Element | Element[]): void {
 	}
 }
 
-function initLenis(): Lenis {
-	const lenis = new Lenis({
-		duration: 1.1,
-		easing: easeOutExpo,
-	});
-
-	lenis.on("scroll", ScrollTrigger.update);
-	gsap.ticker.add((time) => {
-		lenis.raf(time * 1000);
-	});
-	gsap.ticker.lagSmoothing(0);
-
-	return lenis;
-}
-
-/** Anchors internos (#planes, #contacto...) via Lenis con offset por el nav fijo. */
-function initAnchors(lenis: Lenis | null): void {
+/** Navegación interna (#planes, #contacto...) con scroll nativo y snap. */
+function initAnchors(): void {
 	document.addEventListener("click", (event) => {
 		if (!(event.target instanceof Element)) return;
 		const link = event.target.closest<HTMLAnchorElement>('a[href^="#"]');
@@ -105,11 +85,7 @@ function initAnchors(lenis: Lenis | null): void {
 		if (!destination) return;
 
 		event.preventDefault();
-		if (lenis) {
-			lenis.scrollTo(destination, { offset: -NAV_OFFSET });
-		} else {
-			destination.scrollIntoView({ block: "start" });
-		}
+		destination.scrollIntoView({ block: "start" });
 		history.pushState(null, "", hash);
 	});
 }
@@ -140,6 +116,29 @@ function initNavTheme(): void {
 			onEnterBack: () => setTheme(theme),
 		});
 	}
+
+	// Una sección pinneada puede solaparse geométricamente con la siguiente y
+	// activar ambos ScrollTriggers. La sección visible bajo el nav es la fuente
+	// de verdad para evitar que herede prematuramente el tema siguiente.
+	let themeFrame = 0;
+	const syncVisibleTheme = (): void => {
+		themeFrame = 0;
+		const sampleY = Math.min(88, Math.max(1, window.innerHeight - 1));
+		const visibleSection = document
+			.elementsFromPoint(8, sampleY)
+			.map((element) => element.closest<HTMLElement>("section[data-nav-theme]"))
+			.find((section): section is HTMLElement => section !== null);
+		const theme = visibleSection?.dataset.navTheme;
+		if (theme === "light" || theme === "dark") setTheme(theme);
+	};
+	const requestThemeSync = (): void => {
+		if (themeFrame) return;
+		themeFrame = window.requestAnimationFrame(syncVisibleTheme);
+	};
+
+	window.addEventListener("scroll", requestThemeSync, { passive: true });
+	window.addEventListener("resize", requestThemeSync, { passive: true });
+	requestThemeSync();
 }
 
 /** Reveals sin dependencia de fuentes: fade-up, fade y stagger de hijos. */
@@ -300,6 +299,10 @@ function initScrubWords(): void {
  * dejarla invisible en el estado inicial.
  */
 function initHero(): void {
+	// En mobile el hero ocupa un solo viewport y fluye naturalmente. El pin
+	// extendido a 200dvh se reserva para escritorio, donde hay espacio visual.
+	if (!window.matchMedia("(min-width: 768px)").matches) return;
+
 	const section = document.getElementById("inicio");
 	const pinTarget = document.getElementById("hero-pin");
 	if (!section || !pinTarget) return;
@@ -490,6 +493,29 @@ function initParallax(): void {
 	}
 }
 
+/**
+ * Escenas de un viewport: el contenido permanece clavado durante un tramo
+ * corto de scroll antes de entregar la siguiente sección.
+ */
+function initPinnedSections(): void {
+	for (const section of gsap.utils.toArray<HTMLElement>("[data-pin-section]")) {
+		if (
+			section.hasAttribute("data-pin-desktop") &&
+			!window.matchMedia("(min-width: 1024px)").matches
+		) continue;
+
+		ScrollTrigger.create({
+			trigger: section,
+			start: "top top",
+			end: () => `+=${Math.round(window.innerHeight * 0.35)}`,
+			pin: true,
+			pinSpacing: true,
+			anticipatePin: 1,
+			invalidateOnRefresh: true,
+		});
+	}
+}
+
 export function initMotion(): void {
 	if (initialized) return;
 	initialized = true;
@@ -501,13 +527,7 @@ export function initMotion(): void {
 	).matches;
 
 	const desktopMotion = window.matchMedia("(min-width: 768px)").matches;
-	let lenis: Lenis | null = null;
-	if (!reduced && desktopMotion) {
-		safeInit("lenis", () => {
-			lenis = initLenis();
-		});
-	}
-	safeInit("anchors", () => initAnchors(lenis));
+	safeInit("anchors", initAnchors);
 	safeInit("nav-theme", initNavTheme);
 
 	// Reduced motion: sin Lenis, sin reveals ni scrubs — todo queda visible.
@@ -523,6 +543,7 @@ export function initMotion(): void {
 	});
 
 	safeInit("hero", initHero);
+	safeInit("pinned-sections", initPinnedSections);
 	safeInit("simple-reveals", initSimpleReveals);
 	if (desktopMotion) safeInit("parallax", initParallax);
 	safeInit("refresh:setup", () => ScrollTrigger.refresh());

@@ -53,11 +53,19 @@
 @layer base {
   html {
     background-color: var(--color-dark-bg);
+    scroll-padding-top: 5rem;
+    scroll-behavior: smooth;
   }
 
-  /* Solo sin JS: con JS el smooth scroll lo maneja Lenis (conflicto si conviven) */
-  html:not(.js) {
-    scroll-behavior: smooth;
+  main > section {
+    min-height: 100dvh;
+  }
+
+  [data-pin-section] {
+    display: flex;
+    min-height: 100dvh;
+    width: 100%;
+    align-items: center;
   }
 
   /* Vars del nav camaleón — motion.ts setea [data-nav-theme] en el root */

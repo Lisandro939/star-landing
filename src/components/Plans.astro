@@ -92,9 +92,11 @@ const plans: Plan[] = [
 ---
 
 <section
-  class="theme-dark plans-section relative overflow-hidden py-16 sm:py-20 md:py-32"
+  class="theme-dark plans-section relative overflow-hidden py-16 sm:py-20 lg:h-dvh lg:py-0"
   id="planes"
   data-nav-theme="dark"
+  data-pin-section
+  data-pin-desktop
 >
   <!-- Decorative background elements -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -106,19 +108,19 @@ const plans: Plan[] = [
     </div>
   </div>
 
-  <div class="container mx-auto px-4 sm:px-6 relative z-10">
+  <div class="plans-shell container mx-auto px-4 sm:px-6 relative z-10 lg:flex lg:h-full lg:items-center">
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
-      <div class="max-w-3xl mb-10 sm:mb-14 md:mb-20">
-        <p class="eyebrow mb-4 sm:mb-6" data-reveal="fade">02 — Planes</p>
+      <div class="plans-header max-w-3xl mb-10 sm:mb-14">
+        <p class="plans-eyebrow eyebrow mb-4 sm:mb-6" data-reveal="fade">02 — Planes</p>
         <h2
-          class="text-[clamp(2.25rem,10vw,4.5rem)] font-bold tracking-[-0.035em] leading-[1.05] text-white"
+          class="plans-title text-[clamp(2.25rem,10vw,4.5rem)] font-bold tracking-[-0.035em] leading-[1.05] text-white"
           data-reveal="lines"
         >
           Planes que <span class="text-cyan-300">escalan contigo</span>
         </h2>
         <p
-          class="mt-4 text-base leading-relaxed text-slate-400 sm:mt-6 sm:text-lg max-w-xl"
+          class="plans-intro mt-4 text-base leading-relaxed text-slate-400 sm:mt-6 sm:text-lg max-w-xl"
           data-reveal="fade-up"
           data-reveal-delay="0.15"
         >
@@ -128,7 +130,7 @@ const plans: Plan[] = [
 
       <!-- Plans Grid -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 items-stretch"
+        class="plans-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 items-stretch"
         data-reveal="stagger"
         data-reveal-stagger="0.1"
       >
@@ -154,7 +156,7 @@ const plans: Plan[] = [
 
               {/* Card */}
               <div
-                class={`relative h-full p-5 sm:p-7 lg:p-6 xl:p-8 rounded-[calc(1.25rem-1px)] sm:rounded-[calc(1.5rem-1px)] flex flex-col overflow-hidden lg:transition-colors lg:duration-300 ${
+                class={`plan-card__inner relative h-full p-5 sm:p-7 lg:p-6 rounded-[calc(1.25rem-1px)] sm:rounded-[calc(1.5rem-1px)] flex flex-col overflow-hidden lg:transition-colors lg:duration-300 ${
                   plan.isPrimary
                     ? "bg-slate-900"
                     : "bg-slate-900 group-hover:bg-slate-900"
@@ -172,7 +174,7 @@ const plans: Plan[] = [
                 )}
 
                 {/* Plan Header */}
-                <div class="mb-6 sm:mb-8">
+                <div class="plan-card__header mb-6 sm:mb-8">
                   <h3
                     class={`font-display font-semibold mb-4 break-words leading-tight ${
                       plan.isPersonalized
@@ -190,7 +192,7 @@ const plans: Plan[] = [
                 </div>
 
                 {/* Features List */}
-                <ul class="space-y-3 mb-7 sm:space-y-3.5 sm:mb-8 flex-grow">
+                <ul class="plan-features space-y-3 mb-7 sm:space-y-3.5 sm:mb-8 flex-grow">
                   {plan.features.map((feature) => (
                     <li class="flex items-start gap-3">
                       <span
@@ -247,7 +249,74 @@ const plans: Plan[] = [
   }
 
   .plan-card {
-    contain: layout paint;
+    /* El badge sobresale de la card; paint containment lo recortaba. */
+    contain: layout;
+  }
+
+  /* Desktop: toda la escena, incluidas las cards, vive dentro de un viewport. */
+  @media (min-width: 1024px) {
+    .plans-shell > div {
+      width: 100%;
+    }
+
+    .plans-header {
+      margin-bottom: clamp(1.5rem, 3.2dvh, 3rem);
+    }
+
+    .plans-eyebrow {
+      margin-bottom: clamp(0.5rem, 1.5dvh, 1.25rem);
+    }
+
+    .plans-title {
+      font-size: clamp(2.5rem, min(4.5vw, 6.8dvh), 4.5rem);
+    }
+
+    .plans-intro {
+      margin-top: clamp(0.5rem, 1.4dvh, 1.25rem);
+      font-size: clamp(0.875rem, 1.7dvh, 1.125rem);
+    }
+
+    .plans-grid {
+      gap: clamp(0.75rem, 1.4vw, 1.5rem);
+    }
+
+    .plan-card__inner {
+      padding: clamp(1rem, 2dvh, 1.5rem);
+    }
+
+    .plan-card__header {
+      margin-bottom: clamp(0.75rem, 1.8dvh, 1.5rem);
+    }
+
+    .plan-card__header h3 {
+      margin-bottom: clamp(0.35rem, 0.8dvh, 0.75rem);
+      font-size: clamp(1rem, 2.1dvh, 1.25rem);
+    }
+
+    .plan-card__header p,
+    .plan-features span:last-child {
+      font-size: clamp(0.7rem, 1.45dvh, 0.875rem);
+      line-height: 1.45;
+    }
+
+    .plan-features {
+      margin-bottom: clamp(0.75rem, 1.8dvh, 1.5rem);
+      row-gap: clamp(0.35rem, 0.9dvh, 0.75rem);
+    }
+
+    .plan-features li {
+      gap: clamp(0.45rem, 0.7vw, 0.75rem);
+    }
+
+    .plan-features li > span:first-child {
+      width: clamp(1rem, 2dvh, 1.25rem);
+      height: clamp(1rem, 2dvh, 1.25rem);
+    }
+
+    .plan-card .btn-cta {
+      min-height: clamp(2.25rem, 4.8dvh, 3rem);
+      padding-block: clamp(0.45rem, 1dvh, 0.75rem);
+    }
   }
 
   @media (max-width: 767px) {
