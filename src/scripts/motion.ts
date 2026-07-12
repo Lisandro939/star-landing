@@ -266,12 +266,14 @@ function initScrubWords(): void {
 			const container =
 				el.closest<HTMLElement>("[data-scrub-container]") ?? el;
 			const split = SplitText.create(el, { type: "words" });
+			const withMotion = el.hasAttribute("data-scrub-motion");
 
 			gsap.fromTo(
 				split.words,
-				{ opacity: 0.12 },
+				{ opacity: 0.1, yPercent: withMotion ? 55 : 0 },
 				{
 					opacity: 1,
+					yPercent: 0,
 					ease: "none",
 					stagger: num(el.dataset.scrubStagger, 0.05),
 					scrollTrigger: {

@@ -190,6 +190,7 @@ const pad = (n: number): string => String(n).padStart(2, '0');
   class="theme-dark relative flex h-dvh items-center overflow-hidden"
   data-nav-theme="dark"
   data-pin-section
+  data-scrub-container
   aria-labelledby="portfolio-cta-title"
 >
   <div class="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -204,7 +205,11 @@ const pad = (n: number): string => String(n).padStart(2, '0');
         <h2
           id="portfolio-cta-title"
           class="text-[clamp(2.75rem,6vw,5.5rem)] font-bold leading-[1.02] tracking-[-0.04em] text-white"
-          data-reveal="lines"
+          data-scrub-words
+          data-scrub-motion
+          data-scrub-start="top 30%"
+          data-scrub-end="top top"
+          data-scrub-stagger="0.12"
         >
           ¿Tu proyecto es el <span class="text-cyan-300">próximo</span>?<br />
           Crecé con nosotros.
