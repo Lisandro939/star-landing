@@ -141,6 +141,14 @@
 }
 
 @layer utilities {
+  .accent-grid-pattern {
+    background-image:
+      linear-gradient(rgb(103 232 249 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(103 232 249 / 0.05) 1px, transparent 1px);
+    background-position: 0 0;
+    background-size: 72px 72px;
+  }
+
   .text-gradient {
     background: linear-gradient(to right, #22d3ee, #818cf8);
     -webkit-background-clip: text;
@@ -275,22 +283,40 @@
   .btn-cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: 2.75rem;
+    padding: 0.75rem 1.125rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background-color: #ecfeff;
+    color: #052e3e;
     font-weight: 600;
     font-size: 0.9375rem;
     line-height: 1;
     cursor: pointer;
     transition:
-      background-color 300ms var(--ease-out-expo),
-      border-color 300ms var(--ease-out-expo),
-      color 300ms var(--ease-out-expo),
-      transform 300ms var(--ease-out-expo);
+      background-color 180ms ease-out,
+      border-color 180ms ease-out,
+      box-shadow 180ms ease-out,
+      transform 180ms ease-out;
+  }
+
+  .btn-cta:hover {
+    background-color: #cffafe;
+    border-color: rgba(103, 232, 249, 0.55);
+    box-shadow: 0 0.35rem 1rem rgba(8, 145, 178, 0.14);
+    transform: translateY(-2px);
   }
 
   .btn-cta:active {
-    transform: scale(0.97);
+    transform: scale(0.97) translateY(0);
+    transition-duration: 70ms;
+  }
+
+  .btn-cta:focus-visible {
+    outline: 3px solid rgba(34, 211, 238, 0.38);
+    outline-offset: 3px;
   }
 
   .btn-cta .btn-arrows {
@@ -324,35 +350,33 @@
 
   /* Fondo acento, texto oscuro */
   .btn-cta--solid {
-    background-color: var(--section-accent, #22d3ee);
-    color: #041318;
+    background-color: #ecfeff;
+    color: #052e3e;
   }
 
   .btn-cta--solid:hover {
-    background-color: #a5f3fc;
+    background-color: #cffafe;
   }
 
   /* Borde sutil + glass */
   .btn-cta--ghost {
-    background-color: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    color: var(--section-fg, #f8fafc);
+    background-color: #ecfeff;
+    border-color: transparent;
+    color: #052e3e;
   }
 
   .btn-cta--ghost:hover {
-    background-color: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 255, 255, 0.28);
+    background-color: #cffafe;
+    border-color: rgba(103, 232, 249, 0.55);
   }
 
   .theme-light .btn-cta--ghost {
-    background-color: rgba(15, 23, 42, 0.04);
-    border-color: rgba(15, 23, 42, 0.14);
+    background-color: #ecfeff;
+    border-color: transparent;
   }
 
   .theme-light .btn-cta--ghost:hover {
-    background-color: rgba(15, 23, 42, 0.08);
-    border-color: rgba(15, 23, 42, 0.28);
+    background-color: #cffafe;
+    border-color: rgba(103, 232, 249, 0.55);
   }
 }

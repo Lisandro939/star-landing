@@ -327,17 +327,34 @@ function initHero(): void {
   const pinTarget = document.getElementById("hero-pin");
   if (!section || !pinTarget) return;
 
-  const background = section.querySelector<HTMLElement>("[data-hero-background]");
+  const background = section.querySelector<HTMLElement>(
+    "[data-hero-background]",
+  );
   const frame = pinTarget.querySelector<HTMLElement>("[data-hero-frame]");
+  const video = frame?.querySelector<HTMLVideoElement>("video");
   const copy = pinTarget.querySelector<HTMLElement>("[data-hero-copy]");
   const caption = pinTarget.querySelector<HTMLElement>("[data-hero-caption]");
   const feature = pinTarget.querySelector<HTMLElement>("[data-hero-feature]");
   const dataPanel = pinTarget.querySelector<HTMLElement>("[data-hero-data]");
-  const scrollCue = pinTarget.querySelector<HTMLElement>("[data-hero-scroll-cue]");
+  const scrollCue = pinTarget.querySelector<HTMLElement>(
+    "[data-hero-scroll-cue]",
+  );
   const header = document.getElementById("site-nav");
-  if (!background || !frame || !copy || !caption || !feature || !dataPanel || !header) return;
+  if (
+    !background ||
+    !frame ||
+    !video ||
+    !copy ||
+    !caption ||
+    !feature ||
+    !dataPanel ||
+    !header
+  )
+    return;
 
   const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+  const mobileFrameWidth = (): number => Math.min(window.innerWidth - 32, 640);
+  const mobileFrameHeight = (): number => (mobileFrameWidth() * 9) / 16;
   const forwardStops = [0, 0.98 / 2.46, 1.7 / 2.46, 1];
 
   const tl = gsap.timeline({
@@ -368,7 +385,10 @@ function initHero(): void {
     {
       clipPath: () => {
         const targetWidth = 80 * 16;
-        const inset = Math.max(0, ((frame.offsetWidth - targetWidth) / frame.offsetWidth) * 50);
+        const inset = Math.max(
+          0,
+          ((frame.offsetWidth - targetWidth) / frame.offsetWidth) * 50,
+        );
         return `inset(0 ${inset}% round 1.75rem)`;
       },
       duration: 0.28,
@@ -379,13 +399,20 @@ function initHero(): void {
   if (scrollCue) tl.to(scrollCue, { autoAlpha: 0, y: 12, duration: 0.16 }, 0);
   tl.to(copy, { autoAlpha: 0, scale: 0.94, duration: 0.22 }, 0);
   tl.to(background, { autoAlpha: 1, duration: 0.72 }, 0);
+  if (!isDesktop) tl.set(video, { objectFit: "contain" }, 0.08);
   tl.to(
     frame,
     {
-      scale: isDesktop ? 0.57 : 0.6,
-      yPercent: isDesktop ? -18 : -42,
-      rotationX: isDesktop ? 3 : 2,
-      rotationY: isDesktop ? -16 : -10,
+      ...(isDesktop
+        ? {}
+        : {
+            width: mobileFrameWidth,
+            height: mobileFrameHeight,
+          }),
+      scale: isDesktop ? 0.57 : 1,
+      yPercent: isDesktop ? -18 : -68,
+      rotationX: isDesktop ? 3 : 0,
+      rotationY: isDesktop ? -16 : 0,
       rotationZ: 0,
       transformPerspective: 1200,
       transformOrigin: "50% 50%",
@@ -407,12 +434,12 @@ function initHero(): void {
   tl.to(
     frame,
     {
-      scale: isDesktop ? 0.43 : 0.54,
+      scale: isDesktop ? 0.43 : 0.94,
       x: () => (isDesktop ? window.innerWidth * 0.24 : 0),
       xPercent: 0,
-      yPercent: isDesktop ? 0 : -52,
-      rotationX: isDesktop ? 3 : 2,
-      rotationY: isDesktop ? -18 : -10,
+      yPercent: isDesktop ? 0 : -82,
+      rotationX: isDesktop ? 3 : 0,
+      rotationY: isDesktop ? -18 : 0,
       duration: 0.62,
     },
     0.96,
@@ -431,9 +458,9 @@ function initHero(): void {
     frame,
     {
       x: () => (isDesktop ? window.innerWidth * -0.24 : 0),
-      yPercent: isDesktop ? 0 : -52,
-      rotationX: isDesktop ? 3 : 2,
-      rotationY: isDesktop ? 18 : 10,
+      yPercent: isDesktop ? 0 : -82,
+      rotationX: isDesktop ? 3 : 0,
+      rotationY: isDesktop ? 18 : 0,
       duration: 0.7,
     },
     1.7,

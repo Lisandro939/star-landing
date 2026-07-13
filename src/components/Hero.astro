@@ -15,7 +15,9 @@ import backgroundVideo from "../assets/background-video.mp4";
       data-hero-background
       class="pointer-events-none absolute inset-0 bg-[#052E3E] opacity-0 will-change-opacity"
       aria-hidden="true"
-    ></div>
+    >
+      <div class="accent-grid-pattern absolute inset-0 opacity-60"></div>
+    </div>
 
     <div
       data-hero-frame
@@ -131,10 +133,6 @@ import backgroundVideo from "../assets/background-video.mp4";
       background: #fff;
     }
 
-    [data-hero-background] {
-      background: #000;
-    }
-
     .hero-frame {
       border-radius: 0.9rem;
     }
@@ -184,7 +182,6 @@ import backgroundVideo from "../assets/background-video.mp4";
       max-width: 31rem;
       font-size: 0.92rem;
       line-height: 1.55;
-      color: rgb(226 232 240 / 0.72);
     }
 
     [data-hero-feature] > p:first-child,
@@ -197,8 +194,6 @@ import backgroundVideo from "../assets/background-video.mp4";
     [data-hero-data] > span {
       margin-top: 1.6rem;
       border-radius: 0.55rem;
-      background: #083d32;
-      color: #f8fafc;
       padding: 0.9rem 1.25rem;
     }
   }

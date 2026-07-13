@@ -32,17 +32,16 @@ const valores = [
 ---
 
 <section
-  class="theme-light relative overflow-hidden py-10 sm:py-14 md:py-20"
+  class="theme-light relative min-h-[100dvh] overflow-hidden py-5 sm:py-14 md:py-20"
   id="nosotros"
   data-nav-theme="light"
   data-pin-section
-  data-pin-desktop
 >
   <div class="container mx-auto px-6 relative z-10">
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
-      <div class="max-w-3xl mb-7 sm:mb-10 md:mb-14">
-        <p class="eyebrow mb-4 md:mb-6" data-reveal="fade">03 — Nosotros</p>
+      <div class="mb-4 max-w-3xl sm:mb-10 md:mb-14">
+        <p class="eyebrow mb-2 sm:mb-4 md:mb-6" data-reveal="fade">03 — Nosotros</p>
         <h2
           class="text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold tracking-[-0.03em] leading-[1.05] text-slate-900"
           data-reveal="lines"
@@ -50,7 +49,7 @@ const valores = [
           ¿Quiénes <span class="text-cyan-700">somos</span>?
         </h2>
         <p
-          class="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base md:mt-6 md:text-lg max-w-2xl"
+          class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 sm:mt-4 sm:text-base md:mt-6 md:text-lg"
           data-reveal="fade-up"
           data-reveal-delay="0.15"
         >
@@ -62,31 +61,33 @@ const valores = [
 
       <!-- Values Grid -->
       <div
-        class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6"
+        class="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-6"
         data-reveal="stagger"
         data-reveal-stagger="0.1"
       >
         {
           valores.map((valor) => (
             <div
-              class="value-card group relative isolate h-[17rem] overflow-hidden rounded-xl border border-transparent bg-slate-100 p-4 sm:h-[22rem] sm:rounded-2xl sm:p-6 lg:h-[25rem] lg:p-8"
+              class="value-card group relative isolate min-h-[5.75rem] overflow-hidden rounded-xl border border-slate-200/80 bg-white/75 p-3 shadow-[0_0.5rem_1.5rem_-1.25rem_rgb(15_23_42_/_0.35)] backdrop-blur-sm sm:h-[22rem] sm:rounded-2xl sm:p-6 lg:h-[25rem] lg:p-8"
               style={`--card-fill: ${valor.fill}`}
             >
               <span class="value-card__fill" aria-hidden="true"></span>
-              <div class="value-card__content relative z-10 flex h-full flex-col">
-              <div class="w-11 h-11 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-lg sm:rounded-xl bg-white border border-white flex items-center justify-center transition-all duration-700 group-hover:shadow-sm">
+              <div class="value-card__content relative z-10 flex h-full items-center gap-4 sm:flex-col sm:items-stretch sm:gap-0">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-cyan-100 bg-cyan-50/80 shadow-sm transition-all duration-700 group-hover:shadow-sm sm:h-14 sm:w-14 sm:rounded-xl sm:bg-white lg:h-16 lg:w-16">
                 <Icon
                   name={valor.icon}
                   class="text-cyan-700 transition-colors duration-500 group-hover:text-slate-900"
                   size={28}
                 />
               </div>
-              <h3 class="mt-10 text-lg font-display font-medium leading-tight text-slate-950 sm:mt-16 sm:text-xl lg:mt-20 lg:text-2xl">
-                {valor.title}
-              </h3>
-              <p class="mt-auto pt-8 text-slate-700 text-xs sm:text-sm leading-relaxed">
-                {valor.description}
-              </p>
+              <div class="min-w-0 sm:contents">
+                <h3 class="font-display text-base font-medium leading-tight text-slate-950 sm:mt-16 sm:text-xl lg:mt-20 lg:text-2xl">
+                  {valor.title}
+                </h3>
+                <p class="mt-1 text-xs leading-snug text-slate-600 sm:mt-auto sm:pt-8 sm:text-sm sm:leading-relaxed sm:text-slate-700">
+                  {valor.description}
+                </p>
+              </div>
               </div>
             </div>
           ))
