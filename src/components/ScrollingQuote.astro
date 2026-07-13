@@ -13,7 +13,7 @@
   >
     <!-- Cuadrícula tenue sobre el color sólido de la sección -->
     <div
-      class="accent-grid-pattern pointer-events-none absolute inset-0 opacity-60"
+      class="quote-grid accent-grid-pattern pointer-events-none absolute inset-0 opacity-60"
       aria-hidden="true"
     >
     </div>
@@ -35,3 +35,11 @@
     </div>
   </div>
 </section>
+
+<style>
+  .quote-grid {
+    /* Deja la unión con el Hero en color sólido y arranca la textura después. */
+    top: 1px;
+    background-position: 0 -1px;
+  }
+</style>
