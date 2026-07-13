@@ -1,268 +1,152 @@
 ---
-import yzenLogo from "../assets/Yzen-Logo.png";
-
-// Logos servidos desde public/ (estrategia estática del proyecto).
-// heightClass calibra el peso visual por logo: los wordmarks anchos
-// (Brenat 4.6:1) van más bajos, los emblemas cuadrados más altos.
-const companyLogos = [
-  {
-    src: "/assets/companies-logos/Logo.png",
-    alt: "Efectos Mendoza",
-    heightClass: "h-12 md:h-16",
-  },
-  {
-    src: "/assets/companies-logos/deliveries.png",
-    alt: "Deliveries en Lavalle",
-    heightClass: "h-12 md:h-16",
-  },
-  {
-    src: "/assets/companies-logos/logo-aserradero.png",
-    alt: "Aserradero Don Gustavo",
-    heightClass: "h-14 md:h-18",
-  },
-  {
-    src: "/assets/companies-logos/Brenat-logo.png",
-    alt: "Brenat",
-    heightClass: "h-8 md:h-10",
-  },
-  {
-    src: "/assets/companies-logos/DMLeon-logo.png",
-    alt: "DM León",
-    heightClass: "h-12 md:h-16",
-  },
-];
-
-// Tres secuencias por tramo mantienen el marquee cubierto en monitores anchos
-// sin tener que separar excesivamente cada logo.
-const marqueeLogos = [...companyLogos, ...companyLogos, ...companyLogos];
+import backgroundVideo from "../assets/background-video.mp4";
 ---
 
-{/*
-  Hero pinneado (firma del sitio): el contenedor mide 200dvh y motion.ts
-  (initHero) pinnea #hero-pin con scrub. Sin JS / reduced-motion, el estado
-  CSS natural mantiene visible la pieza de marca.
-*/}
 <section
   id="inicio"
-  class="theme-light relative h-dvh md:h-[200dvh]"
-  data-nav-theme="light"
+  class="theme-dark relative h-[420svh] bg-white"
+  data-nav-theme="dark"
 >
-  {/*
-    Layout del pin (100dvh): el strip de logos es una franja absoluta abajo;
-    el padding-bottom equivalente en el flex hace que el copy quede centrado
-    ÓPTICAMENTE en el espacio restante (no en el dvh completo).
-  */}
   <div
     id="hero-pin"
-    class="relative flex h-dvh w-full flex-col items-center justify-center overflow-hidden pb-36 md:pb-40"
+    class="relative flex h-svh w-full items-center justify-center overflow-hidden px-5 pt-20 pb-5 sm:px-7 sm:pt-[5.5rem] sm:pb-7"
   >
-    <!-- Fondo: luz superior + tinte cyan hacia abajo -->
     <div
-      class="absolute inset-0 bg-gradient-to-b from-white via-slate-50 to-cyan-100/60"
+      data-hero-background
+      class="pointer-events-none absolute inset-0 bg-[#052E3E] opacity-0 will-change-opacity"
       aria-hidden="true"
-    >
-    </div>
-    <div
-      class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-10%,rgba(165,243,252,0.5)_0%,transparent_60%)]"
-      aria-hidden="true"
-    >
-    </div>
+    ></div>
 
-    <!--
-      Watermark de marca: la pieza animada vive de fondo, gigante y anclada
-      arriba a la derecha (desborda; el overflow-hidden del pin la recorta),
-      capada a ~7% de opacidad por el wrapper. GSAP anima
-      [data-hero-logo-scene] (el inner), así el cap nunca se pisa con autoAlpha.
-    -->
     <div
-      class="pointer-events-none absolute inset-0 z-0 opacity-[0.07]"
-      aria-hidden="true"
+      data-hero-frame
+      class="hero-frame relative z-[3] h-full w-full max-w-[116.5rem] overflow-hidden rounded-[0.85rem] bg-slate-950 will-change-transform sm:rounded-[0.9rem]"
     >
-      <div
-        data-hero-logo-scene
-        class="hero-logo-scene absolute top-0 right-0 grid size-[clamp(60rem,138vw,114rem)] translate-x-1/3 -translate-y-1/3 place-items-center will-change-transform"
-      >
-        <span class="hero-logo-orbit hero-logo-orbit--outer" aria-hidden="true"></span>
-        <span class="hero-logo-orbit hero-logo-orbit--inner" aria-hidden="true"></span>
-        <span class="hero-logo-glow" aria-hidden="true"></span>
-        <div data-hero-logo class="hero-logo-mark will-change-transform">
-          <img
-            src={yzenLogo.src}
-            alt=""
-            width={yzenLogo.width}
-            height={yzenLogo.height}
-            loading="eager"
-            decoding="async"
-            class="h-auto w-[clamp(39rem,90vw,78rem)]"
-          />
-        </div>
+      <video
+        class="absolute inset-0 size-full object-cover"
+        src={backgroundVideo}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+      ></video>
+
+      <div class="hero-shade absolute inset-0" aria-hidden="true"></div>
+
+      <div data-hero-copy class="relative z-10 flex h-full items-center justify-center px-5 py-20 text-center sm:px-10">
+        <h1 class="max-w-[13ch] text-balance text-[clamp(2.4rem,7vw,7rem)] leading-[0.94] font-semibold tracking-[-0.055em] text-white">
+          Hacé que tu empresa juegue en primera
+        </h1>
       </div>
     </div>
 
-    <!-- COPY: único bloque en el flujo del flex → centrado exacto en el pin -->
     <div
-      data-hero-copy
-      class="relative z-10 flex w-full max-w-7xl flex-col items-center px-6 text-center"
+      data-hero-caption
+      class="pointer-events-none absolute inset-x-5 top-[72%] z-10 mx-auto max-w-2xl text-center text-white opacity-0 sm:inset-x-10"
     >
-
-      {/*
-        Quiebre forzado en DOS líneas exactas: cada línea es un span block con
-        whitespace-nowrap (jamás 3 líneas) y el clamp está calibrado para que
-        la línea larga ("HACÉ QUE TU EMPRESA") entre desde 320px hasta desktop.
-        SplitText (type lines, autoSplit) respeta los block spans: cada uno
-        cae en su propia línea del split — verificado en browser.
-      */}
-      <h1
-        class="mb-7 text-[clamp(1.625rem,7.2vw,6.5rem)] leading-[1.06] font-bold tracking-[-0.035em] whitespace-nowrap text-slate-900"
-        data-reveal="lines"
-      >
-        <span class="block">
-          HACÉ QUE TU
-          <span
-            class="bg-gradient-to-r from-cyan-600 to-indigo-600 bg-clip-text text-transparent"
-          >EMPRESA</span>
-        </span>
-        <span class="block">
-          JUEGUE EN
-          <span
-            class="bg-gradient-to-r from-cyan-600 to-indigo-600 bg-clip-text text-transparent"
-          >PRIMERA</span>
-        </span>
-      </h1>
-
-      <p
-        class="mb-9 max-w-2xl text-lg leading-relaxed font-medium text-slate-600 md:text-xl"
-        data-reveal="fade-up"
-        data-reveal-delay="0.3"
-      >
-        Desarrollamos páginas web, tiendas online y sistemas de gestión que
-        automatizan procesos, profesionalizan tu negocio y aumentan tus ventas.
+      <h2 class="text-balance text-[clamp(1.8rem,3.4vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em]">
+        Tecnología que hace avanzar tu negocio.
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-cyan-50/75 sm:text-base lg:text-lg">
+        Creamos sistemas claros, potentes y hechos a medida para que tu empresa
+        trabaje mejor y pueda crecer sin límites.
       </p>
-
-      <div
-        class="flex flex-col items-center justify-center gap-4 sm:flex-row"
-        data-reveal="fade-up"
-        data-reveal-delay="0.45"
-      >
-        <a href="#contacto" class="btn-cta btn-cta--solid text-base">
-          Comienza ahora
-          <span class="btn-arrows" aria-hidden="true">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
-          </span>
-        </a>
-
-        <a href="#planes" class="btn-cta btn-cta--ghost text-base">
-          Ver planes
-          <span class="btn-arrows" aria-hidden="true">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
-          </span>
-        </a>
-      </div>
     </div>
 
-    <!--
-      Strip "Confían en nosotros": franja fija al pie del viewport pinneado.
-      Logos SIN filtros (colores originales), mask degradada en los bordes.
-      Permanece visible durante todo el recorrido del hero pinneado.
-    -->
     <div
-      data-hero-logos
-      class="absolute inset-x-0 bottom-0 z-10 pb-5 md:pb-7"
+      data-hero-feature
+      class="pointer-events-none absolute top-1/2 left-[9vw] z-10 w-[min(31rem,34vw)] -translate-y-1/2 text-white opacity-0 max-md:inset-x-6 max-md:top-auto max-md:bottom-[7svh] max-md:w-auto max-md:translate-y-0"
     >
-      <p class="eyebrow mb-4 text-center text-xs md:mb-5">
-        Confían en nosotros
+      <p class="mb-7 flex items-center gap-2 text-[0.68rem] font-bold tracking-[0.16em] text-cyan-100/55 uppercase">
+        <span class="size-2 rotate-45 border-t border-l border-cyan-100/60"></span>
+        Soluciones
       </p>
-      <div class="marquee-mask overflow-hidden">
-        <div class="marquee-track items-center" style="--marquee-duration: 36s;">
-          <div class="marquee-group">
-            {
-              marqueeLogos.map((logo, index) => (
-                <img
-                  src={logo.src}
-                  alt={index < companyLogos.length ? logo.alt : ""}
-                  loading="eager"
-                  class={`w-auto shrink-0 object-contain ${logo.heightClass}`}
-                />
-              ))
-            }
-          </div>
+      <h2 class="max-w-[12ch] text-balance text-[clamp(2rem,3.3vw,4rem)] leading-[0.98] font-semibold tracking-[-0.045em]">
+        Sistemas que realmente funcionan.
+      </h2>
+      <p class="mt-5 max-w-md text-sm leading-relaxed text-cyan-50/70 lg:text-base">
+        Encontramos la solución adecuada, construimos el sistema y acompañamos
+        cada etapa para que la tecnología genere resultados reales.
+      </p>
+      <span class="mt-8 inline-flex items-center gap-8 rounded-lg bg-cyan-50 px-5 py-3 text-sm font-semibold text-[#052E3E]">
+        Conocé nuestras soluciones
+        <span aria-hidden="true">→</span>
+      </span>
+    </div>
 
-          {/* Copia decorativa: mantiene el loop continuo sin duplicar contenido accesible. */}
-          <div class="marquee-group" aria-hidden="true">
-            {
-              marqueeLogos.map((logo) => (
-                <img
-                  src={logo.src}
-                  alt=""
-                  loading="eager"
-                  class={`w-auto shrink-0 object-contain ${logo.heightClass}`}
-                />
-              ))
-            }
-          </div>
-        </div>
-      </div>
+    <div
+      data-hero-data
+      class="pointer-events-none absolute top-1/2 right-[9vw] z-10 w-[min(31rem,34vw)] -translate-y-1/2 text-white opacity-0 max-md:inset-x-6 max-md:top-auto max-md:bottom-[7svh] max-md:w-auto max-md:translate-y-0"
+    >
+      <p class="mb-7 flex items-center gap-2 text-[0.68rem] font-bold tracking-[0.16em] text-cyan-100/55 uppercase">
+        <span class="size-2 rotate-45 border-t border-l border-cyan-100/60"></span>
+        Datos
+      </p>
+      <h2 class="max-w-[13ch] text-balance text-[clamp(2rem,3.3vw,4rem)] leading-[0.98] font-semibold tracking-[-0.045em]">
+        La información que impulsa mejores decisiones.
+      </h2>
+      <p class="mt-5 max-w-md text-sm leading-relaxed text-cyan-50/70 lg:text-base">
+        Convertimos los datos de tu empresa en información clara para que puedas
+        anticiparte, decidir con confianza y crecer con una estrategia sólida.
+      </p>
+      <span class="mt-8 inline-flex items-center gap-8 rounded-lg bg-cyan-50 px-5 py-3 text-sm font-semibold text-[#052E3E]">
+        Potenciá tus datos
+        <span aria-hidden="true">→</span>
+      </span>
     </div>
   </div>
 </section>
 
 <style>
-  .marquee-mask {
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 15%,
-      black 85%,
-      transparent
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 15%,
-      black 85%,
-      transparent
-    );
+  .hero-frame {
+    box-shadow: 0 24px 70px -36px rgb(15 23 42 / 0.55);
+    contain: layout paint;
+    backface-visibility: hidden;
+    will-change: transform, clip-path;
   }
 
-  .marquee-group {
-    display: flex;
-    width: max-content;
-    min-width: 100vw;
-    flex: none;
-    align-items: center;
-    gap: clamp(2rem, 3vw, 3.5rem);
-    padding-inline: clamp(1rem, 2vw, 2rem);
+  .hero-frame video {
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
-  .hero-logo-scene { isolation: isolate; }
-  .hero-logo-glow { position: absolute; inset: 17%; z-index: -1; border-radius: 999px; background: radial-gradient(circle, rgba(103, 232, 249, .42), rgba(129, 140, 248, .12) 48%, transparent 72%); filter: blur(18px); animation: logo-breathe 3.8s ease-in-out infinite; }
-  .hero-logo-orbit { position: absolute; border-radius: 999px; border: 1px solid rgba(8, 145, 178, .18); }
-  .hero-logo-orbit::after { content: ""; position: absolute; top: 50%; left: -3px; width: 6px; height: 6px; border-radius: 50%; background: #06b6d4; box-shadow: 0 0 14px #22d3ee; }
-  .hero-logo-orbit--outer { inset: 2%; animation: logo-spin 13s linear infinite; }
-  .hero-logo-orbit--inner { inset: 17%; border-color: rgba(79, 70, 229, .16); animation: logo-spin 9s linear infinite reverse; }
-  .hero-logo-orbit--inner::after { background: #6366f1; box-shadow: 0 0 12px #818cf8; }
-  .hero-logo-mark { animation: logo-float 4.2s ease-in-out infinite; }
-  @keyframes logo-spin { to { transform: rotate(360deg); } }
-  @keyframes logo-float { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-10px) rotate(1.5deg); } }
-  @keyframes logo-breathe { 0%, 100% { opacity: .62; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.12); } }
-  @media (prefers-reduced-motion: reduce) { .hero-logo-orbit, .hero-logo-mark, .hero-logo-glow { animation: none; } }
+  .hero-shade {
+    background:
+      linear-gradient(180deg, rgb(2 6 23 / 0.2), rgb(2 6 23 / 0.08) 42%, rgb(2 6 23 / 0.32)),
+      radial-gradient(circle at center, transparent 15%, rgb(2 6 23 / 0.2) 100%);
+  }
 
-  /*
-    Pantallas CORTAS (iPhone SE ~568px, Androids chicos ~640px, landscape):
-    el copy centrado en 100dvh + el strip reservado abajo (pb) hacen que la
-    primera línea del H1 choque contra el nav fijo. La restricción es de ALTO,
-    no de ancho (el H1 entra sobrado en 320px y no hay scroll-x), así que se
-    ataca con max-height: 390x844 y desktop (height ≥ 700) quedan INTACTOS.
-  */
-  @media (max-height: 700px) {
-    #hero-pin { padding-bottom: 5.25rem; }
-    [data-hero-copy] h1 { margin-bottom: 0.75rem; }
-    [data-hero-copy] p {
-      font-size: 1rem;
-      line-height: 1.4;
-      margin-bottom: 1.25rem;
+  @media (prefers-reduced-motion: reduce) {
+    #inicio {
+      height: auto;
+      background: #052e3e;
+    }
+
+    #hero-pin {
+      min-height: 100svh;
+    }
+
+    [data-hero-frame] {
+      height: min(52svh, 38rem);
+      width: min(82vw, 62rem);
+      transform: translateY(-12svh) perspective(1200px) rotateX(3deg) rotateY(-16deg);
+    }
+
+    [data-hero-copy] {
+      display: none;
+    }
+
+    [data-hero-caption] {
+      display: none;
+    }
+
+    [data-hero-feature] {
+      display: none;
+    }
+
+    [data-hero-data] {
+      opacity: 1;
     }
   }
 </style>
