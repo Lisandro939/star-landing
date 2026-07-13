@@ -653,6 +653,10 @@ function initParallax(): void {
  * corto de scroll antes de entregar la siguiente sección.
  */
 function initPinnedSections(): void {
+  // En mobile las secciones participan del flujo normal del documento.
+  // El pin se reserva para pantallas con espacio suficiente.
+  if (!window.matchMedia("(min-width: 768px)").matches) return;
+
   for (const section of gsap.utils.toArray<HTMLElement>("[data-pin-section]")) {
     if (
       section.hasAttribute("data-pin-desktop") &&
