@@ -64,20 +64,23 @@ const menuItems = [
       </div>
 
       <!-- MOBILE MENU BUTTON -->
-      <button
-        class="nav-link relative z-[60] flex h-8 w-8 items-center justify-center md:hidden"
+      <div class="flex items-center gap-2 md:hidden">
+        <a href="#contacto" class="mobile-nav-cta">Contacto</a>
+        <button
+          class="nav-link mobile-nav-menu relative z-[60] flex items-center justify-center"
         id="menuToggle"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="mobileMenuPanel"
       >
         <span class="menu-icon-open">
-          <Icon name="lucide:menu" size={24} />
+          <Icon name="lucide:menu" size={21} />
         </span>
         <span class="menu-icon-close hidden">
-          <Icon name="lucide:x" size={24} />
+          <Icon name="lucide:x" size={21} />
         </span>
-      </button>
+        </button>
+      </div>
     </div>
   </div>
 </nav>
@@ -158,6 +161,28 @@ const menuItems = [
 
   .nav-link:hover {
     opacity: 0.85;
+  }
+
+  .mobile-nav-cta,
+  .mobile-nav-menu {
+    height: 3.25rem;
+    border-radius: 0.65rem;
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+
+  .mobile-nav-cta {
+    display: inline-flex;
+    min-width: 8.4rem;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 1.15rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .mobile-nav-menu {
+    width: 3.25rem;
   }
 
   .nav-contact .btn-arrows {

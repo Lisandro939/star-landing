@@ -333,6 +333,7 @@ function initHero(): void {
   const caption = pinTarget.querySelector<HTMLElement>("[data-hero-caption]");
   const feature = pinTarget.querySelector<HTMLElement>("[data-hero-feature]");
   const dataPanel = pinTarget.querySelector<HTMLElement>("[data-hero-data]");
+  const scrollCue = pinTarget.querySelector<HTMLElement>("[data-hero-scroll-cue]");
   const header = document.getElementById("site-nav");
   if (!background || !frame || !copy || !caption || !feature || !dataPanel || !header) return;
 
@@ -375,13 +376,14 @@ function initHero(): void {
     0,
   );
   tl.to(header, { autoAlpha: 0, y: -24, duration: 0.18 }, 0);
+  if (scrollCue) tl.to(scrollCue, { autoAlpha: 0, y: 12, duration: 0.16 }, 0);
   tl.to(copy, { autoAlpha: 0, scale: 0.94, duration: 0.22 }, 0);
   tl.to(background, { autoAlpha: 1, duration: 0.72 }, 0);
   tl.to(
     frame,
     {
-      scale: isDesktop ? 0.57 : 0.78,
-      yPercent: isDesktop ? -18 : -20,
+      scale: isDesktop ? 0.57 : 0.6,
+      yPercent: isDesktop ? -18 : -42,
       rotationX: isDesktop ? 3 : 2,
       rotationY: isDesktop ? -16 : -10,
       rotationZ: 0,
@@ -405,10 +407,10 @@ function initHero(): void {
   tl.to(
     frame,
     {
-      scale: isDesktop ? 0.43 : 0.66,
+      scale: isDesktop ? 0.43 : 0.54,
       x: () => (isDesktop ? window.innerWidth * 0.24 : 0),
       xPercent: 0,
-      yPercent: isDesktop ? 0 : -30,
+      yPercent: isDesktop ? 0 : -52,
       rotationX: isDesktop ? 3 : 2,
       rotationY: isDesktop ? -18 : -10,
       duration: 0.62,
@@ -429,7 +431,7 @@ function initHero(): void {
     frame,
     {
       x: () => (isDesktop ? window.innerWidth * -0.24 : 0),
-      yPercent: isDesktop ? 0 : -30,
+      yPercent: isDesktop ? 0 : -52,
       rotationX: isDesktop ? 3 : 2,
       rotationY: isDesktop ? 18 : 10,
       duration: 0.7,

@@ -75,6 +75,10 @@ import backgroundVideo from "../assets/background-video.mp4";
       </span>
     </div>
 
+    <div data-hero-scroll-cue class="pointer-events-none absolute right-9 bottom-10 z-10 flex size-11 items-center justify-center rounded-lg border border-white/80 text-white md:hidden" aria-hidden="true">
+      <span class="text-xl leading-none">↓</span>
+    </div>
+
     <div
       data-hero-data
       class="pointer-events-none absolute top-1/2 right-[9vw] z-10 w-[min(31rem,34vw)] -translate-y-1/2 text-white opacity-0 max-md:inset-x-6 max-md:top-auto max-md:bottom-[7svh] max-md:w-auto max-md:translate-y-0"
@@ -115,6 +119,88 @@ import backgroundVideo from "../assets/background-video.mp4";
     background:
       linear-gradient(180deg, rgb(2 6 23 / 0.2), rgb(2 6 23 / 0.08) 42%, rgb(2 6 23 / 0.32)),
       radial-gradient(circle at center, transparent 15%, rgb(2 6 23 / 0.2) 100%);
+  }
+
+  @media (max-width: 767px) {
+    #inicio {
+      height: 400svh;
+    }
+
+    #hero-pin {
+      padding: 5.75rem 1rem 1rem;
+      background: #fff;
+    }
+
+    [data-hero-background] {
+      background: #000;
+    }
+
+    .hero-frame {
+      border-radius: 0.9rem;
+    }
+
+    [data-hero-copy] {
+      padding-inline: 1.1rem;
+    }
+
+    [data-hero-copy] h1 {
+      max-width: 14ch;
+      font-size: clamp(2rem, 9.5vw, 3.05rem);
+      line-height: 1.06;
+      letter-spacing: -0.052em;
+    }
+
+    [data-hero-caption],
+    [data-hero-feature],
+    [data-hero-data] {
+      inset-inline: 1.4rem;
+      width: auto;
+      text-align: center;
+    }
+
+    [data-hero-caption] {
+      top: 57%;
+    }
+
+    [data-hero-feature],
+    [data-hero-data] {
+      bottom: 10svh;
+    }
+
+    [data-hero-caption] h2,
+    [data-hero-feature] h2,
+    [data-hero-data] h2 {
+      margin-inline: auto;
+      max-width: 17ch;
+      font-size: clamp(1.75rem, 7.5vw, 2.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    [data-hero-caption] p,
+    [data-hero-feature] > p:not(:first-child),
+    [data-hero-data] > p:not(:first-child) {
+      margin: 1rem auto 0;
+      max-width: 31rem;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgb(226 232 240 / 0.72);
+    }
+
+    [data-hero-feature] > p:first-child,
+    [data-hero-data] > p:first-child {
+      justify-content: center;
+      margin-bottom: 1.8rem;
+    }
+
+    [data-hero-feature] > span,
+    [data-hero-data] > span {
+      margin-top: 1.6rem;
+      border-radius: 0.55rem;
+      background: #083d32;
+      color: #f8fafc;
+      padding: 0.9rem 1.25rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
