@@ -1,5 +1,5 @@
 ---
-import backgroundVideo from "../assets/background-video.mp4";
+import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
 ---
 
 <section
@@ -21,23 +21,18 @@ import backgroundVideo from "../assets/background-video.mp4";
 
     <div
       data-hero-frame
-      class="hero-frame relative z-[3] h-full w-full max-w-[116.5rem] overflow-hidden rounded-[0.85rem] bg-slate-950 will-change-transform sm:rounded-[0.9rem]"
+      class="hero-frame relative z-[3] h-full w-full max-w-[116.5rem] overflow-hidden rounded-[0.85rem] bg-transparent will-change-transform sm:rounded-[0.9rem]"
     >
-      <video
-        class="absolute inset-0 size-full object-cover"
-        src={backgroundVideo}
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
+      <img
+        data-hero-visual
+        class="absolute inset-[6%] size-[88%] object-contain"
+        src={yzenLogo.src}
+        alt=""
         aria-hidden="true"
-      ></video>
-
-      <div class="hero-shade absolute inset-0" aria-hidden="true"></div>
+      />
 
       <div data-hero-copy class="relative z-10 flex h-full items-center justify-center px-5 py-20 text-center sm:px-10">
-        <h1 class="max-w-[13ch] text-balance text-[clamp(2.4rem,7vw,7rem)] leading-[0.94] font-semibold tracking-[-0.055em] text-white">
+        <h1 class="max-w-[13ch] text-balance text-[clamp(2.4rem,7vw,7rem)] leading-[0.94] font-semibold tracking-[-0.055em] text-cyan-950">
           Hacé que tu empresa juegue en primera
         </h1>
       </div>
@@ -106,21 +101,15 @@ import backgroundVideo from "../assets/background-video.mp4";
 
 <style>
   .hero-frame {
-    box-shadow: 0 24px 70px -36px rgb(15 23 42 / 0.55);
     contain: layout paint;
     backface-visibility: hidden;
-    will-change: transform, clip-path;
+    will-change: transform;
   }
 
-  .hero-frame video {
+  .hero-frame img {
     backface-visibility: hidden;
+    opacity: 0;
     transform: translateZ(0);
-  }
-
-  .hero-shade {
-    background:
-      linear-gradient(180deg, rgb(2 6 23 / 0.2), rgb(2 6 23 / 0.08) 42%, rgb(2 6 23 / 0.32)),
-      radial-gradient(circle at center, transparent 15%, rgb(2 6 23 / 0.2) 100%);
   }
 
   @media (max-width: 767px) {
@@ -200,6 +189,10 @@ import backgroundVideo from "../assets/background-video.mp4";
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero-frame img {
+      opacity: 1;
+    }
+
     #inicio {
       height: auto;
       background: #052e3e;

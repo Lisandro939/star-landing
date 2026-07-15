@@ -331,7 +331,7 @@ function initHero(): void {
     "[data-hero-background]",
   );
   const frame = pinTarget.querySelector<HTMLElement>("[data-hero-frame]");
-  const video = frame?.querySelector<HTMLVideoElement>("video");
+  const visual = frame?.querySelector<HTMLImageElement>("[data-hero-visual]");
   const copy = pinTarget.querySelector<HTMLElement>("[data-hero-copy]");
   const caption = pinTarget.querySelector<HTMLElement>("[data-hero-caption]");
   const feature = pinTarget.querySelector<HTMLElement>("[data-hero-feature]");
@@ -343,7 +343,7 @@ function initHero(): void {
   if (
     !background ||
     !frame ||
-    !video ||
+    !visual ||
     !copy ||
     !caption ||
     !feature ||
@@ -378,28 +378,11 @@ function initHero(): void {
     },
   });
 
-  // Cierra el encuadre hasta el equivalente visual de 80rem sin animar layout.
-  // El inset se recalcula en cada refresh para respetar cualquier viewport.
-  tl.to(
-    frame,
-    {
-      clipPath: () => {
-        const targetWidth = 80 * 16;
-        const inset = Math.max(
-          0,
-          ((frame.offsetWidth - targetWidth) / frame.offsetWidth) * 50,
-        );
-        return `inset(0 ${inset}% round 1.75rem)`;
-      },
-      duration: 0.28,
-    },
-    0,
-  );
   tl.to(header, { autoAlpha: 0, y: -24, duration: 0.18 }, 0);
   if (scrollCue) tl.to(scrollCue, { autoAlpha: 0, y: 12, duration: 0.16 }, 0);
   tl.to(copy, { autoAlpha: 0, scale: 0.94, duration: 0.22 }, 0);
+  tl.to(visual, { autoAlpha: 1, scale: 1, duration: 0.32 }, 0.12);
   tl.to(background, { autoAlpha: 1, duration: 0.72 }, 0);
-  if (!isDesktop) tl.set(video, { objectFit: "contain" }, 0.08);
   tl.to(
     frame,
     {
@@ -411,8 +394,8 @@ function initHero(): void {
           }),
       scale: isDesktop ? 0.57 : 1,
       yPercent: isDesktop ? -18 : -68,
-      rotationX: isDesktop ? 3 : 0,
-      rotationY: isDesktop ? -16 : 0,
+      rotationX: 0,
+      rotationY: 0,
       rotationZ: 0,
       transformPerspective: 1200,
       transformOrigin: "50% 50%",
@@ -442,7 +425,7 @@ function initHero(): void {
       rotationY: isDesktop ? -18 : 0,
       duration: 0.62,
     },
-    0.96,
+    0.98,
   );
   tl.fromTo(
     feature,
