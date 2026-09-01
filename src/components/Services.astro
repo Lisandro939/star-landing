@@ -4,8 +4,6 @@ import efectosMendozaPc from '../assets/companies-examples/efectos-mendoza-pc.pn
 import efectosMendozaMobile from '../assets/companies-examples/efectos-mendoza-mobile.png';
 import esteticaAmapolaPc from '../assets/companies-examples/estetica-amapola-pc.png';
 import esteticaAmapolaMobile from '../assets/companies-examples/estetica-amapola-mobile.png';
-import puntoLunchPc from '../assets/companies-examples/punto-lunch-pc.png';
-import puntoLunchMobile from '../assets/companies-examples/punto-lunch-mobile.png';
 import deliveriesEnLavallePc from '../assets/companies-examples/deliveries-en-lavalle-pc.png';
 import deliveriesEnLavalleMobile from '../assets/companies-examples/deliveries-en-lavalle-mobile.png';
 import elBosquePc from '../assets/companies-examples/el-bosque-pc.png';
@@ -24,13 +22,12 @@ interface Project {
 }
 
 const projects: Project[] = [
-  { id: 1, title: 'Deliveries en Lavalle', url: 'https://www.deliveriesenlavalle.com.ar/', imagePc: deliveriesEnLavallePc, imageMobile: deliveriesEnLavalleMobile },
-  { id: 2, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/', imagePc: efectosMendozaPc, imageMobile: efectosMendozaMobile },
-  { id: 3, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/', imagePc: esteticaAmapolaPc, imageMobile: esteticaAmapolaMobile },
-  { id: 4, title: 'Punto Lunch', url: 'https://punto-lunch.vercel.app/', imagePc: puntoLunchPc, imageMobile: puntoLunchMobile },
-  { id: 5, title: 'Caramelo', url: 'https://www.carameloclub.com/', imagePc: elBosquePc, imageMobile: elBosqueMobile },
-  { id: 6, title: 'Brenat', url: 'https://www.brenat.com.ar/', imagePc: brenatPc, imageMobile: brenatMobile },
-  { id: 7, title: 'DM León', url: 'https://www.dmleon.com.ar/', imagePc: dmleonPc, imageMobile: dmleonMobile },
+  { id: 1, title: 'Brenat', url: 'https://www.brenat.com.ar/', imagePc: brenatPc, imageMobile: brenatMobile },
+  { id: 2, title: 'DM León', url: 'https://www.dmleon.com.ar/', imagePc: dmleonPc, imageMobile: dmleonMobile },
+  { id: 3, title: 'Deliveries en Lavalle', url: 'https://www.deliveriesenlavalle.com.ar/', imagePc: deliveriesEnLavallePc, imageMobile: deliveriesEnLavalleMobile },
+  { id: 4, title: 'Efectos Mendoza', url: 'https://mendoza-efectos.vercel.app/', imagePc: efectosMendozaPc, imageMobile: efectosMendozaMobile },
+  { id: 5, title: 'Estética Amapola', url: 'https://amapola-estetica.vercel.app/', imagePc: esteticaAmapolaPc, imageMobile: esteticaAmapolaMobile },
+  { id: 6, title: 'Caramelo', url: 'https://www.carameloclub.com/', imagePc: elBosquePc, imageMobile: elBosqueMobile },
 ];
 
 // Slides cloned at both edges for seamless infinite loop: [last, ...all, first]
