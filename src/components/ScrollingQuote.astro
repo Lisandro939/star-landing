@@ -1,15 +1,16 @@
 ---
-// Quote pinneada por CSS sticky solo desde tablet; el "encendido" palabra a
-// palabra lo hace motion.ts via data-scrub-words.
+// Quote pinneada por CSS sticky. La animación es un video scrubbeado por
+// scroll (fuente en video-src/quote.html, ver initScrollVideos en motion.ts).
+// El texto queda en el DOM debajo del video (SEO / lectores de pantalla) y es
+// lo que se ve en reduced-motion.
 ---
 
 <section
-  class="theme-accent relative md:h-[200dvh]"
+  class="theme-accent relative h-[250dvh] motion-reduce:h-auto"
   data-nav-theme="dark"
-  data-scrub-container
 >
   <div
-    class="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 md:sticky md:top-0 md:h-dvh"
+    class="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6"
   >
     <!-- Cuadrícula tenue sobre el color sólido de la sección -->
     <div
@@ -23,16 +24,24 @@
 
       <p
         class="text-[clamp(2rem,4.5vw,4.5rem)] leading-[1.15] font-semibold [text-wrap:balance]"
-        data-scrub-words
-        data-scrub-start="top 35%"
-        data-scrub-end="bottom bottom"
-        data-scrub-stagger="0.06"
       >
         Somos una empresa de desarrollo con más de dos años de experiencia.
         Hablamos tu mismo idioma y nos enfocamos en una sola cosa: que tu
         inversión digital traiga resultados reales.
       </p>
     </div>
+
+    <video
+      data-scroll-video
+      data-src="/videos/quote-desktop.mp4"
+      data-src-square="/videos/quote-desktop-4x3.mp4"
+      data-src-portrait="/videos/quote-mobile.mp4"
+      class="pointer-events-none absolute inset-0 z-20 hidden size-full bg-[#052E3E] object-cover"
+      muted
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+    ></video>
   </div>
 </section>
 

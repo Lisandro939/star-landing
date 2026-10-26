@@ -7,7 +7,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "video:hero": "node video-src/capture.mjs"
+    "video": "node video-src/capture.mjs",
+    "video:hero": "node video-src/capture.mjs hero",
+    "video:quote": "node video-src/capture.mjs quote"
   },
   "dependencies": {
     "@astrojs/vercel": "9.0.0",

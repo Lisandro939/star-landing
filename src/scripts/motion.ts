@@ -15,6 +15,8 @@ import Lenis from "lenis";
  *   - data-scrub-start / data-scrub-end / data-scrub-stagger
  * - data-parallax="0.2"          → yPercent proporcional scrubbed
  * - data-nav-theme="light|dark"  → en <section>, setea el tema del nav al entrar
+ * - data-scroll-video            → <video> que avanza con el scroll de su <section>
+ *   (data-src / data-src-square / data-src-portrait, ver video-src/)
  *
  * Piezas firma (markup específico):
  * - initHero()       → #inicio + #hero-pin pinneado: video scrubbeado por
@@ -316,6 +318,29 @@ function initScrubWords(): void {
   }
 }
 
+const VIDEO_FRAME_TIME = 1 / 30;
+
+/**
+ * Hay tres grabaciones de cada video (16:9, 4:3 y vertical); se elige la más
+ * cercana a la proporción de la ventana para que object-cover recorte lo mínimo.
+ */
+function loadScrollVideo(video: HTMLVideoElement): void {
+  const ratio = window.innerWidth / window.innerHeight;
+  video.src =
+    (ratio < 1
+      ? video.dataset.srcPortrait
+      : ratio < 1.55
+        ? video.dataset.srcSquare
+        : undefined) ?? video.dataset.src ?? "";
+  video.classList.remove("hidden");
+}
+
+/** Lleva el video al progreso dado (0–1); el último cuadro está en duration - 1 frame. */
+function seekScrollVideo(video: HTMLVideoElement, progress: number): void {
+  if (!video.duration) return;
+  video.currentTime = progress * (video.duration - VIDEO_FRAME_TIME);
+}
+
 /**
  * Hero pinneado: un video (generado desde video-src/hero.html) avanza con el
  * scroll. El progreso mapea lineal al currentTime y el snap frena en las
@@ -334,18 +359,7 @@ function initHero(): void {
   );
   // Escenas quietas del video, en segundos de timeline (2.46 = 100%).
   const forwardStops = [0, 0.98 / 2.46, 1.7 / 2.46, 1];
-  const frameTime = 1 / 30;
-
-  // Hay tres grabaciones (16:9, 4:3 y vertical); se elige la más cercana
-  // a la proporción de la ventana para que object-cover recorte lo mínimo.
-  const ratio = window.innerWidth / window.innerHeight;
-  video.src =
-    (ratio < 1
-      ? video.dataset.srcPortrait
-      : ratio < 1.55
-        ? video.dataset.srcSquare
-        : undefined) ?? video.dataset.src;
-  video.classList.remove("hidden");
+  loadScrollVideo(video);
 
   const tl = gsap.timeline({
     defaults: { ease: "power2.inOut" },
@@ -371,7 +385,6 @@ function initHero(): void {
   tl.to(header, { autoAlpha: 0, y: -24, duration: 0.18 }, 0);
   if (scrollCue) tl.to(scrollCue, { autoAlpha: 0, y: 12, duration: 0.16 }, 0);
 
-  // El último cuadro está en duration - 1 frame.
   const playhead = { progress: 0 };
   tl.to(
     playhead,
@@ -379,13 +392,38 @@ function initHero(): void {
       progress: 1,
       duration: 2.46,
       ease: "none",
-      onUpdate: () => {
-        if (!video.duration) return;
-        video.currentTime = playhead.progress * (video.duration - frameTime);
-      },
+      onUpdate: () => seekScrollVideo(video, playhead.progress),
     },
     0,
   );
+}
+
+/**
+ * Videos scrubbeados de otras secciones ([data-scroll-video], fuente en
+ * video-src/): avanzan mientras su sección recorre el viewport, sin paradas.
+ * La sección tiene que tener el contenedor sticky (ver ScrollingQuote).
+ */
+function initScrollVideos(): void {
+  for (const video of gsap.utils.toArray<HTMLVideoElement>(
+    "[data-scroll-video]",
+  )) {
+    const section = video.closest<HTMLElement>("section");
+    if (!section || !video.dataset.src) continue;
+
+    loadScrollVideo(video);
+    const playhead = { progress: 0 };
+    gsap.to(playhead, {
+      progress: 1,
+      ease: "none",
+      onUpdate: () => seekScrollVideo(video, playhead.progress),
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+      },
+    });
+  }
 }
 
 interface CyclerWord {
@@ -615,6 +653,7 @@ export function initMotion(): void {
   });
 
   safeInit("hero", initHero);
+  safeInit("scroll-videos", initScrollVideos);
   safeInit("pinned-sections", initPinnedSections);
   safeInit("simple-reveals", initSimpleReveals);
   if (desktopMotion) safeInit("parallax", initParallax);
