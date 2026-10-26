@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Hero video</title>
+<style>
+  @font-face {
+    font-family: "Manrope";
+    src: url("../src/assets/fonts/Manrope-VariableFont_wght.ttf") format("truetype");
+    font-weight: 200 800;
+  }
+  :root {
+    --navy: #052e3e;
+    --cyan: #3fd4f0;
+    /* unidad que escala igual en 16:9 y 4:3 */
+    --u: min(1vw, 1.7778vh);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100vw; height: 100vh; overflow: hidden;
+    background: #fff;
+    font-family: "Manrope", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage { position: fixed; inset: 0; overflow: hidden; }
+
+  .dark {
+    position: absolute; inset: 0;
+    background: var(--navy);
+    clip-path: circle(0% at 50% 50%);
+  }
+
+  /* Estrellas: puntos chicos y tenues, el resto del fondo queda #052E3E puro. */
+  .stars { position: absolute; inset: -10% 0; opacity: 0; }
+  .star {
+    position: absolute; border-radius: 50%;
+    background: #bfefff;
+  }
+
+  .headline {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--u) * 70);
+    text-align: center;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: calc(var(--u) * 6.6);
+    line-height: 0.96;
+    letter-spacing: -0.065em;
+    text-wrap: balance;
+  }
+  .headline .wi { display: inline-block; }
+
+  .logo-wrap {
+    position: absolute; left: 50%; top: 50%;
+    width: calc(var(--u) * 32);
+    perspective: 1400px;
+    opacity: 0;
+  }
+  .glow {
+    position: absolute; left: 50%; top: 50%;
+    width: 150%; aspect-ratio: 1.6;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, rgba(14, 165, 233, 0.16), rgba(14, 165, 233, 0.09) 30%, rgba(14, 165, 233, 0.035) 60%, rgba(14, 165, 233, 0.008) 85%, rgba(14, 165, 233, 0) 100%);
+    pointer-events: none;
+  }
+  .logo {
+    position: relative; display: block; width: 100%;
+    filter: drop-shadow(0 calc(var(--u) * 1.2) calc(var(--u) * 2.4) rgba(0, 0, 0, 0.25));
+  }
+
+  .block {
+    position: absolute; top: 50%;
+    color: #fff;
+  }
+  .block.center {
+    left: 50%;
+    width: calc(var(--u) * 50);
+    text-align: center;
+  }
+  .center p { margin-inline: auto; max-width: calc(var(--u) * 40); }
+  .block.side { width: calc(var(--u) * 34); }
+
+  h2 {
+    font-weight: 600;
+    font-size: calc(var(--u) * 3.6);
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+  .center h2 { font-size: calc(var(--u) * 3.3); }
+  h2 em { font-style: normal; color: var(--cyan); position: relative; }
+  /* Subrayado que se dibuja bajo la palabra destacada */
+  h2 em .ul {
+    position: absolute; left: 0; right: 0; bottom: -0.04em;
+    height: 0.06em; border-radius: 1em;
+    background: linear-gradient(90deg, var(--cyan), rgba(63, 212, 240, 0.25));
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+  p {
+    margin-top: calc(var(--u) * 1.4);
+    font-size: calc(var(--u) * 1.08);
+    line-height: 1.55;
+    color: rgba(224, 247, 255, 0.72);
+    text-wrap: balance;
+  }
+  .rule {
+    margin-top: calc(var(--u) * 2);
+    width: calc(var(--u) * 4); height: 2px;
+    background: linear-gradient(90deg, var(--cyan), rgba(63, 212, 240, 0));
+    transform-origin: left center;
+  }
+
+  /* Palabras con máscara: el padding deja lugar a tildes y descendentes. */
+  h2 .w {
+    display: inline-block; overflow: hidden; vertical-align: top;
+    padding: 0.1em 0.02em 0.14em; margin: -0.1em -0.02em -0.14em;
+  }
+  h2 .wi { display: inline-block; will-change: transform; }
+
+  /* Vertical (mobile): todo apilado y centrado. --u ya vale 1vw acá. */
+  @media (orientation: portrait) {
+    .headline { width: calc(var(--u) * 86); font-size: calc(var(--u) * 12.5); }
+    .logo-wrap { width: calc(var(--u) * 72); }
+    .block.center, .block.side { width: calc(var(--u) * 84); text-align: center; }
+    .center p, .side p { margin-inline: auto; max-width: calc(var(--u) * 78); }
+    h2, .center h2 { font-size: calc(var(--u) * 8.2); }
+    p { margin-top: calc(var(--u) * 3.4); font-size: calc(var(--u) * 3.8); }
+    .rule { margin: calc(var(--u) * 5) auto 0; width: calc(var(--u) * 10); transform-origin: center; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="dark">
+    <div class="stars"></div>
+  </div>
+
+  <h1 class="headline">Hacé que tu empresa juegue en primera</h1>
+
+  <div class="logo-wrap">
+    <div class="glow"></div>
+    <img class="logo" src="../src/assets/Yzen-Logo-With-Name-Color.png" alt="" />
+  </div>
+
+  <div class="block center" id="caption">
+    <h2>Tecnología que hace <em>avanzar</em> tu negocio.</h2>
+    <p>Creamos sistemas claros, potentes y hechos a medida para que tu empresa trabaje mejor y pueda crecer sin límites.</p>
+  </div>
+
+  <div class="block side" id="feature">
+    <h2>Sistemas que realmente <em>funcionan.</em></h2>
+    <p>Encontramos la solución adecuada, construimos el sistema y acompañamos cada etapa para que la tecnología genere resultados reales.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="block side" id="data">
+    <h2>La información que impulsa mejores <em>decisiones.</em></h2>
+    <p>Convertimos los datos de tu empresa en información clara para que puedas anticiparte, decidir con confianza y crecer con una estrategia sólida.</p>
+    <div class="rule"></div>
+  </div>
+</div>
+
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+  // Paradas iguales a motion.ts: 0 · 0.98 · 1.7 · 2.46 (cada una es un estado quieto).
+  const W = innerWidth, H = innerHeight;
+  const u = Math.min(W / 100, (H * 1.7778) / 100);
+  const q = (s, root = document) => root.querySelector(s);
+  const logo = q(".logo-wrap"), logoImg = q(".logo"), glow = q(".glow");
+  const caption = q("#caption"), feature = q("#feature"), data = q("#data");
+
+  // Envuelve cada palabra en .w > .wi (respeta los <em>).
+  function splitWords(el) {
+    for (const node of [...el.childNodes]) {
+      if (node.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) return frag.append(" ");
+          const w = document.createElement("span");
+          w.className = "w";
+          const wi = document.createElement("span");
+          wi.className = "wi";
+          wi.textContent = part;
+          w.append(wi);
+          frag.append(w);
+        });
+        node.replaceWith(frag);
+      } else if (node.nodeType === 1) {
+        splitWords(node);
+      }
+    }
+    return [...el.querySelectorAll(".wi")];
+  }
+  const words = (block) => splitWords(q("h2", block));
+  const headWords = splitWords(q(".headline"));
+  const capWords = words(caption), featWords = words(feature), dataWords = words(data);
+  for (const em of document.querySelectorAll("h2 em")) {
+    const ul = document.createElement("span");
+    ul.className = "ul";
+    em.append(ul);
+  }
+
+  // Estrellas con posiciones fijas (semilla) para que 16:9 y 4:3 sean consistentes.
+  let seed = 7;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const starLayer = q(".stars");
+  const stars = [];
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement("span");
+    s.className = "star";
+    const size = (0.08 + rand() * 0.16) * u;
+    Object.assign(s.style, {
+      left: `${rand() * 100}%`, top: `${rand() * 100}%`,
+      width: `${size}px`, height: `${size}px`,
+      opacity: (0.15 + rand() * 0.45).toFixed(2),
+    });
+    s.dataset.depth = (0.4 + rand() * 1.6).toFixed(2);
+    starLayer.append(s);
+    stars.push(s);
+  }
+
+  // Horizontal: bloques laterales centrados en su mitad de pantalla.
+  // Vertical: logo arriba y bloque abajo, el grupo centrado según su alto real.
+  const portrait = H > W;
+  const half = W / 4;
+  const sideBlockW = 34 * u;
+
+  function stack(block, logoScale) {
+    const logoH = logo.offsetHeight * logoScale;
+    const total = logoH + 7 * u + block.offsetHeight;
+    return { logoY: -total / 2 + logoH / 2, blockY: total / 2 - block.offsetHeight / 2 };
+  }
+  const SIDE_SCALE = portrait ? 0.8 : 0.86;
+  const s2 = portrait ? stack(caption, 1) : { logoY: -8 * u, blockY: 7 * u };
+  const s3 = portrait ? stack(feature, SIDE_SCALE) : { logoY: 0, blockY: 0 };
+  const s4 = portrait ? stack(data, SIDE_SCALE) : { logoY: 0, blockY: 0 };
+  const logoX3 = portrait ? 0 : half;
+  const logoX4 = portrait ? 0 : -half;
+
+  gsap.set(logo, { xPercent: -50, yPercent: -50 });
+  gsap.set(caption, { xPercent: -50, yPercent: -50, y: s2.blockY });
+  gsap.set([feature, data], { yPercent: -50 });
+  if (portrait) {
+    gsap.set([feature, data], { left: "50%", xPercent: -50 });
+    gsap.set(feature, { y: s3.blockY });
+    gsap.set(data, { y: s4.blockY });
+  } else {
+    gsap.set(feature, { left: W / 4 - sideBlockW / 2 });
+    gsap.set(data, { left: (3 * W) / 4 - sideBlockW / 2 });
+  }
+
+  // Estado oculto de los bloques: palabras abajo de la máscara, resto invisible.
+  for (const b of [caption, feature, data]) {
+    gsap.set(b.querySelectorAll("h2 .wi"), { yPercent: 150 });
+    gsap.set(b.querySelectorAll("p"), { opacity: 0 });
+    gsap.set(b.querySelectorAll(".rule"), { scaleX: 0 });
+  }
+
+  const tl = gsap.timeline({ paused: true, defaults: { ease: "power2.inOut" } });
+
+  // Entrada de un bloque: palabras, subrayado, párrafo y línea.
+  function blockIn(block, ws, at) {
+    tl.to(ws, { yPercent: 0, duration: 0.24, stagger: 0.018, ease: "power3.out" }, at + 0.04);
+    tl.to(q(".ul", block), { scaleX: 1, duration: 0.16, ease: "power2.out" }, at + 0.04 + ws.length * 0.018 + 0.04);
+    tl.fromTo(q("p", block), { opacity: 0, y: 1.5 * u, filter: "blur(4px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.22, ease: "power2.out" }, at + 0.14);
+    const rule = q(".rule", block);
+    if (rule) tl.to(rule, { scaleX: 1, duration: 0.2, ease: "power2.out" }, at + 0.2);
+  }
+  // Salida: las palabras suben y salen de la máscara, el resto se desvanece.
+  function blockOut(block, ws, at) {
+    tl.to(ws, { yPercent: -150, duration: 0.14, stagger: 0.008, ease: "power2.in" }, at);
+    tl.to(block.querySelectorAll("p, .rule"), { opacity: 0, y: -1 * u, duration: 0.14, ease: "power2.in" }, at);
+    tl.to(q(".ul", block), { scaleX: 0, transformOrigin: "right center", duration: 0.12, ease: "power2.in" }, at);
+  }
+
+  // Escena 1 → 2: el fondo oscuro se abre desde el centro, el titular se va
+  // palabra por palabra y aparece el logo con el caption debajo.
+  tl.to(headWords, {
+    opacity: 0, yPercent: -40, filter: "blur(8px)",
+    duration: 0.22, stagger: { each: 0.018, from: "center" }, ease: "power2.in",
+  }, 0);
+  tl.to(".dark", { clipPath: "circle(75% at 50% 50%)", duration: 0.62, ease: "power3.inOut" }, 0.04);
+  tl.to(starLayer, { opacity: 1, duration: 0.4 }, 0.4);
+  tl.fromTo(logo, { opacity: 0, scale: 0.82, y: s2.logoY + 4 * u },
+    { opacity: 1, scale: 1, y: s2.logoY, duration: 0.42, ease: "power3.out" }, 0.3);
+  blockIn(caption, capWords, 0.56);
+
+  // Estrellas: parallax lento durante todo el recorrido.
+  for (const s of stars) {
+    tl.to(s, { y: -6 * u * s.dataset.depth, x: -2 * u * s.dataset.depth, duration: 2.46, ease: "none" }, 0);
+  }
+
+  // Escena 2 → 3: logo a la mitad derecha con perspectiva, bloque Soluciones a la izquierda
+  // (en vertical el logo queda arriba y gira).
+  blockOut(caption, capWords, 0.98);
+  tl.to(logo, { x: logoX3, y: s3.logoY, scale: SIDE_SCALE, duration: 0.56, ease: "power3.inOut" }, 0.98);
+  tl.to(logoImg, { rotationY: -16, rotationX: 4, duration: 0.56, ease: "power3.inOut" }, 0.98);
+  tl.to(glow, { scale: 1.25, opacity: 1.4, duration: 0.28, yoyo: true, repeat: 1 }, 0.98);
+  blockIn(feature, featWords, 1.2);
+
+  // Escena 3 → 4: composición espejada, bloque Datos a la derecha.
+  blockOut(feature, featWords, 1.7);
+  tl.to(logo, { x: logoX4, y: s4.logoY, duration: 0.56, ease: "power3.inOut" }, 1.7);
+  tl.to(logoImg, { rotationY: 16, duration: 0.56, ease: "power3.inOut" }, 1.7);
+  tl.to(glow, { scale: 1.25, duration: 0.28, yoyo: true, repeat: 1 }, 1.7);
+  blockIn(data, dataWords, 1.96);
+
+  // Flote sutil del logo durante los traslados (vuelve a 0 en cada parada).
+  tl.to(logoImg, { y: -1.2 * u, duration: 0.28, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.0);
+  tl.to(logoImg, { y: -1.2 * u, duration: 0.28, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.72);
+
+  // Relleno hasta 2.46 para que la última parada sea progress 1.
+  if (tl.duration() < 2.46) tl.to({}, { duration: 2.46 - tl.duration() }, tl.duration());
+
+  tl.progress(0);
+  window.__tl = tl;
+</script>
+</body>
+</html>

@@ -17,8 +17,8 @@ import Lenis from "lenis";
  * - data-nav-theme="light|dark"  → en <section>, setea el tema del nav al entrar
  *
  * Piezas firma (markup específico):
- * - initHero()       → #inicio (200dvh) + #hero-pin pinneado con scrub:
- *                      el logo de marca gana profundidad al scrollear.
+ * - initHero()       → #inicio + #hero-pin pinneado: video scrubbeado por
+ *                      scroll, con snap en cada escena.
  * - initWordCycler() → [data-word-cycler data-words='[{"text","color"},...]']
  *                      rota palabras con clip vertical + tween de width.
  *
@@ -317,45 +317,35 @@ function initScrubWords(): void {
 }
 
 /**
- * Hero pinneado: el copy centrado responde al scroll y la pieza de marca
- * (watermark de fondo, opacidad capada por su wrapper en el markup) recibe
- * solo transforms sutiles — NUNCA autoAlpha, para no pisar ese cap ni
- * dejarla invisible en el estado inicial.
+ * Hero pinneado: un video (generado desde video-src/hero.html) avanza con el
+ * scroll. El progreso mapea lineal al currentTime y el snap frena en las
+ * escenas quietas del video. Reduced-motion no llega acá: queda el markup
+ * estático de Hero.astro.
  */
 function initHero(): void {
   const section = document.getElementById("inicio");
   const pinTarget = document.getElementById("hero-pin");
-  if (!section || !pinTarget) return;
+  const header = document.getElementById("site-nav");
+  const video = pinTarget?.querySelector<HTMLVideoElement>("[data-hero-video]");
+  if (!section || !pinTarget || !header || !video?.dataset.src) return;
 
-  const background = section.querySelector<HTMLElement>(
-    "[data-hero-background]",
-  );
-  const frame = pinTarget.querySelector<HTMLElement>("[data-hero-frame]");
-  const visual = frame?.querySelector<HTMLImageElement>("[data-hero-visual]");
-  const copy = pinTarget.querySelector<HTMLElement>("[data-hero-copy]");
-  const caption = pinTarget.querySelector<HTMLElement>("[data-hero-caption]");
-  const feature = pinTarget.querySelector<HTMLElement>("[data-hero-feature]");
-  const dataPanel = pinTarget.querySelector<HTMLElement>("[data-hero-data]");
   const scrollCue = pinTarget.querySelector<HTMLElement>(
     "[data-hero-scroll-cue]",
   );
-  const header = document.getElementById("site-nav");
-  if (
-    !background ||
-    !frame ||
-    !visual ||
-    !copy ||
-    !caption ||
-    !feature ||
-    !dataPanel ||
-    !header
-  )
-    return;
-
-  const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-  const mobileFrameWidth = (): number => Math.min(window.innerWidth - 32, 640);
-  const mobileFrameHeight = (): number => (mobileFrameWidth() * 9) / 16;
+  // Escenas quietas del video, en segundos de timeline (2.46 = 100%).
   const forwardStops = [0, 0.98 / 2.46, 1.7 / 2.46, 1];
+  const frameTime = 1 / 30;
+
+  // Hay tres grabaciones (16:9, 4:3 y vertical); se elige la más cercana
+  // a la proporción de la ventana para que object-cover recorte lo mínimo.
+  const ratio = window.innerWidth / window.innerHeight;
+  video.src =
+    (ratio < 1
+      ? video.dataset.srcPortrait
+      : ratio < 1.55
+        ? video.dataset.srcSquare
+        : undefined) ?? video.dataset.src;
+  video.classList.remove("hidden");
 
   const tl = gsap.timeline({
     defaults: { ease: "power2.inOut" },
@@ -380,86 +370,22 @@ function initHero(): void {
 
   tl.to(header, { autoAlpha: 0, y: -24, duration: 0.18 }, 0);
   if (scrollCue) tl.to(scrollCue, { autoAlpha: 0, y: 12, duration: 0.16 }, 0);
-  tl.to(copy, { autoAlpha: 0, scale: 0.94, duration: 0.22 }, 0);
-  tl.to(visual, { autoAlpha: 1, scale: 1, duration: 0.32 }, 0.12);
-  tl.to(background, { autoAlpha: 1, duration: 0.72 }, 0);
-  tl.to(
-    frame,
-    {
-      ...(isDesktop
-        ? {}
-        : {
-            width: mobileFrameWidth,
-            height: mobileFrameHeight,
-          }),
-      scale: isDesktop ? 0.57 : 1,
-      yPercent: isDesktop ? -18 : -68,
-      rotationX: 0,
-      rotationY: 0,
-      rotationZ: 0,
-      transformPerspective: 1200,
-      transformOrigin: "50% 50%",
-      force3D: true,
-      duration: 0.78,
-    },
-    0.08,
-  );
-  tl.fromTo(
-    caption,
-    { autoAlpha: 0, y: 36 },
-    { autoAlpha: 1, y: 0, duration: 0.3 },
-    0.68,
-  );
 
-  // Segunda escena: el visual se abre hacia la derecha y deja lugar al
-  // mensaje editorial, manteniendo una Ãºnica secuencia ligada al scroll.
-  tl.to(caption, { autoAlpha: 0, y: -24, duration: 0.22 }, 0.98);
+  // El último cuadro está en duration - 1 frame.
+  const playhead = { progress: 0 };
   tl.to(
-    frame,
+    playhead,
     {
-      scale: isDesktop ? 0.43 : 0.94,
-      x: () => (isDesktop ? window.innerWidth * 0.24 : 0),
-      xPercent: 0,
-      yPercent: isDesktop ? 0 : -82,
-      rotationX: isDesktop ? 3 : 0,
-      rotationY: isDesktop ? -18 : 0,
-      duration: 0.62,
+      progress: 1,
+      duration: 2.46,
+      ease: "none",
+      onUpdate: () => {
+        if (!video.duration) return;
+        video.currentTime = playhead.progress * (video.duration - frameTime);
+      },
     },
-    0.98,
+    0,
   );
-  tl.fromTo(
-    feature,
-    { autoAlpha: 0, x: isDesktop ? -42 : 0, y: isDesktop ? 0 : 28 },
-    { autoAlpha: 1, x: 0, y: 0, duration: 0.38 },
-    1.22,
-  );
-
-  // Escena final: la composiciÃ³n se espeja. El video cruza hacia la izquierda
-  // y cambia el sentido de la perspectiva mientras entra el bloque de datos.
-  tl.to(feature, { autoAlpha: 0, x: -32, duration: 0.24 }, 1.74);
-  tl.to(
-    frame,
-    {
-      x: () => (isDesktop ? window.innerWidth * -0.24 : 0),
-      yPercent: isDesktop ? 0 : -82,
-      rotationX: isDesktop ? 3 : 0,
-      rotationY: isDesktop ? 18 : 0,
-      duration: 0.7,
-    },
-    1.7,
-  );
-  tl.fromTo(
-    dataPanel,
-    { autoAlpha: 0, x: isDesktop ? 42 : 0, y: isDesktop ? 0 : 28 },
-    { autoAlpha: 1, x: 0, y: 0, duration: 0.38 },
-    2.08,
-  );
-
-  // Paradas estables: al terminar el gesto, nunca queda una escena a medias.
-  tl.addLabel("hero", 0);
-  tl.addLabel("overview", 0.98);
-  tl.addLabel("solutions", 1.7);
-  tl.addLabel("data", 2.46);
 }
 
 interface CyclerWord {

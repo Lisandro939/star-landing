@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "video:hero": "node video-src/capture.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "9.0.0",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@types/nodemailer": "^7.0.9",
+    "puppeteer-core": "^25.16.0",
     "typescript": "^6.0.3"
   }
 }

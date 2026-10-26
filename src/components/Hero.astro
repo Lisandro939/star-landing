@@ -12,16 +12,8 @@ import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
     class="relative flex h-dvh w-full items-center justify-center overflow-hidden px-5 pt-20 pb-5 sm:px-7 sm:pt-[5.5rem] sm:pb-7"
   >
     <div
-      data-hero-background
-      class="pointer-events-none absolute inset-0 bg-[#052E3E] opacity-0 will-change-opacity"
-      aria-hidden="true"
-    >
-      <div class="accent-grid-pattern absolute inset-0 opacity-60"></div>
-    </div>
-
-    <div
       data-hero-frame
-      class="hero-frame relative z-[3] h-full w-full max-w-[116.5rem] overflow-hidden rounded-[0.85rem] bg-transparent will-change-transform sm:rounded-[0.9rem]"
+      class="hero-frame relative z-[3] h-full w-full max-w-[116.5rem] overflow-hidden rounded-[0.85rem] bg-transparent sm:rounded-[0.9rem]"
     >
       <img
         data-hero-visual
@@ -96,22 +88,28 @@ import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
         <span aria-hidden="true">→</span>
       </span>
     </div>
+
+    <!-- La animación es un video scrubbeado por scroll (fuente en video-src/).
+         El src se asigna desde JS según la proporción de la ventana, así
+         reduced-motion no lo descarga. Los textos de arriba quedan en el DOM
+         (SEO / lectores de pantalla). -->
+    <video
+      data-hero-video
+      data-src="/videos/hero-desktop.mp4"
+      data-src-square="/videos/hero-desktop-4x3.mp4"
+      data-src-portrait="/videos/hero-mobile.mp4"
+      class="pointer-events-none absolute inset-0 z-20 hidden size-full bg-white object-cover"
+      muted
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+    ></video>
   </div>
 </section>
 
 <style>
-  .hero-frame {
-    contain: layout paint;
-    backface-visibility: hidden;
-    will-change: transform;
-  }
-
-  .hero-frame img {
-    backface-visibility: hidden;
-    opacity: 0;
-    transform: translateZ(0);
-  }
-
+  /* El markup de arriba queda tapado por el video; se ve solo en
+     reduced-motion (y lo usan SEO y lectores de pantalla). */
   @media (max-width: 767px) {
     #inicio {
       height: 400svh;
@@ -120,43 +118,19 @@ import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
 
     #hero-pin {
       padding: 5.75rem 1rem 1rem;
-      background: #fff;
     }
 
     .hero-frame {
       border-radius: 0.9rem;
     }
 
-    [data-hero-copy] {
-      padding-inline: 1.1rem;
-    }
-
-    [data-hero-copy] h1 {
-      max-width: 14ch;
-      font-size: clamp(2rem, 9.5vw, 3.05rem);
-      line-height: 1.06;
-      letter-spacing: -0.052em;
-    }
-
-    [data-hero-caption],
-    [data-hero-feature],
     [data-hero-data] {
       inset-inline: 1.4rem;
+      bottom: 10svh;
       width: auto;
       text-align: center;
     }
 
-    [data-hero-caption] {
-      top: 57%;
-    }
-
-    [data-hero-feature],
-    [data-hero-data] {
-      bottom: 10svh;
-    }
-
-    [data-hero-caption] h2,
-    [data-hero-feature] h2,
     [data-hero-data] h2 {
       margin-inline: auto;
       max-width: 17ch;
@@ -165,8 +139,6 @@ import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
       letter-spacing: -0.045em;
     }
 
-    [data-hero-caption] p,
-    [data-hero-feature] > p:not(:first-child),
     [data-hero-data] > p:not(:first-child) {
       margin: 1rem auto 0;
       max-width: 31rem;
@@ -174,13 +146,11 @@ import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
       line-height: 1.55;
     }
 
-    [data-hero-feature] > p:first-child,
     [data-hero-data] > p:first-child {
       justify-content: center;
       margin-bottom: 1.8rem;
     }
 
-    [data-hero-feature] > span,
     [data-hero-data] > span {
       margin-top: 1.6rem;
       border-radius: 0.55rem;
@@ -189,10 +159,6 @@ import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-frame img {
-      opacity: 1;
-    }
-
     #inicio {
       height: auto;
       background: #052e3e;
@@ -206,6 +172,15 @@ import yzenLogo from "../assets/Yzen-Logo-With-Name-Color.png";
       height: min(52svh, 38rem);
       width: min(82vw, 62rem);
       transform: translateY(-12svh) perspective(1200px) rotateX(3deg) rotateY(-16deg);
+    }
+
+    /* Desktop: logo en la mitad izquierda y bloque Datos a la derecha,
+       igual que la última escena del video. */
+    @media (min-width: 768px) {
+      [data-hero-frame] {
+        width: min(40vw, 44rem);
+        transform: translateX(-23vw) perspective(1200px) rotateX(3deg) rotateY(16deg);
+      }
     }
 
     [data-hero-copy] {
